@@ -1,14 +1,11 @@
-;;;;; Tom's Runescape Library ;;;;;
+;;;;; Tom's Runescape Library ;;;;; Stored on Github for live updating
 ;
 ; - This library contains useful functions for coding ahk bots in runescape. Use #Include TomRSLib.ahk and it will compile into your script when you package it as an exe. 
 ; - This can only be used in fixed mode with the smallest window size. Sidebar can be open. It only reads game screen
 ;
 ;
 ;
-;
-;
-;
-; LATEST UPDATE: 12/26/22
+; LATEST UPDATE: 12/27/22
 ; =====================; Function List ;===================== ;
 ;
 ;
@@ -21,6 +18,8 @@
 ; -- findspotright(color,x,y,w,h): finds a spot on the screen and right clicks it
 ; -- weightedclick(min, target, max): min, max, target, generates a value 
 ; -- randsleep(x,y): randomized sleep between two values
+; -- bank(tilecolor,bankcolor,itemcolor,sec): clicks tile, runs to tile, clicks bank, waits for it to open, deposits color in inventory
+;
 ;
 ; == Function Groups == ; functions mainly specialized for something above, but could be useful
 ;
@@ -33,18 +32,273 @@
 ; -- fifthrow(color)
 ; -- sixthrow(color)
 ; -- seventhrow(color)
-;;
+; -- checklast(color): returns true or false if last inventory slot is filled
 ;
 ;
 ;
-;
-;
-;
-;
-; ================================================================ ;
+; ==============================================================================================================================================================================================================================;
 
 
 
+
+
+;----------- Start library -----------------;
+
+
+
+
+
+;; setup functions
+;; these functions help with setting up the compass, zoom level, and position of the camera. Used for setting up an automated script
+;; must be input as: setup("North")
+
+
+setup(x){
+Random, cx, 558, 575
+Random, cy, 39,58
+Random, MouseSpeed, 180,250
+mousegetpos, MouseXpos, MouseYpos
+Random, ccx, 624, 682
+Random, ccy, 92,133
+Random,cscx, 134,386
+Random, cscy, 140,285
+Random, eastx,528, 575
+Random, easty, 83,94
+Random, southx,543, 590
+Random, southy, 98,106
+Random, westx,524, 571
+Random, westy,112,123
+
+; south 543, 98, 590, 106
+; West 524, 112, 571, 123
+
+
+if x = North
+{
+RandomBezier( MouseXpos, MouseYpos, cx+ weightedclick(-1,0,1), cy+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
+randsleep(50,100)
+click
+randsleep(50,100)
+Send {Up Down}
+randsleep(3000,5000)
+Send {Up Up}
+randsleep(50,100)
+mousegetpos, MouseXpos, MouseYpos
+RandomBezier( MouseXpos, MouseYpos, ccx+ weightedclick(-1,0,1), ccy+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
+randsleep(50,100)
+Send {WheelDown 100}
+randsleep(50,100)
+mousegetpos, MouseXpos, MouseYpos
+RandomBezier( MouseXpos, MouseYpos, cscx+ weightedclick(-1,0,1), cscy+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
+randsleep(50,100)
+Send {WheelDown 100}
+
+}
+
+if x = East
+{
+RandomBezier( MouseXpos, MouseYpos, cx+ weightedclick(-1,0,1), cy+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
+randsleep(50,100)
+click,right
+randsleep(500,1000)
+mousegetpos, MouseXpos, MouseYpos
+RandomBezier( MouseXpos, MouseYpos, eastx+ weightedclick(-1,0,1), easty+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
+randsleep(50,100)
+click
+randsleep(50,100)
+Send {Up Down}
+randsleep(3000,5000)
+Send {Up Up}
+randsleep(50,100)
+mousegetpos, MouseXpos, MouseYpos
+RandomBezier( MouseXpos, MouseYpos, ccx+ weightedclick(-1,0,1), ccy+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
+randsleep(50,100)
+Send {WheelDown 100}
+randsleep(50,100)
+mousegetpos, MouseXpos, MouseYpos
+RandomBezier( MouseXpos, MouseYpos, cscx+ weightedclick(-1,0,1), cscy+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
+randsleep(50,100)
+Send {WheelDown 100}
+
+
+
+}
+
+
+if x = South
+{
+RandomBezier( MouseXpos, MouseYpos, cx+ weightedclick(-1,0,1), cy+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
+randsleep(500,1000)
+click,right
+randsleep(500,1000)
+mousegetpos, MouseXpos, MouseYpos
+RandomBezier( MouseXpos, MouseYpos, southx+ weightedclick(-1,0,1), southy+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
+randsleep(500,1000)
+click
+randsleep(50,100)
+Send {Up Down}
+randsleep(3000,5000)
+Send {Up Up}
+randsleep(50,100)
+mousegetpos, MouseXpos, MouseYpos
+RandomBezier( MouseXpos, MouseYpos, ccx+ weightedclick(-1,0,1), ccy+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
+randsleep(50,100)
+Send {WheelDown 100}
+randsleep(50,100)
+mousegetpos, MouseXpos, MouseYpos
+RandomBezier( MouseXpos, MouseYpos, cscx+ weightedclick(-1,0,1), cscy+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
+randsleep(50,100)
+Send {WheelDown 100}
+
+
+
+}
+
+if x = West
+{
+RandomBezier( MouseXpos, MouseYpos, cx+ weightedclick(-1,0,1), cy+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
+randsleep(50,100)
+click,right
+randsleep(500,1000)
+mousegetpos, MouseXpos, MouseYpos
+RandomBezier( MouseXpos, MouseYpos, westx+ weightedclick(-1,0,1), westy+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
+randsleep(50,100)
+click
+randsleep(50,100)
+Send {Up Down}
+randsleep(3000,5000)
+Send {Up Up}
+randsleep(50,100)
+mousegetpos, MouseXpos, MouseYpos
+RandomBezier( MouseXpos, MouseYpos, ccx+ weightedclick(-1,0,1), ccy+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
+randsleep(50,100)
+Send {WheelDown 100}
+randsleep(50,100)
+mousegetpos, MouseXpos, MouseYpos
+RandomBezier( MouseXpos, MouseYpos, cscx+ weightedclick(-1,0,1), cscy+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
+randsleep(50,100)
+Send {WheelDown 100}
+
+
+
+}
+
+
+}
+
+
+
+
+
+;checks if an object is nearby enough to go to next thread
+
+checkobject(color){
+PixelSearch, px, py, 10, 29, 522, 371, color, 10, Fast RGB
+    If (errorlevel = 0)
+        return true
+    If (errorlevel = 1)
+        return false
+
+
+}
+
+
+
+; south 543, 98, 590, 106
+; West 524, 112, 571, 123
+
+
+
+
+
+
+
+;;check last slot color
+checklast(color){
+PixelSearch, xx1, yy1, 693, 458, 725, 490, color, 5, Fast RGB
+    IF (errorlevel = 0)
+        return True
+    If (errorlevel = 1)
+        return false
+
+}
+
+
+
+;;banking - one screen
+bank(tilecolor,bankcolor,itemcolor,sec){
+loop{
+If (scanbank(bankcolor) == False)
+{
+    mmpathing(tilecolor)
+    randsleep(500,1000)
+}
+else if (scanbank(bankcolor) == True)
+{
+clickspot(bankcolor)
+waitbank(sec)
+deposit(itemcolor)
+break
+}
+}
+}
+
+
+
+
+;;;scanbank
+;; scans if a bnak is on the screen, if it is, it will return true, if it isnt it will return false
+
+scanbank(color){
+PixelSearch, px, py, 11, 31, 525, 369, color, 5, Fast RGB
+    If (errorlevel = 0)
+        return true
+    If (errorlevel = 1)
+        return false
+
+}
+
+
+
+
+
+
+
+;; Deposit Information
+;;; deposit(color) is used to deposit the color of an item when bank is open
+
+deposit(color){
+loop{
+PixelSearch, xx1, yy1, 693, 458, 725, 490, color, 5, Fast RGB
+    If (errorlevel = 0)
+        {
+                pattern = 1
+            
+                If (pattern = 1){
+                  PixelSearch, xx2, yy2, 556, 235, 737, 492, color, 5, Fast RGB
+                    If (errorlevel = 0){
+                            ; send {shift down}
+                            firstrow(color)
+                            randsleep(100,250)
+                            secondrow(color)
+                            randsleep(100,250)                            
+                            thirdrow(color)
+                            randsleep(100,250)
+                            fourthrow(color)
+                            randsleep(100,250)
+                            fifthrow(color)
+                            sixthrow(color)
+                            seventhrow(color)
+                            break
+                        }
+                        Else
+                            break
+                }
+}
+}
+Send {Esc}
+randsleep(1000,2000)
+}
 
 
 
@@ -71,25 +325,25 @@ clickspot(color){
 
 Pixelsearch,px,py, 516, 164, 538, 185, color, 15, Fast RGB
     If (errorlevel = 0){
-        findspot(color, px-10, py-10, px + 10, py + 10)
+        findspot(color, px-20, py-20, px + 20, py + 20)
 
     }
     If (errorlevel = 1){
         Pixelsearch,px,py, 225, 163, 297, 230, color, 15, Fast RGB
         If (errorlevel = 0){
-            findspot(color, px-10, py-10, px + 10, py + 10)
+            findspot(color,px-20, py-20, px + 20, py + 20)
 
             }
             If (errorlevel = 1){
                 Pixelsearch,px,py, 151, 131, 351, 270, color, 15, Fast RGB
                     If (errorlevel = 0){
-                    findspot(color, px-10, py-10, px + 10, py + 10)
+                    findspot(color, px-20, py-20, px + 20, py + 20)
 
                     }
                   If (errorlevel = 1){
                         Pixelsearch,px,py, 9, 36, 523, 368, color, 15, Fast RGB
                             If (errorlevel = 0){
-                            findspot(color, px-10, py-10, px + 10, py + 10)
+                            findspot(color, px-20, py-20, px + 20, py + 20)
 
                     }
 
@@ -179,18 +433,19 @@ checkminimap(color){
 
 ;; mmpathing(color) Information (minimap pathing with tiles or npc colors, not continues just once click at a time)
 ; can check for a tile or npc or any color on the minimap, can be used in conjunction with many plugins
-; checks minimap for color and clicks it, then waits until character is over the tile before returning 
+; checks minimap for color and clicks it, then waits until character is over the tile before returning. Checks in 4 directions and tries to exclude the middle of the map where the character is
 
 mmpathing(color){
 Random, ms, 3,5
 Random, MouseSpeed, 180,250
 mousegetpos, MouseXpos, MouseYpos
- PixelSearch, xx2, yy2, 586, 47, 720, 182, color, 10, Fast RGB
+ PixelSearch, xx2, yy2, 578, 33, 715, 99, color, 10, Fast RGB
             If (errorlevel = 0)
             {
                 RandomBezier( MouseXpos, MouseYpos, xx2+ weightedclick(-3,-1,0), yy2+ weightedclick(-4,0,4), "T"MouseSpeed "P2-5")
                 randsleep(500,100)
                 Click
+                randsleep(2500,2700)
                 loop{
                 PixelSearch, go1, go2, 235, 187, 295, 229, color, 5, Fast RGB
                     If (errorlevel = 0){
@@ -203,11 +458,80 @@ mousegetpos, MouseXpos, MouseYpos
 
                 }
             }
+            If (errorlevel = 1){
+            PixelSearch, xx2, yy2, 586, 136, 709, 181, color, 10, Fast RGB
+                If (errorlevel = 0)
+                {
+                    RandomBezier( MouseXpos, MouseYpos, xx2+ weightedclick(-3,-1,0), yy2+ weightedclick(-4,0,4), "T"MouseSpeed "P2-5")
+                    randsleep(500,100)
+                    Click
+                    loop{
+                    PixelSearch, go1, go2, 235, 187, 295, 229, color, 5, Fast RGB
+                        If (errorlevel = 0){
+
+                            randsleep(1600,1700)
+                            break
+                        }
+                        If (errorlevel = 1)
+                            randsleep(300,500)
+
+                    }
+                }
+                If (errorlevel = 1){
+                PixelSearch, xx2, yy2, 663, 39, 714, 177, color, 10, Fast RGB
+                    If (errorlevel = 0)
+                    {
+                        RandomBezier( MouseXpos, MouseYpos, xx2+ weightedclick(-3,-1,0), yy2+ weightedclick(-4,0,4), "T"MouseSpeed "P2-5")
+                        randsleep(500,100)
+                        Click
+                        loop{
+                        PixelSearch, go1, go2, 235, 187, 295, 229, color, 5, Fast RGB
+                            If (errorlevel = 0){
+
+                                randsleep(1600,1700)
+                                break
+                            }
+                            If (errorlevel = 1)
+                                randsleep(300,500)
+
+                        }
+                    }
+                If (errorlevel = 1){
+                    PixelSearch, xx2, yy2, 577, 61, 649, 162, color, 10, Fast RGB
+                    If (errorlevel = 0)
+                    {
+                        RandomBezier( MouseXpos, MouseYpos, xx2+ weightedclick(-3,-1,0), yy2+ weightedclick(-4,0,4), "T"MouseSpeed "P2-5")
+                        randsleep(500,100)
+                        Click
+                        loop{
+                        PixelSearch, go1, go2, 235, 187, 295, 229, color, 5, Fast RGB
+                            If (errorlevel = 0){
+
+                                randsleep(1600,1700)
+                                break
+                            }
+                            If (errorlevel = 1)
+                                randsleep(300,500)
+
+                        }
+                    }
+
+
+
+                }   
+                }
+            }
+
 }
 
 
 
+mmmpathing(){
 
+
+
+
+}
 
 
 
@@ -282,6 +606,7 @@ PixelSearch, xx1, yy1, 693, 458, 725, 490, color, 5, Fast RGB
                             thirdrow(color)
                             secondrow(color)
                             fifthrow(color)
+                            firstrow(color)
                             }
                             Else
                                 Break
@@ -582,7 +907,7 @@ Random, ms, 3,5
 Random, MouseSpeed, 180,250
 mousegetpos, MouseXpos, MouseYpos
 PixelSearch, OutputVarX, OutputVarY, x, y, w, h, color, 4, Fast RGB
-sleep 500
+sleep 120
     PixelSearch, OutputVarX2, OutputVarY2, w, h, x, y, color, 4, Fast RGB
                 centerTileX := ((OutputVarX + OutputVarX2) / 2)
                 centerTileY := ((OutputVarY + OutputVarY2) / 2)
