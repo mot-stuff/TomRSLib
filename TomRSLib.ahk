@@ -886,11 +886,45 @@ slots(color,x,y,w,h)
 
 
 
+antibanstats(){
+Random, r1, 1,100
+
+if (r1 < 5)
+{
+Random, r2, 1,50
+    if (r1 < 1)
+    {
+        Random, x1,573, 593
+        Random, y1,202,222
+        Random, x2,637, 658
+        Random, y2,204,222
+        Random, MouseSpeed, 165,220
+        mousegetpos, MouseXpos, MouseYpos
+        RandomBezier( MouseXpos, MouseYpos, x1+ weightedclick(-1,0,1), y1 + weightedclick(-1,0,1), "T"MouseSpeed "P3-1")
+        randsleep(50,90)
+        click
+        randsleep(2000,3900)
+        RandomBezier( MouseXpos, MouseYpos, x2+ weightedclick(-1,0,1), y2 + weightedclick(-1,0,1), "T"MouseSpeed "P3-1")
+        randsleep(50,90)
+        click 
+        randsleep(50,90)       
+    }
+
+} 
+
+}
 
 
 
 
-
+antiban()
+		{
+				Random, r1, 1, 100
+				if (r1 < 5) { ;change percentage to whatever customer wants
+				Random, PercentageSleep, 4500, 15000
+				Sleep, %PercentageSleep%
+				}
+		}
 
 
 
@@ -904,7 +938,7 @@ slots(color,x,y,w,h)
 
 findspot(color,x,y,w,h){
 Random, ms, 3,5
-Random, MouseSpeed, 180,250
+Random, MouseSpeed, 165,220
 mousegetpos, MouseXpos, MouseYpos
 PixelSearch, OutputVarX, OutputVarY, x, y, w, h, color, 4, Fast RGB
 sleep 120
@@ -912,7 +946,7 @@ sleep 120
                 centerTileX := ((OutputVarX + OutputVarX2) / 2)
                 centerTileY := ((OutputVarY + OutputVarY2) / 2)
         if (errorlevel = 0){ 
-            RandomBezier( MouseXpos, MouseYpos, centerTileX+ weightedclick(-1,0,1), centerTileY+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
+            RandomBezier( MouseXpos, MouseYpos, centerTileX+ weightedclick(-1,0,1), centerTileY+ weightedclick(-1,0,1), "T"MouseSpeed "P3-1")
              randsleep(50,90)
             click
             randsleep(50,90)
