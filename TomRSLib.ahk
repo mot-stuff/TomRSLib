@@ -5,10 +5,10 @@
 ;
 ;
 ;
-; LATEST UPDATE: 12/27/22
+; LATEST UPDATE: 12/28/22
 ; =====================; Function List ;===================== ;
 ;
-;
+; -- setup(x): Use "North", "South", "East" , or "West" in place of x to setup for the script
 ; -- clickspot(color): Searches near character when fully zoomed out to full screen
 ; -- waitbank(sec): returns true or false if bank window is open, will scan for the amount of seconds you want it to, return true or false to perform actions
 ; -- checkminimap(color): checks for a color on the minimap and returns true or false
@@ -19,6 +19,12 @@
 ; -- weightedclick(min, target, max): min, max, target, generates a value 
 ; -- randsleep(x,y): randomized sleep between two values
 ; -- bank(tilecolor,bankcolor,itemcolor,sec): clicks tile, runs to tile, clicks bank, waits for it to open, deposits color in inventory
+; -- antiban(x) - randomized small sleeps with the ability to set a percentage
+; -- antibanstats() - perfectly waited for randomly checking thes stats page for a few seconds, just place into a function that is looping or where you want the chance of checking the page. I personally place it in downtime loops
+; -- antibanfriends() - perfectly weighted to check friends list randomly for a few seconds  
+; -- checkobject(color): checks if a specific color is on screen and returns true or flase
+; -- checklast(color): checks last spot in inventory and returns true or false
+;
 ;
 ;
 ; == Function Groups == ; functions mainly specialized for something above, but could be useful
@@ -891,8 +897,8 @@ Random, r1, 1,100
 
 if (r1 < 5)
 {
-Random, r2, 1,50
-    if (r1 < 1)
+Random, r2, 1,100
+    if (r2 < 3)
     {
         Random, x1,573, 593
         Random, y1,202,222
@@ -903,7 +909,38 @@ Random, r2, 1,50
         RandomBezier( MouseXpos, MouseYpos, x1+ weightedclick(-1,0,1), y1 + weightedclick(-1,0,1), "T"MouseSpeed "P3-1")
         randsleep(50,90)
         click
-        randsleep(2000,3900)
+        randsleep(3200,5300)
+         mousegetpos, MouseXpos, MouseYpos
+        RandomBezier( MouseXpos, MouseYpos, x2+ weightedclick(-1,0,1), y2 + weightedclick(-1,0,1), "T"MouseSpeed "P3-1")
+        randsleep(50,90)
+        click 
+        randsleep(50,90)       
+    }
+
+} 
+
+}
+
+
+antibanfriends(){
+Random, r1, 1,100
+
+if (r1 < 3)
+{
+Random, r2, 1,100
+    if (r2 < 3)
+    {
+        Random, x1,574, 587
+        Random, y1,504,517
+        Random, x2,637, 658
+        Random, y2,204,222
+        Random, MouseSpeed, 165,220
+        mousegetpos, MouseXpos, MouseYpos
+        RandomBezier( MouseXpos, MouseYpos, x1+ weightedclick(-1,0,1), y1 + weightedclick(-1,0,1), "T"MouseSpeed "P3-1")
+        randsleep(50,90)
+        click
+        randsleep(3200,5300)
+         mousegetpos, MouseXpos, MouseYpos
         RandomBezier( MouseXpos, MouseYpos, x2+ weightedclick(-1,0,1), y2 + weightedclick(-1,0,1), "T"MouseSpeed "P3-1")
         randsleep(50,90)
         click 
@@ -917,10 +954,11 @@ Random, r2, 1,50
 
 
 
-antiban()
+
+antiban(x)
 		{
 				Random, r1, 1, 100
-				if (r1 < 5) { ;change percentage to whatever customer wants
+				if (r1 < x) { ;change percentage to whatever customer wants
 				Random, PercentageSleep, 4500, 15000
 				Sleep, %PercentageSleep%
 				}
