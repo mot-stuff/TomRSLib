@@ -378,6 +378,45 @@ PixelSearch, xpx, xpy, 467, 81, 521, 127, color, 0, Fast RGB
 ;;; Set to be used zoomed out mostly. can be adjusted by adding parameters but I felt it was too annoying so its used zoomed out
 
 
+checkhwid(x){
+UUID()
+Bronze = https://raw.githubusercontent.com/tom239955/snorlax/main/BronzeHWID.txt
+Plat = https://raw.githubusercontent.com/tom239955/snorlax/main/PlatHWID.txt
+Gold = https://raw.githubusercontent.com/tom239955/snorlax/main/GoldHWID.txt
+
+checkserial:
+UrlDownloadToFile,% x , %a_Programs%\HWID.txt
+goto serial1
+return
+line = 1
+serial1:
+loop,250{
+    FileReadLine, hwid, %a_Programs%\HWID.txt, %line%
+    line ++
+    UUID_User = %hwid%
+    If (UUID_User = UUID())
+{
+    goto Valid
+}
+}
+GoTo, Invalid
+return
+Valid:
+Tooltip, Valid HWID, 0,30
+return true
+invalid:
+Msgbox, You do not own this script. Please Purchase from the store
+
+FileDelete, %A_programs%\HWID.txt
+return false
+}
+
+
+UUID()
+{
+	For obj in ComObjGet("winmgmts:{impersonationLevel=impersonate}!\\" . A_ComputerName . "\root\cimv2").ExecQuery("Select * From Win32_ComputerSystemProduct")
+		return obj.UUID	; http://msdn.microsoft.com/en-us/library/aa394105%28v=vs.85%29.aspx
+}
 
 
 
