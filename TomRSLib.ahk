@@ -30,6 +30,12 @@
 ; -- zoomin(x) and zoomout(x): sends the wheel in either direction, pretty straight forward
 ;
 ;
+
+; ========== To do ========= ;
+; - Code a logout function
+; - code more antiban functions and an antiban wrapper for selecting random types of antiban
+; - give things more options as needed and expand on function list. Need new projects to come up with new functions
+
 ;
 ;
 ; == Function Groups == ; functions mainly specialized for something above, but could be useful
