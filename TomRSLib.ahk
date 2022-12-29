@@ -24,8 +24,8 @@
 ; -- antibanfriends() - perfectly weighted to check friends list randomly for a few seconds  
 ; -- checkobject(color): checks if a specific color is on screen and returns true or flase
 ; -- checklast(color): checks last spot in inventory and returns true or false
-;
-;
+; -- checkhwid(x): checks hwid from a list store at a link, reads txt file with HWIDS in it and checks the HWID of the user. Good for security
+; -- UUID(): Grabs the current users HWID to compare against the list
 ;
 ; == Function Groups == ; functions mainly specialized for something above, but could be useful
 ;
@@ -380,9 +380,6 @@ PixelSearch, xpx, xpy, 467, 81, 521, 127, color, 0, Fast RGB
 
 checkhwid(x){
 UUID()
-Bronze = https://raw.githubusercontent.com/tom239955/snorlax/main/BronzeHWID.txt
-Plat = https://raw.githubusercontent.com/tom239955/snorlax/main/PlatHWID.txt
-Gold = https://raw.githubusercontent.com/tom239955/snorlax/main/GoldHWID.txt
 
 checkserial:
 UrlDownloadToFile,% x , %a_Programs%\HWID.txt
