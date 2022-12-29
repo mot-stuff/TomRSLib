@@ -26,12 +26,12 @@
 ; -- checklast(color): checks last spot in inventory and returns true or false
 ; -- checkhwid(x): checks hwid from a list store at a link, reads txt file with HWIDS in it and checks the HWID of the user. Good for security
 ; -- UUID(): Grabs the current users HWID to compare against the list
-; -- combine(color1,color2): Uses one color on another in the inventory, just uses the slots function using inventory coordinates.
+; -- combine(color1,color2,sendspace): Uses one color on another in the inventory, just uses the slots function using inventory coordinates. 0 is no for sending spacebar, 1 is yes
 ; -- zoomin(x) and zoomout(x): sends the wheel in either direction, pretty straight forward
 ;
-
-
-
+;
+;
+;
 ; == Function Groups == ; functions mainly specialized for something above, but could be useful
 ;
 ;; + clicks rows function group, used within checkdrop(color) + ;;
@@ -48,17 +48,17 @@
 ;
 ;
 ; ==============================================================================================================================================================================================================================;
-
-
-
-
-
+;
+;
+;
+;
+;
 ;----------- Start library -----------------;
-
-
-
-
-
+;;
+;;
+;;
+;;
+;;
 ;; setup functions
 ;; these functions help with setting up the compass, zoom level, and position of the camera. Used for setting up an automated script
 ;; must be input as: setup("North")
@@ -79,10 +79,6 @@ Random, southx,543, 590
 Random, southy, 98,106
 Random, westx,524, 571
 Random, westy,112,123
-
-; south 543, 98, 590, 106
-; West 524, 112, 571, 123
-
 
 if x = North
 {
@@ -217,9 +213,19 @@ Send {WheelDown %x%}
 
 
 
-combine(color1,color2){
+combine(color1,color2,sendspace){
 slots(color1, 553,236,741,491)
 slots(color2, 553,236,741,491)
+randsleep(500,1000)
+if sendspace = 0
+{
+sleep 10
+}
+if sendspace = 1
+{
+    randsleep(50,150)
+    Send {space}
+}
 }
 
 
