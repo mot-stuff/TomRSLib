@@ -26,7 +26,12 @@
 ; -- checklast(color): checks last spot in inventory and returns true or false
 ; -- checkhwid(x): checks hwid from a list store at a link, reads txt file with HWIDS in it and checks the HWID of the user. Good for security
 ; -- UUID(): Grabs the current users HWID to compare against the list
+; -- combine(color1,color2): Uses one color on another in the inventory, just uses the slots function using inventory coordinates.
+; -- zoomin(x) and zoomout(x): sends the wheel in either direction, pretty straight forward
 ;
+
+
+
 ; == Function Groups == ; functions mainly specialized for something above, but could be useful
 ;
 ;; + clicks rows function group, used within checkdrop(color) + ;;
@@ -208,6 +213,15 @@ zoomout(x){
 Send {WheelDown %x%}
 
 }
+
+
+
+
+combine(color1,color2){
+slots(color1, 553,236,741,491)
+slots(color2, 553,236,741,491)
+}
+
 
 
 
@@ -898,7 +912,7 @@ Random, x, 1,3
 
 
 
-
+;;; very important tightly wrapped function. Basically, use it on each inventory slot to determine whether to click a color or not
 
 slots(color,x,y,w,h)
 {
@@ -906,9 +920,22 @@ slots(color,x,y,w,h)
  If (errorlevel = 0)
                 {
                     findspot(color, px-12, py-20, px+12,py+20)
+                    return true
                 }
-
+    Else
+        return false
 }
+
+
+
+
+
+;
+
+
+
+
+
 
 
 ;;;;;; end inventory stuff
