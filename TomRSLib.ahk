@@ -5,7 +5,7 @@
 ; #Include C:\Users\tomal\OneDrive\Documents\GitHub\TomRSLib\TomRSLib.ahk
 ;
 ;
-; LATEST UPDATE: 12/28/22
+; LATEST UPDATE: 12/29/22
 ; =====================; Function List ;===================== ;
 ;
 ; -- setup(x): Use "North", "South", "East" , or "West" in place of x to setup for the script
@@ -194,7 +194,7 @@ Send {WheelDown 100}
 
 }
 
-
+;;;; zoom levels
 
 zoomin(x){
 
@@ -210,7 +210,7 @@ Send {WheelDown %x%}
 
 }
 
-
+;;combine stuff 
 
 
 combine(color1,color2,sendspace){
