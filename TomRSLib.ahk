@@ -2,7 +2,7 @@
 ;
 ; - This library contains useful functions for coding ahk bots in runescape. Use #Include TomRSLib.ahk and it will compile into your script when you package it as an exe. 
 ; - This can only be used in fixed mode with the smallest window size. Sidebar can be open. It only reads game screen
-;
+; #Include C:\Users\tomal\OneDrive\Documents\GitHub\TomRSLib\TomRSLib.ahk
 ;
 ;
 ; LATEST UPDATE: 12/28/22
@@ -103,13 +103,13 @@ Send {WheelDown 100}
 
 if x = East
 {
-RandomBezier( MouseXpos, MouseYpos, cx+ weightedclick(-1,0,1), cy+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
+RandomBezier( MouseXpos, MouseYpos, cx+ weightedclick(-1,0,1), cy, "T"MouseSpeed "P4-3")
 randsleep(50,100)
 click,right
 randsleep(500,1000)
 mousegetpos, MouseXpos, MouseYpos
-RandomBezier( MouseXpos, MouseYpos, eastx+ weightedclick(-1,0,1), easty+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
-randsleep(50,100)
+RandomBezier( MouseXpos, MouseYpos, eastx+ weightedclick(-1,0,1), easty, "T"MouseSpeed "P4-3")
+randsleep(500,1000)
 click
 randsleep(50,100)
 Send {Up Down}
@@ -117,12 +117,12 @@ randsleep(3000,5000)
 Send {Up Up}
 randsleep(50,100)
 mousegetpos, MouseXpos, MouseYpos
-RandomBezier( MouseXpos, MouseYpos, ccx+ weightedclick(-1,0,1), ccy+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
+RandomBezier( MouseXpos, MouseYpos, ccx+ weightedclick(-1,0,1), ccy, "T"MouseSpeed "P4-3")
 randsleep(50,100)
 Send {WheelDown 100}
 randsleep(50,100)
 mousegetpos, MouseXpos, MouseYpos
-RandomBezier( MouseXpos, MouseYpos, cscx+ weightedclick(-1,0,1), cscy+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
+RandomBezier( MouseXpos, MouseYpos, cscx+ weightedclick(-1,0,1), cscy, "T"MouseSpeed "P4-3")
 randsleep(50,100)
 Send {WheelDown 100}
 
@@ -168,7 +168,8 @@ click,right
 randsleep(500,1000)
 mousegetpos, MouseXpos, MouseYpos
 RandomBezier( MouseXpos, MouseYpos, westx+ weightedclick(-1,0,1), westy+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
-randsleep(50,100)
+randsleep(500,1000)
+
 click
 randsleep(50,100)
 Send {Up Down}
@@ -194,12 +195,26 @@ Send {WheelDown 100}
 
 
 
+zoomin(x){
+
+Send {WheelUp %x%}
+
+
+}
+
+
+zoomout(x){
+
+Send {WheelDown %x%}
+
+}
+
 
 
 ;checks if an object is nearby enough to go to next thread
 
 checkobject(color){
-PixelSearch, px, py, 10, 29, 522, 371, color, 10, Fast RGB
+PixelSearch, px, py, 196, 104, 341, 248, color, 10, Fast RGB
     If (errorlevel = 0)
         return true
     If (errorlevel = 1)
@@ -309,6 +324,50 @@ randsleep(1000,2000)
 
 
 
+checkmouse(){
+randsleep(2000,3000)
+clickspot(0x00FF00)
+loop{
+mousegetpos, x,y
+
+PixelSearch, mx, my, x-5,y-5,x+5,y+5, color, 5, Fast RGB
+    If (errorlevel = 0)
+        sleep 100
+    If (errorlevel = 1)
+        break
+
+
+}
+
+}
+
+
+
+;; This function will continue waiting if an xp drop is found within x amount of seconds. Some scripts need a unique xp drop color depending on location
+xpdropcontinue(color,x){
+wait = 0
+loop{
+PixelSearch, xpx, xpy, 467, 81, 521, 127, color, 0, Fast RGB
+    If (errorlevel = 0){
+        randsleep(300,600)
+    }
+    If (errorlevel = 1)
+    {
+        wait +=1
+
+        if wait > %x%
+        {
+            wait = 0
+            randsleep(300,600)
+            break
+        }
+             if wait < %x%
+        {
+            randsleep(1000,1400)
+        }
+    }
+}
+}
 
 
 
@@ -445,7 +504,7 @@ mmpathing(color){
 Random, ms, 3,5
 Random, MouseSpeed, 180,250
 mousegetpos, MouseXpos, MouseYpos
- PixelSearch, xx2, yy2, 578, 33, 715, 99, color, 10, Fast RGB
+ PixelSearch, xx2, yy2, 587, 46, 713, 174, color, 26, Fast RGB
             If (errorlevel = 0)
             {
                 RandomBezier( MouseXpos, MouseYpos, xx2+ weightedclick(-3,-1,0), yy2+ weightedclick(-4,0,4), "T"MouseSpeed "P2-5")
@@ -453,91 +512,20 @@ mousegetpos, MouseXpos, MouseYpos
                 Click
                 randsleep(2500,2700)
                 loop{
-                PixelSearch, go1, go2, 235, 187, 295, 229, color, 5, Fast RGB
+                PixelSearch, go1, go2, 235, 182, 296, 230, color, 15, Fast RGB
                     If (errorlevel = 0){
-
                         randsleep(1600,1700)
                         break
                     }
                     If (errorlevel = 1)
                         randsleep(300,500)
-
-                }
-            }
-            If (errorlevel = 1){
-            PixelSearch, xx2, yy2, 586, 136, 709, 181, color, 10, Fast RGB
-                If (errorlevel = 0)
-                {
-                    RandomBezier( MouseXpos, MouseYpos, xx2+ weightedclick(-3,-1,0), yy2+ weightedclick(-4,0,4), "T"MouseSpeed "P2-5")
-                    randsleep(500,100)
-                    Click
-                    loop{
-                    PixelSearch, go1, go2, 235, 187, 295, 229, color, 5, Fast RGB
-                        If (errorlevel = 0){
-
-                            randsleep(1600,1700)
-                            break
-                        }
-                        If (errorlevel = 1)
-                            randsleep(300,500)
-
                     }
-                }
-                If (errorlevel = 1){
-                PixelSearch, xx2, yy2, 663, 39, 714, 177, color, 10, Fast RGB
-                    If (errorlevel = 0)
-                    {
-                        RandomBezier( MouseXpos, MouseYpos, xx2+ weightedclick(-3,-1,0), yy2+ weightedclick(-4,0,4), "T"MouseSpeed "P2-5")
-                        randsleep(500,100)
-                        Click
-                        loop{
-                        PixelSearch, go1, go2, 235, 187, 295, 229, color, 5, Fast RGB
-                            If (errorlevel = 0){
-
-                                randsleep(1600,1700)
-                                break
-                            }
-                            If (errorlevel = 1)
-                                randsleep(300,500)
-
-                        }
-                    }
-                If (errorlevel = 1){
-                    PixelSearch, xx2, yy2, 577, 61, 649, 162, color, 10, Fast RGB
-                    If (errorlevel = 0)
-                    {
-                        RandomBezier( MouseXpos, MouseYpos, xx2+ weightedclick(-3,-1,0), yy2+ weightedclick(-4,0,4), "T"MouseSpeed "P2-5")
-                        randsleep(500,100)
-                        Click
-                        loop{
-                        PixelSearch, go1, go2, 235, 187, 295, 229, color, 5, Fast RGB
-                            If (errorlevel = 0){
-
-                                randsleep(1600,1700)
-                                break
-                            }
-                            If (errorlevel = 1)
-                                randsleep(300,500)
-
-                        }
-                    }
-
-
-
-                }   
-                }
             }
 
-}
 
 
 
-mmmpathing(){
-
-
-
-
-}
+                } 
 
 
 
