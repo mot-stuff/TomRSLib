@@ -614,6 +614,33 @@ mousegetpos, MouseXpos, MouseYpos
                 } 
 
 
+mmpathing2(color,offsetx,offsety){
+Random, ms, 3,5
+Random, MouseSpeed, 180,250
+mousegetpos, MouseXpos, MouseYpos
+ PixelSearch, xx2, yy2, 587, 46, 713, 174, color, 26, Fast RGB
+            If (errorlevel = 0)
+            {
+                RandomBezier( MouseXpos, MouseYpos, xx2+ offsetx, yy2+ offsety, "T"MouseSpeed "P2-5")
+                randsleep(500,100)
+                Click
+                randsleep(2500,2700)
+                loop{
+                PixelSearch, go1, go2, 235, 182, 296, 230, color, 15, Fast RGB
+                    If (errorlevel = 0){
+                        randsleep(1600,1700)
+                        break
+                    }
+                    If (errorlevel = 1)
+                        randsleep(300,500)
+                    }
+            }
+
+
+
+
+                } 
+
 
 
 
