@@ -83,7 +83,7 @@ Random, eastx,528, 575
 Random, easty, 83,94
 Random, southx,543, 590
 Random, southy, 98,106
-Random, westx,524, 571
+Random, westx,520, 571
 Random, westy,112,123
 
 if x = North
