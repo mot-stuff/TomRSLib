@@ -32,9 +32,9 @@
 ; -- UUID(): Grabs the current users HWID to compare against the list
 ; -- combine(color1,color2,sendspace): Uses one color on another in the inventory, just uses the slots function using inventory coordinates. 0 is no for sending spacebar, 1 is yes
 ; -- zoomin(x) and zoomout(x): sends the wheel in either direction, pretty straight forward
+; -- the findtext() function is included in this script. Only use the tool to grab images.
 ;
 ;
-
 ; ========== To do ========= ;
 ; - Code a logout function
 ; - code more antiban functions and an antiban wrapper for selecting random types of antiban
