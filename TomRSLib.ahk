@@ -4,8 +4,10 @@
 ; - This can only be used in fixed mode with the smallest window size. Sidebar can be open. It only reads game screen
 ; #Include C:\Users\tomal\OneDrive\Documents\GitHub\TomRSLib\TomRSLib.ahk
 ;
+; Feel free to comment and suggest updates.
 ;
-; LATEST UPDATE: 12/29/22
+;
+; LATEST UPDATE: 12/30/22
 ; =====================; Function List ;===================== ;
 ;
 ; -- setup(x): Use "North", "South", "East" , or "West" in place of x to setup for the script
