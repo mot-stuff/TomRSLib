@@ -347,7 +347,31 @@ Send {Esc}
 randsleep(1000,2000)
 }
 
+xpdrop(x){
+wait = 0
+loop{
+PixelSearch, xpx, xpy, 467, 81, 521, 127, 0xFFAD00, 0, Fast RGB
+    If (errorlevel = 0){
+        randsleep(300,600)
+        break
+    }
+    If (errorlevel = 1)
+    {
+        wait +=1
 
+        if wait > %x%
+        {
+            wait = 0
+            randsleep(300,600)
+            break
+        }
+             if wait < %x%
+        {
+            randsleep(200,400)
+        }
+    }
+}
+}
 
 
 checkmouse(){
