@@ -74,6 +74,190 @@
 ;; must be input as: setup("North")
 
 
+CenterWindow(WinTitle)
+{
+    WinGetPos,,, Width, Height, %WinTitle%
+    WinMove, %WinTitle%,, (A_ScreenWidth/2)-(Width/2), (A_ScreenHeight/2)-(Height/2), 806,533
+}
+
+
+
+
+
+
+
+getinventory(){
+
+
+
+Pixelsearch, px,py,0, 0, A_ScreenWidth, A_ScreenHeight,0x775631, 0, Fast RGB
+    If (errorlevel = 0)
+    {
+    ; start first row
+      global itopleftx := px-200
+      global itoplefty := py+30
+      global ibottomrightx := px-5
+      global ibottomrighty := py + 286
+      global slot1x := itopleftx+35
+      global slot1y := itoplefty+20
+      global slot2x := slot1x+40
+      global slot2y := slot1y + 0
+      global slot3x := slot2x+40
+      global slot3y := slot2y + 0
+      global slot4x := slot3x+40
+      global slot4y := slot3y + 0
+    ;end first row
+
+    ; start second row
+      global slot5x := slot1x + 0
+      global slot5y := slot1y + 35
+      global slot6x := slot5x + 40
+      global slot6y := slot5y +0
+      global slot7x :=slot6x + 40
+      global slot7y := slot5y +0
+      global slot8x := slot7x + 40
+      global slot8y := slot5y +0
+    ;end second row
+
+    ; start third row
+        global slot9x := slot1x + 0
+      global slot9y := slot5y + 35
+      global slot10x := slot9x + 40
+      global slot10y := slot9y +0
+      global slot11x :=slot10x + 40
+      global slot11y := slot9y +0
+      global slot12x := slot11x + 40
+      global slot12y := slot9y +0
+
+    ; end third row
+
+
+    ; fourth row start
+        global slot13x := slot1x + 0
+      global slot13y := slot9y + 35
+      global slot14x := slot13x + 40
+      global slot14y := slot13y +0
+      global slot15x :=slot14x + 40
+      global slot15y := slot13y +0
+      global slot16x := slot15x + 40
+      global slot16y := slot13y +0
+
+
+    ; fourth row end
+
+
+    ;fifth row start
+        global slot17x := slot1x + 0
+      global slot17y := slot13y + 35
+      global slot18x := slot17x + 40
+      global slot18y := slot17y +0
+      global slot19x :=slot18x + 40
+      global slot19y := slot17y +0
+      global slot20x := slot19x + 40
+      global slot20y := slot17y +0
+    ;fifth row end
+
+    ; sixth row start
+        global slot21x := slot1x + 0
+      global slot21y := slot17y + 35
+      global slot22x := slot21x + 40
+      global slot22y := slot21y +0
+      global slot23x :=slot22x + 40
+      global slot23y := slot21y +0
+      global slot24x := slot23x + 40
+      global slot24y := slot21y +0
+
+
+    ;sixth row end
+
+    ; seventh row start
+        global slot25x := slot1x + 0
+      global slot25y := slot21y + 35
+      global slot26x := slot25x + 40
+      global slot26y := slot25y +0
+      global slot27x :=slot26x + 40
+      global slot27y := slot25y +0
+      global slot28x := slot27x + 40
+      global slot28y := slot25y +0
+      ;seventh row end
+
+    ; write all to config file
+    IniWrite, %slot1x%, inventory, slots, slot1x
+    IniWrite, %slot1y%, inventory, slots, slot1y
+    IniWrite, %slot2x%, inventory, slots, slot2x
+    IniWrite, %slot2y%, inventory, slots, slot2y
+    IniWrite, %slot3x%, inventory, slots, slot3x
+    IniWrite, %slot3y%, inventory, slots, slot3y
+    IniWrite, %slot4x%, inventory, slots, slot4x
+    IniWrite, %slot4y%, inventory, slots, slot4y
+    IniWrite, %slot5x%, inventory, slots, slot5x
+    IniWrite, %slot5y%, inventory, slots, slot5y
+    IniWrite, %slot6x%, inventory, slots, slot6x
+    IniWrite, %slot6y%, inventory, slots, slot6y
+    IniWrite, %slot7x%, inventory, slots, slot7x
+    IniWrite, %slot7y%, inventory, slots, slot7y
+    IniWrite, %slot8x%, inventory, slots, slot8x
+    IniWrite, %slot8y%, inventory, slots, slot8y
+    IniWrite, %slot9x%, inventory, slots, slot9x
+    IniWrite, %slot9y%, inventory, slots, slot9y
+    IniWrite, %slot10x%, inventory, slots, slot10x
+    IniWrite, %slot10y%, inventory, slots, slot10y
+    IniWrite, %slot11x%, inventory, slots, slot11x
+    IniWrite, %slot11y%, inventory, slots, slot11y
+    IniWrite, %slot12x%, inventory, slots, slot12x
+    IniWrite, %slot12y%, inventory, slots, slot12y
+    IniWrite, %slot13x%, inventory, slots, slot13x
+    IniWrite, %slot13y%, inventory, slots, slot13y
+    IniWrite, %slot14x%, inventory, slots, slot14x
+    IniWrite, %slot14y%, inventory, slots, slot14y
+    IniWrite, %slot15x%, inventory, slots, slot15x
+    IniWrite, %slot15y%, inventory, slots, slot15y
+    IniWrite, %slot16x%, inventory, slots, slot16x
+    IniWrite, %slot16y%, inventory, slots, slot16y
+    IniWrite, %slot17x%, inventory, slots, slot17x
+    IniWrite, %slot17y%, inventory, slots, slot17y
+    IniWrite, %slot18x%, inventory, slots, slot18x
+    IniWrite, %slot18y%, inventory, slots, slot18y
+    IniWrite, %slot19x%, inventory, slots, slot19x
+    IniWrite, %slot19y%, inventory, slots, slot19y
+    IniWrite, %slot20x%, inventory, slots, slot20x
+    IniWrite, %slot20y%, inventory, slots, slot20y
+    IniWrite, %slot21x%, inventory, slots, slot21x
+    IniWrite, %slot21y%, inventory, slots, slot21y
+    IniWrite, %slot22x%, inventory, slots, slot22x
+    IniWrite, %slot22y%, inventory, slots, slot22y
+    IniWrite, %slot23x%, inventory, slots, slot23x
+    IniWrite, %slot23y%, inventory, slots, slot23y
+    IniWrite, %slot24x%, inventory, slots, slot24x
+    IniWrite, %slot24y%, inventory, slots, slot24y
+    IniWrite, %slot25x%, inventory, slots, slot25x
+    IniWrite, %slot25y%, inventory, slots, slot25y
+    IniWrite, %slot26x%, inventory, slots, slot26x
+    IniWrite, %slot26y%, inventory, slots, slot26y
+    IniWrite, %slot27x%, inventory, slots, slot27x
+    IniWrite, %slot27y%, inventory, slots, slot27y
+    IniWrite, %slot28x%, inventory, slots, slot28x
+    IniWrite, %slot28y%, inventory, slots, slot28y
+
+        }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 setup(x){
 Random, cx, 558, 575
 Random, cy, 39,58
@@ -258,6 +442,32 @@ zoomout(x){
 Send {WheelDown %x%}
 
 }
+
+
+
+
+;;; pking stuff
+
+swap(color){
+firstrowpk(color)
+ secondrowpk(color)
+thirdrowpk(color)
+fourthrowpk(color)
+fifthrowpk(color)
+sixthrowpk(color)
+seventhrowpk(color)
+}
+
+
+
+
+
+
+
+
+
+
+
 
 ;;combine stuff 
 
@@ -799,34 +1009,21 @@ slots(color,686, 241, 724, 275)
 
 
 firstrowpk(color){
+IniRead, slot1x, inventory, slots, slot1x
+IniRead, slot1y, inventory, slots, slot1y
+IniRead, slot2x, inventory, slots, slot2x
+IniRead, slot2y, inventory, slots, slot2y
+IniRead, slot3x, inventory, slots, slot3x
+IniRead, slot3y, inventory, slots, slot3y
+IniRead, slot4x, inventory, slots, slot4x
+IniRead, slot4y, inventory, slots, slot4y
 
-Random, x, 1,3
 
-if x = 1
-{
+slotsrange(color,slot1x,slot1y)
+slotsrange(color,slot2x,slot2y)
+slotsrange(color,slot3x,slot3y)
+slotsrange(color,slot4x,slot4y)
 
-pkslots(color,568, 242, 599, 272)
-pkslots(color,613, 244, 638, 270)
-pkslots(color,648, 243, 680, 273)
-pkslots(color,686, 241, 724, 275)
-}
-
-if x = 2
-{
-pkslots(color,648, 243, 680, 273)
-pkslots(color,686, 241, 724, 275)
-pkslots(color,568, 242, 599, 272)
-pkslots(color,613, 244, 638, 270)
-}
-
-if x = 3
-{
-pkslots(color,613, 244, 638, 270)
-pkslots(color,568, 242, 599, 272)
-pkslots(color,648, 243, 680, 273)
-pkslots(color,686, 241, 724, 275)
-
-}
 
 }
 
@@ -866,32 +1063,20 @@ slots(color,604, 278, 645, 310)
 
 
 secondrowpk(color){
-Random, x, 1,3
-if x = 1
-{
+IniRead, slot5x, inventory, slots, slot5x
+IniRead, slot5y, inventory, slots, slot5y
+IniRead, slot6x, inventory, slots, slot6x
+IniRead, slot6y, inventory, slots, slot6y
+IniRead, slot7x, inventory, slots, slot7x
+IniRead, slot7y, inventory, slots, slot7y
+IniRead, slot8x, inventory, slots, slot8x
+IniRead, slot8y, inventory, slots, slot8y
 
-pkslots(color,562, 278, 600, 310)
-pkslots(color,604, 278, 645, 310)
-pkslots(color,651, 277, 683, 311)
-pkslots(color,687, 275, 726, 310)
 
-}
-if x = 2
-{
-pkslots(color,604, 278, 645, 310)
-pkslots(color,562, 278, 600, 310)
-pkslots(color,687, 275, 726, 310)
-pkslots(color,651, 277, 683, 311)
-
-}
-if x = 3
-{
-pkslots(color,651, 277, 683, 311)
-pkslots(color,687, 275, 726, 310)
-pkslots(color,562, 278, 600, 310)
-pkslots(color,604, 278, 645, 310)
-
-}
+slotsrange(color,slot5x,slot5y)
+slotsrange(color,slot6x,slot6y)
+slotsrange(color,slot7x,slot7y)
+slotsrange(color,slot8x,slot8y)
 
 
 }
@@ -899,73 +1084,66 @@ pkslots(color,604, 278, 645, 310)
 
 
 thirdrow(color){
-Random, x, 1,3
-    if x = 1
-{
-
-    slots(color,565, 316, 595, 343)
-    slots(color,605, 312, 646, 345)
-    slots(color,649, 318, 683, 345)
-    slots(color,688, 315, 722, 343)
-
-
-}
-    if x = 2
-{
-
-    slots(color,649, 318, 683, 345)
-    slots(color,688, 315, 722, 343)
-    slots(color,565, 316, 595, 343)
-    slots(color,605, 312, 646, 345)
+getinventory()
+IniRead, slot9x, inventory, slots, slot9x
+IniRead, slot9y, inventory, slots, slot9y
+IniRead, slot10x, inventory, slots, slot10x
+IniRead, slot10y, inventory, slots, slot10y
+IniRead, slot11x, inventory, slots, slot11x
+IniRead, slot11y, inventory, slots, slot11y
+IniRead, slot12x, inventory, slots, slot12x
+IniRead, slot12y, inventory, slots, slot12y
 
 
-}
-    if x = 3
-{
 
-    slots(color,688, 315, 722, 343)
-    slots(color,605, 312, 646, 345)
-    slots(color,649, 318, 683, 345)
-    slots(color,565, 316, 595, 343)
+slotsrange(color,slot9x,slot9y)
+slotsrange(color,slot10x,slot10y)
+slotsrange(color,slot11x,slot11y)
+slotsrange(color,slot12x,slot12y)
 
 
-}
 }
 
 
 
 
 thirdrowpk(color){
+
+IniRead, slot9x, inventory, slots, slot9x
+IniRead, slot9y, inventory, slots, slot9y
+IniRead, slot10x, inventory, slots, slot10x
+IniRead, slot10y, inventory, slots, slot10y
+IniRead, slot11x, inventory, slots, slot11x
+IniRead, slot11y, inventory, slots, slot11y
+IniRead, slot12x, inventory, slots, slot12x
+IniRead, slot12y, inventory, slots, slot12y
+
+
 Random, x, 1,3
-    if x = 1
+
+if x = 1
 {
 
-    pkslots(color,565, 316, 595, 343)
-    pkslots(color,605, 312, 646, 345)
-    pkslots(color,649, 318, 683, 345)
-    pkslots(color,688, 315, 722, 343)
-
-
+slotsrange(color,slot9x,slot9y)
+slotsrange(color,slot10x,slot10y)
+slotsrange(color,slot11x,slot11y)
+slotsrange(color,slot12x,slot12y)
 }
-    if x = 2
+
+if x = 2
 {
-
-    pkslots(color,649, 318, 683, 345)
-    pkslots(color,688, 315, 722, 343)
-    pkslots(color,565, 316, 595, 343)
-    pkslots(color,605, 312, 646, 345)
-
-
+slotsrange(color,slot9x,slot9y)
+slotsrange(color,slot10x,slot10y)
+slotsrange(color,slot11x,slot11y)
+slotsrange(color,slot12x,slot12y)
 }
-    if x = 3
+
+if x = 3
 {
-
-    pkslots(color,688, 315, 722, 343)
-    pkslots(color,605, 312, 646, 345)
-    pkslots(color,649, 318, 683, 345)
-    pkslots(color,565, 316, 595, 343)
-
-
+slotsrange(color,slot9x,slot9y)
+slotsrange(color,slot10x,slot10y)
+slotsrange(color,slot11x,slot11y)
+slotsrange(color,slot12x,slot12y)
 }
 }
 
@@ -1012,34 +1190,20 @@ Random, x, 1,3
 
 
 fourthrowpk(color){
-Random, x, 1,3
-     if x = 1
-    {
-        pkslots(color,691, 349, 727, 381)
-        pkslots(color,644, 346, 685, 383)
-        pkslots(color,607, 349, 641, 381)
-        pkslots(color,560, 352, 604, 383)
+IniRead, slot13x, inventory, slots, slot13x
+IniRead, slot13y, inventory, slots, slot13y
+IniRead, slot14x, inventory, slots, slot14x
+IniRead, slot14y, inventory, slots, slot14y
+IniRead, slot15x, inventory, slots, slot15x
+IniRead, slot15y, inventory, slots, slot15y
+IniRead, slot16x, inventory, slots, slot16x
+IniRead, slot16y, inventory, slots, slot16y
 
 
-    }     
-     if x = 2
-    {
-        pkslots(color,607, 349, 641, 381)
-        pkslots(color,560, 352, 604, 383)
-        pkslots(color,691, 349, 727, 381)
-        pkslots(color,644, 346, 685, 383)
-
-
-    } 
-     if x = 3
-    {
-        pkslots(color,560, 352, 604, 383)
-        pkslots(color,644, 346, 685, 383)
-        pkslots(color,607, 349, 641, 381)
-        pkslots(color,560, 352, 604, 383)
-        pkslots(color,691, 349, 727, 381)
-
-    }       
+slotsrange(color,slot13x,slot13y)
+slotsrange(color,slot14x,slot14y)
+slotsrange(color,slot15x,slot15y)
+slotsrange(color,slot16x,slot16y)
 
 
 
@@ -1088,34 +1252,21 @@ fifthrow(color){
 
 
 fifthrowpk(color){
-    Random, x, 1,3
-     if x = 1
-    {
-        pkslots(color,694, 389, 724, 415)
-        pkslots(color,655, 393, 680, 415)
-        pkslots(color,611, 390, 641, 412)
-        pkslots(color,568, 390, 596, 414)
+IniRead, slot17x, inventory, slots, slot17x
+IniRead, slot17y, inventory, slots, slot17y
+IniRead, slot18x, inventory, slots, slot18x
+IniRead, slot18y, inventory, slots, slot18y
+IniRead, slot19x, inventory, slots, slot19x
+IniRead, slot19y, inventory, slots, slot19y
+IniRead, slot20x, inventory, slots, slot20x
+IniRead, slot20y, inventory, slots, slot20y
 
 
-    } 
-     if x = 2
-    {
-        pkslots(color,611, 390, 641, 412)
-        pkslots(color,568, 390, 596, 414)
-        pkslots(color,694, 389, 724, 415)
-        pkslots(color,655, 393, 680, 415)
 
-
-    } 
-     if x = 3
-    {
-        pkslots(color,568, 390, 596, 414)
-        pkslots(color,655, 393, 680, 415)
-        pkslots(color,611, 390, 641, 412)
-        pkslots(color,694, 389, 724, 415)
-
-
-    } 
+slotsrange(color,slot17x,slot17y)
+slotsrange(color,slot18x,slot18y)
+slotsrange(color,slot19x,slot19y)
+slotsrange(color,slot20x,slot20y)
 
 
 }
@@ -1167,37 +1318,21 @@ sixthrow(color){
 
 
 sixthrowpk(color){
-    Random, x, 1,3
-     if x = 1
-    {
-        pkslots(color,691, 425, 723, 453)
-        pkslots(color,650, 425, 684, 455)
-        pkslots(color,606, 425, 642, 450)
-        pkslots(color,569, 423, 595, 447)
+IniRead, slot21x, inventory, slots, slot21x
+IniRead, slot21y, inventory, slots, slot21y
+IniRead, slot22x, inventory, slots, slot22x
+IniRead, slot22y, inventory, slots, slot22y
+IniRead, slot23x, inventory, slots, slot23x
+IniRead, slot23y, inventory, slots, slot23y
+IniRead, slot24x, inventory, slots, slot24x
+IniRead, slot24y, inventory, slots, slot24y
 
 
+slotsrange(color,slot21x,slot21y)
+slotsrange(color,slot22x,slot22y)
+slotsrange(color,slot23x,slot23y)
+slotsrange(color,slot24x,slot24y)
 
-    } 
-     if x = 2
-    {
-        pkslots(color,606, 425, 642, 450)
-        pkslots(color,569, 423, 595, 447)
-        pkslots(color,691, 425, 723, 453)
-        pkslots(color,650, 425, 684, 455)
-
-
-
-    } 
-     if x = 3
-    {
-                pkslots(color,569, 423, 595, 447)
-        pkslots(color,650, 425, 684, 455)
-        pkslots(color,606, 425, 642, 450)
-        pkslots(color,691, 425, 723, 453)
-
-
-
-    } 
 
 }
 
@@ -1236,36 +1371,21 @@ Random, x, 1,3
 }
 
 seventhrowpk(color){
-Random, x, 1,3
-     if x = 1
-    {
-    pkslots(color,694, 458, 726, 487)
-    pkslots(color,645, 457, 681, 489)
-    pkslots(color,603, 455, 641, 487)
-    pkslots(color,563, 456, 601, 486)
-
-
-    } 
-     if x = 2
-    {
-    pkslots(color,603, 455, 641, 487)
-    pkslots(color,563, 456, 601, 486)
-    pkslots(color,694, 458, 726, 487)
-    pkslots(color,645, 457, 681, 489)
+IniRead, slot25x, inventory, slots, slot25x
+IniRead, slot25y, inventory, slots, slot25y
+IniRead, slot26x, inventory, slots, slot26x
+IniRead, slot26y, inventory, slots, slot26y
+IniRead, slot27x, inventory, slots, slot27x
+IniRead, slot27y, inventory, slots, slot27y
+IniRead, slot28x, inventory, slots, slot28x
+IniRead, slot28y, inventory, slots, slot28y
 
 
 
-    } 
-
-     if x = 3
-    {
-    pkslots(color,563, 456, 601, 486)
-    pkslots(color,645, 457, 681, 489)
-    pkslots(color,603, 455, 641, 487)
-    pkslots(color,694, 458, 726, 487)
-
-
-    } 
+slotsrange(color,slot25x,slot25y)
+slotsrange(color,slot26x,slot26y)
+slotsrange(color,slot27x,slot27y)
+slotsrange(color,slot28x,slot28y)
 }
 
 
@@ -1298,9 +1418,21 @@ pkslots(color,x,y,w,h)
 }
 
 
-;
 
 
+slotsrange(color,x,y)
+{
+
+    
+ PixelSearch, px, py, x-10, y-10, x+10, y+10, color,15, Fast RGB
+ If (errorlevel = 0)
+                {
+                    findspot3(color, px-12, py-20, px+12,py+20)
+                    return true
+                }
+    Else
+        return false
+}
 
 
 
@@ -1444,7 +1576,6 @@ sleep 20
             mousemove, centerTileX+ weightedclick(-1,0,1), centerTileY+ weightedclick(-1,0,1), 0
              randsleep(5,15)
             click
-            randsleep(5,15)
         }
 }
 
