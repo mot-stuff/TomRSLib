@@ -804,7 +804,6 @@ loop,250{
 GoTo, Invalid
 return
 Valid:
-Tooltip, Valid HWID, 0,30
 return true
 invalid:
 Msgbox, You do not own this script. Please Purchase from the store
