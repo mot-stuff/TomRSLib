@@ -80,8 +80,13 @@ CenterWindow(WinTitle)
     WinMove, %WinTitle%,, (A_ScreenWidth/2)-(Width/2), (A_ScreenHeight/2)-(Height/2), 806,533
 }
 
+OnMessage( 0x200, "WM_MOUSEMOVE" )
 
-
+WM_MOUSEMOVE( wparam, lparam, msg, hwnd )
+{
+	if wparam = 1 ; LButton
+		PostMessage, 0xA1, 2,,, A ; WM_NCLBUTTONDOWN
+}
 
 
 
@@ -182,6 +187,10 @@ Pixelsearch, px,py,0, 0, A_ScreenWidth, A_ScreenHeight,0x775631, 0, Fast RGB
       ;seventh row end
 
     ; write all to config file
+    IniWrite, %itopleftx%, inventory, slots, itopleftx
+    IniWrite, %itoplefty%, inventory, slots, itoplefty
+    IniWrite, %ibottomrightx%, inventory, slots, ibottomrightx
+    IniWrite, %ibottomrighty%, inventory, slots, ibottomrighty
     IniWrite, %slot1x%, inventory, slots, slot1x
     IniWrite, %slot1y%, inventory, slots, slot1y
     IniWrite, %slot2x%, inventory, slots, slot2x
@@ -592,10 +601,10 @@ Send {Esc}
 randsleep(1000,2000)
 }
 
-xpdrop(x){
+xpdrop(x,color){
 wait = 0
 loop{
-PixelSearch, xpx, xpy, 467, 81, 521, 127, 0xFFAD00, 0, Fast RGB
+PixelSearch, xpx, xpy, 467, 81, 521, 127, color, 0, Fast RGB
     If (errorlevel = 0){
         randsleep(300,600)
         break
@@ -1567,9 +1576,9 @@ findspot3(color,x,y,w,h){
 Random, ms, 3,5
 Random, MouseSpeed, 165,220
 mousegetpos, MouseXpos, MouseYpos
-PixelSearch, OutputVarX, OutputVarY, x, y, w, h, color, 4, Fast RGB
+PixelSearch, OutputVarX, OutputVarY, x, y, w, h, color, 15, Fast RGB
 sleep 20
-    PixelSearch, OutputVarX2, OutputVarY2, w, h, x, y, color, 4, Fast RGB
+    PixelSearch, OutputVarX2, OutputVarY2, w, h, x, y, color, 14, Fast RGB
                 centerTileX := ((OutputVarX + OutputVarX2) / 2)
                 centerTileY := ((OutputVarY + OutputVarY2) / 2)
         if (errorlevel = 0){ 
