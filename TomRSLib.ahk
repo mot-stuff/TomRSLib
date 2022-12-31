@@ -798,6 +798,39 @@ slots(color,686, 241, 724, 275)
 }
 
 
+firstrowpk(color){
+
+Random, x, 1,3
+
+if x = 1
+{
+
+pkslots(color,568, 242, 599, 272)
+pkslots(color,613, 244, 638, 270)
+pkslots(color,648, 243, 680, 273)
+pkslots(color,686, 241, 724, 275)
+}
+
+if x = 2
+{
+pkslots(color,648, 243, 680, 273)
+pkslots(color,686, 241, 724, 275)
+pkslots(color,568, 242, 599, 272)
+pkslots(color,613, 244, 638, 270)
+}
+
+if x = 3
+{
+pkslots(color,613, 244, 638, 270)
+pkslots(color,568, 242, 599, 272)
+pkslots(color,648, 243, 680, 273)
+pkslots(color,686, 241, 724, 275)
+
+}
+
+}
+
+
 
 
 secondrow(color){
@@ -825,6 +858,38 @@ slots(color,651, 277, 683, 311)
 slots(color,687, 275, 726, 310)
 slots(color,562, 278, 600, 310)
 slots(color,604, 278, 645, 310)
+
+}
+
+
+}
+
+
+secondrowpk(color){
+Random, x, 1,3
+if x = 1
+{
+
+pkslots(color,562, 278, 600, 310)
+pkslots(color,604, 278, 645, 310)
+pkslots(color,651, 277, 683, 311)
+pkslots(color,687, 275, 726, 310)
+
+}
+if x = 2
+{
+pkslots(color,604, 278, 645, 310)
+pkslots(color,562, 278, 600, 310)
+pkslots(color,687, 275, 726, 310)
+pkslots(color,651, 277, 683, 311)
+
+}
+if x = 3
+{
+pkslots(color,651, 277, 683, 311)
+pkslots(color,687, 275, 726, 310)
+pkslots(color,562, 278, 600, 310)
+pkslots(color,604, 278, 645, 310)
 
 }
 
@@ -868,6 +933,46 @@ Random, x, 1,3
 }
 
 
+
+
+thirdrowpk(color){
+Random, x, 1,3
+    if x = 1
+{
+
+    pkslots(color,565, 316, 595, 343)
+    pkslots(color,605, 312, 646, 345)
+    pkslots(color,649, 318, 683, 345)
+    pkslots(color,688, 315, 722, 343)
+
+
+}
+    if x = 2
+{
+
+    pkslots(color,649, 318, 683, 345)
+    pkslots(color,688, 315, 722, 343)
+    pkslots(color,565, 316, 595, 343)
+    pkslots(color,605, 312, 646, 345)
+
+
+}
+    if x = 3
+{
+
+    pkslots(color,688, 315, 722, 343)
+    pkslots(color,605, 312, 646, 345)
+    pkslots(color,649, 318, 683, 345)
+    pkslots(color,565, 316, 595, 343)
+
+
+}
+}
+
+
+
+
+
 fourthrow(color){
 Random, x, 1,3
      if x = 1
@@ -904,6 +1009,49 @@ Random, x, 1,3
 
 
 
+
+
+fourthrowpk(color){
+Random, x, 1,3
+     if x = 1
+    {
+        pkslots(color,691, 349, 727, 381)
+        pkslots(color,644, 346, 685, 383)
+        pkslots(color,607, 349, 641, 381)
+        pkslots(color,560, 352, 604, 383)
+
+
+    }     
+     if x = 2
+    {
+        pkslots(color,607, 349, 641, 381)
+        pkslots(color,560, 352, 604, 383)
+        pkslots(color,691, 349, 727, 381)
+        pkslots(color,644, 346, 685, 383)
+
+
+    } 
+     if x = 3
+    {
+        pkslots(color,560, 352, 604, 383)
+        pkslots(color,644, 346, 685, 383)
+        pkslots(color,607, 349, 641, 381)
+        pkslots(color,560, 352, 604, 383)
+        pkslots(color,691, 349, 727, 381)
+
+    }       
+
+
+
+}
+
+
+
+
+
+
+
+
 fifthrow(color){
     Random, x, 1,3
      if x = 1
@@ -937,6 +1085,50 @@ fifthrow(color){
 
 }
 
+
+
+fifthrowpk(color){
+    Random, x, 1,3
+     if x = 1
+    {
+        pkslots(color,694, 389, 724, 415)
+        pkslots(color,655, 393, 680, 415)
+        pkslots(color,611, 390, 641, 412)
+        pkslots(color,568, 390, 596, 414)
+
+
+    } 
+     if x = 2
+    {
+        pkslots(color,611, 390, 641, 412)
+        pkslots(color,568, 390, 596, 414)
+        pkslots(color,694, 389, 724, 415)
+        pkslots(color,655, 393, 680, 415)
+
+
+    } 
+     if x = 3
+    {
+        pkslots(color,568, 390, 596, 414)
+        pkslots(color,655, 393, 680, 415)
+        pkslots(color,611, 390, 641, 412)
+        pkslots(color,694, 389, 724, 415)
+
+
+    } 
+
+
+}
+
+
+
+
+
+
+
+
+
+
 sixthrow(color){
     Random, x, 1,3
      if x = 1
@@ -965,6 +1157,43 @@ sixthrow(color){
         slots(color,650, 425, 684, 455)
         slots(color,606, 425, 642, 450)
         slots(color,691, 425, 723, 453)
+
+
+
+    } 
+
+}
+
+
+
+sixthrowpk(color){
+    Random, x, 1,3
+     if x = 1
+    {
+        pkslots(color,691, 425, 723, 453)
+        pkslots(color,650, 425, 684, 455)
+        pkslots(color,606, 425, 642, 450)
+        pkslots(color,569, 423, 595, 447)
+
+
+
+    } 
+     if x = 2
+    {
+        pkslots(color,606, 425, 642, 450)
+        pkslots(color,569, 423, 595, 447)
+        pkslots(color,691, 425, 723, 453)
+        pkslots(color,650, 425, 684, 455)
+
+
+
+    } 
+     if x = 3
+    {
+                pkslots(color,569, 423, 595, 447)
+        pkslots(color,650, 425, 684, 455)
+        pkslots(color,606, 425, 642, 450)
+        pkslots(color,691, 425, 723, 453)
 
 
 
@@ -1006,7 +1235,38 @@ Random, x, 1,3
     } 
 }
 
+seventhrowpk(color){
+Random, x, 1,3
+     if x = 1
+    {
+    pkslots(color,694, 458, 726, 487)
+    pkslots(color,645, 457, 681, 489)
+    pkslots(color,603, 455, 641, 487)
+    pkslots(color,563, 456, 601, 486)
 
+
+    } 
+     if x = 2
+    {
+    pkslots(color,603, 455, 641, 487)
+    pkslots(color,563, 456, 601, 486)
+    pkslots(color,694, 458, 726, 487)
+    pkslots(color,645, 457, 681, 489)
+
+
+
+    } 
+
+     if x = 3
+    {
+    pkslots(color,563, 456, 601, 486)
+    pkslots(color,645, 457, 681, 489)
+    pkslots(color,603, 455, 641, 487)
+    pkslots(color,694, 458, 726, 487)
+
+
+    } 
+}
 
 
 
@@ -1025,7 +1285,17 @@ slots(color,x,y,w,h)
 }
 
 
-
+pkslots(color,x,y,w,h)
+{
+ PixelSearch, px, py, x, y, w, h, color,5, Fast RGB
+ If (errorlevel = 0)
+                {
+                    findspot3(color, px-12, py-20, px+12,py+20)
+                    return true
+                }
+    Else
+        return false
+}
 
 
 ;
@@ -1161,7 +1431,22 @@ sleep 500
 }
 
 
-
+findspot3(color,x,y,w,h){
+Random, ms, 3,5
+Random, MouseSpeed, 165,220
+mousegetpos, MouseXpos, MouseYpos
+PixelSearch, OutputVarX, OutputVarY, x, y, w, h, color, 4, Fast RGB
+sleep 20
+    PixelSearch, OutputVarX2, OutputVarY2, w, h, x, y, color, 4, Fast RGB
+                centerTileX := ((OutputVarX + OutputVarX2) / 2)
+                centerTileY := ((OutputVarY + OutputVarY2) / 2)
+        if (errorlevel = 0){ 
+            mousemove, centerTileX+ weightedclick(-1,0,1), centerTileY+ weightedclick(-1,0,1), 0
+             randsleep(5,15)
+            click
+            randsleep(5,15)
+        }
+}
 
 
 
