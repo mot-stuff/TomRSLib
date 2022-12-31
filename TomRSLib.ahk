@@ -204,6 +204,45 @@ Send {WheelDown 100}
 
 }
 
+
+
+bankscn(color){
+clickspot(color)
+waitbank(5)
+randsleep(500,1000)
+random, x1, 80, 102
+random, y1, 115,135
+Random, x2, 440, 459
+Random, y2, 331,352
+random, MouseSpeed, 185,285
+mousegetpos, MouseXpos, MouseYpos
+RandomBezier( MouseXpos, MouseYpos, x2+ weightedclick(-1,0,1), y2+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
+randsleep(50,150)
+click
+randsleep(1000,1500)
+mousegetpos, MouseXpos, MouseYpos
+RandomBezier( MouseXpos, MouseYpos, x1+ weightedclick(-1,0,1), y1+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
+randsleep(50,150)
+click
+randsleep(1000,1500)
+Send {Esc}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ;;;; zoom levels
 
 zoomin(x){
