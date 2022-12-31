@@ -74,6 +74,56 @@
 ;; must be input as: setup("North")
 
 
+
+; gui fixed
+guifixed(){
+Winactivate, ahk_class SunAwtFrame
+Instruction = Press Shift to Start...
+todoText = Tom's Cooker
+Gui, -Caption +AlwaysOnTop +LastFound
+Gui, Color, 000000
+WinSet, TransColor, 000000
+Gui, Font, s9 cYellow, System 
+Gui, Add, Text,x10 y50, %todoText%
+Gui, Font, s9 cwhite, System 
+Gui, Add, Text,x103 y50, by Snorlax Scripts
+Gui, Add, Text,x380 y50 vinstru, %Instruction%
+Gui, Font, s8 cBlue, Verdana
+Gui, Add, Text,x376 y187, F8 to Pause. F9 to Exit.
+WinGetPos, wx, wy, wwx, wwy,ahk_class SunAwtFrame
+wy += 300
+wx += 0
+WinActivate, ahk_class SunAwtFrame
+
+Gui, Show,x%wx% y%wy% w800 h200, Window2
+
+Keywait, Shift, D
+GuiControl,,instru, Started.
+Gui, Font, cLime s9, System
+GuiControl,Font,instru
+GuiControl, Move, instru, x463 y50
+Keywait, Shift, U
+WinActivate, ahk_class SunAwtFrame
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 CenterWindow(WinTitle)
 {
     WinGetPos,,, Width, Height, %WinTitle%
