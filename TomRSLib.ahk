@@ -224,7 +224,23 @@ getmmarea()
 }
 
 
+clickcolorminimap(color){
+    mousegetpos, x,y
+getmmarea()
+        IniRead, compassx, inventory, slots, compassx
+        IniRead, compassy, inventory, slots, compassy
 
+        centermapx := compassx + 20
+        centermapy := compassy + 60
+
+        PixelSearch, px, py, centermapx -80, centermapy - 80, centermapx +80, centermapy + 80, color, 15, Fast RGB
+            If (errorlevel = 0){
+                mousemove, px, py
+                click
+                randsleep(150,250)
+                mousemove, x,y
+            }
+}
 
 
 getmmarea(){
