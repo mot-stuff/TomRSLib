@@ -221,6 +221,10 @@ getmmarea()
         IniRead, compassx, inventory, slots, compassx
         IniRead, compassy, inventory, slots, compassy
     mousemove, compassx-15,compassy+80
+    randsleep(10,50)
+    click
+    randsleep(10,50)
+
 }
 
 
