@@ -228,23 +228,6 @@ getmmarea()
 }
 
 
-clickcolorminimap(color){
-    mousegetpos, x,y
-getmmarea()
-        IniRead, compassx, inventory, slots, compassx
-        IniRead, compassy, inventory, slots, compassy
-
-        centermapx := compassx + 20
-        centermapy := compassy + 60
-
-        PixelSearch, px, py, centermapx -80, centermapy - 80, centermapx +80, centermapy + 80, color, 15, Fast RGB
-            If (errorlevel = 0){
-                mousemove, px, py
-                click
-                randsleep(150,250)
-                mousemove, x,y
-            }
-}
 
 
 getmmarea(){
@@ -256,6 +239,14 @@ Pixelsearch, compassx,compassy,0, 0, A_ScreenWidth, A_ScreenHeight,0xB54042, 0, 
     }   
 }
 
+compassposition(){
+Pixelsearch, compassx,compassy,0, 0, A_ScreenWidth, A_ScreenHeight,0xB54042, 0, Fast RGB
+    If (errorlevel = 0)
+    {
+        IniWrite, %compassx%, inventory, slots, compassx
+        IniWrite, %compassy%, inventory, slots, compassy
+    }   
+}
 
 
 getplayarea(){
@@ -463,148 +454,118 @@ Pixelsearch, px,py,0, 0, A_ScreenWidth, A_ScreenHeight,0x775631, 0, Fast RGB
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 setup(x){
-Random, cx, 558, 575
-Random, cy, 39,58
-Random, MouseSpeed, 180,250
-mousegetpos, MouseXpos, MouseYpos
-Random, ccx, 624, 682
-Random, ccy, 92,133
-Random,cscx, 134,386
-Random, cscy, 140,285
-Random, eastx,528, 575
-Random, easty, 83,94
-Random, southx,543, 590
-Random, southy, 98,106
-Random, westx,520, 571
-Random, westy,112,123
 
 if x = North
 {
-RandomBezier( MouseXpos, MouseYpos, cx+ weightedclick(-1,0,1), cy+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
-randsleep(50,100)
+compassposition()
+IniRead, compassx, inventory, slots, compassx
+IniRead, compassy, inventory, slots, compassy 
+mousemove, compassx, compassy
+randsleep(50,150)
 click
-randsleep(50,100)
+randsleep(50,150)
+Random, x1, 146,396
+Random, y1, 159,293
+mousemove, x1, y1
+randsleep(50,150)
 Send {Up Down}
-randsleep(3000,5000)
+randsleep(3500,4150)
 Send {Up Up}
-randsleep(50,100)
-mousegetpos, MouseXpos, MouseYpos
-RandomBezier( MouseXpos, MouseYpos, ccx+ weightedclick(-1,0,1), ccy+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
-randsleep(50,100)
+randsleep(50,150)
 Send {WheelDown 100}
-randsleep(50,100)
-mousegetpos, MouseXpos, MouseYpos
-RandomBezier( MouseXpos, MouseYpos, cscx+ weightedclick(-1,0,1), cscy+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
-randsleep(50,100)
+randsleep(50,150)
+mousemove, compassx+20, compassy+50
+randsleep(50,150)
 Send {WheelDown 100}
-
 }
 
 if x = East
 {
-RandomBezier( MouseXpos, MouseYpos, cx+ weightedclick(-1,0,1), cy, "T"MouseSpeed "P4-3")
-randsleep(50,100)
+compassposition()
+IniRead, compassx, inventory, slots, compassx
+IniRead, compassy, inventory, slots, compassy 
+mousemove, compassx, compassy
+randsleep(50,150)
 click,right
-randsleep(500,1000)
-mousegetpos, MouseXpos, MouseYpos
-RandomBezier( MouseXpos, MouseYpos, eastx+ weightedclick(-1,0,1), easty, "T"MouseSpeed "P4-3")
-randsleep(500,1000)
+randsleep(150,250)
+mousemove, 0,34,0, R
+randsleep(50,150)
 click
-randsleep(50,100)
+randsleep(50,150)
+Random, x1, 146,396
+Random, y1, 159,293
+mousemove, x1, y1
+randsleep(50,150)
 Send {Up Down}
-randsleep(3000,5000)
+randsleep(3500,4150)
 Send {Up Up}
-randsleep(50,100)
-mousegetpos, MouseXpos, MouseYpos
-RandomBezier( MouseXpos, MouseYpos, ccx+ weightedclick(-1,0,1), ccy, "T"MouseSpeed "P4-3")
-randsleep(50,100)
+randsleep(50,150)
 Send {WheelDown 100}
-randsleep(50,100)
-mousegetpos, MouseXpos, MouseYpos
-RandomBezier( MouseXpos, MouseYpos, cscx+ weightedclick(-1,0,1), cscy, "T"MouseSpeed "P4-3")
-randsleep(50,100)
+randsleep(50,150)
+mousemove, compassx+20, compassy+50
+randsleep(50,150)
 Send {WheelDown 100}
-
-
-
 }
-
-
 if x = South
 {
-RandomBezier( MouseXpos, MouseYpos, cx+ weightedclick(-1,0,1), cy+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
-randsleep(500,1000)
+compassposition()
+IniRead, compassx, inventory, slots, compassx
+IniRead, compassy, inventory, slots, compassy 
+mousemove, compassx, compassy
+randsleep(50,150)
 click,right
-randsleep(500,1000)
-mousegetpos, MouseXpos, MouseYpos
-RandomBezier( MouseXpos, MouseYpos, southx+ weightedclick(-1,0,1), southy+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
-randsleep(500,1000)
+randsleep(150,250)
+mousemove, 0,68,0, R
+randsleep(50,150)
 click
-randsleep(50,100)
+randsleep(50,150)
+Random, x1, 146,396
+Random, y1, 159,293
+mousemove, x1, y1
+randsleep(50,150)
 Send {Up Down}
-randsleep(3000,5000)
+randsleep(3500,4150)
 Send {Up Up}
-randsleep(50,100)
-mousegetpos, MouseXpos, MouseYpos
-RandomBezier( MouseXpos, MouseYpos, ccx+ weightedclick(-1,0,1), ccy+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
-randsleep(50,100)
+randsleep(50,150)
 Send {WheelDown 100}
-randsleep(50,100)
-mousegetpos, MouseXpos, MouseYpos
-RandomBezier( MouseXpos, MouseYpos, cscx+ weightedclick(-1,0,1), cscy+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
-randsleep(50,100)
+randsleep(50,150)
+mousemove, compassx+20, compassy+50
+randsleep(50,150)
 Send {WheelDown 100}
-
-
-
 }
-
 if x = West
 {
-RandomBezier( MouseXpos, MouseYpos, cx+ weightedclick(-1,0,1), cy+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
-randsleep(50,100)
+compassposition()
+IniRead, compassx, inventory, slots, compassx
+IniRead, compassy, inventory, slots, compassy 
+mousemove, compassx, compassy
+randsleep(50,150)
 click,right
-randsleep(500,1000)
-mousegetpos, MouseXpos, MouseYpos
-RandomBezier( MouseXpos, MouseYpos, westx+ weightedclick(-1,0,1), westy+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
-randsleep(500,1000)
-
+randsleep(150,250)
+mousemove, 0,78,0, R
+randsleep(50,150)
 click
-randsleep(50,100)
+randsleep(50,150)
+Random, x1, 146,396
+Random, y1, 159,293
+mousemove, x1, y1
+randsleep(50,150)
 Send {Up Down}
-randsleep(3000,5000)
+randsleep(3500,4150)
 Send {Up Up}
-randsleep(50,100)
-mousegetpos, MouseXpos, MouseYpos
-RandomBezier( MouseXpos, MouseYpos, ccx+ weightedclick(-1,0,1), ccy+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
-randsleep(50,100)
+randsleep(50,150)
 Send {WheelDown 100}
-randsleep(50,100)
-mousegetpos, MouseXpos, MouseYpos
-RandomBezier( MouseXpos, MouseYpos, cscx+ weightedclick(-1,0,1), cscy+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
-randsleep(50,100)
+randsleep(50,150)
+mousemove, compassx+20, compassy+50
+randsleep(50,150)
 Send {WheelDown 100}
-
-
-
+}
 }
 
 
-}
+
+
 
 
 
@@ -690,22 +651,6 @@ seventhrowpk(color)
 ;;combine stuff 
 
 
-combine(color1,color2,sendspace){
-slots(color1, 553,236,741,491)
-slots(color2, 553,236,741,491)
-randsleep(500,1000)
-if sendspace = 0
-{
-sleep 10
-}
-if sendspace = 1
-{
-    randsleep(50,150)
-    Send {space}
-}
-}
-
-
 
 
 ;checks if an object is nearby enough to go to next thread
@@ -725,7 +670,10 @@ PixelSearch, px, py, 196, 104, 341, 248, color, 10, Fast RGB
 
 ;;check last slot color
 checklast(color){
-PixelSearch, xx1, yy1, 693, 458, 725, 490, color, 5, Fast RGB
+getinventory()
+IniRead, slot28x, inventory, slots, slot28x
+IniRead, slot28y, inventory, slots, slot28y
+PixelSearch, xx1, yy1, slot28x-10, slot28y-10, slot28x+10, slot28y+10, color, 5, Fast RGB
     IF (errorlevel = 0)
         return True
     If (errorlevel = 1)
@@ -745,9 +693,7 @@ If (scanbank(bankcolor) == False)
 }
 else if (scanbank(bankcolor) == True)
 {
-clickspot(bankcolor)
-waitbank(sec)
-deposit(itemcolor)
+deposit(bankcolor,itemcolor)
 break
 }
 }
@@ -777,37 +723,20 @@ PixelSearch, px, py, 11, 31, 525, 369, color, 5, Fast RGB
 ;; Deposit Information
 ;;; deposit(color) is used to deposit the color of an item when bank is open
 
-deposit(color){
+
+deposit(bankcolor,itemcolor){
 loop{
-PixelSearch, xx1, yy1, 693, 458, 725, 490, color, 5, Fast RGB
-    If (errorlevel = 0)
-        {
-                pattern = 1
-            
-                If (pattern = 1){
-                  PixelSearch, xx2, yy2, 556, 235, 737, 492, color, 5, Fast RGB
-                    If (errorlevel = 0){
-                            ; send {shift down}
-                            firstrow(color)
-                            randsleep(100,250)
-                            secondrow(color)
-                            randsleep(100,250)                            
-                            thirdrow(color)
-                            randsleep(100,250)
-                            fourthrow(color)
-                            randsleep(100,250)
-                            fifthrow(color)
-                            sixthrow(color)
-                            seventhrow(color)
-                            break
-                        }
-                        Else
-                            break
-                }
-}
-}
+IniRead, slot1x, inventory, slots, slot8x
+IniRead, slot28y, inventory, slots, slot8y
+clickspotres(bankcolor,50)
+waitbank2(10)
+randsleep(250,500)
+slots(itemcolor,slot1x,slot28y)
+randsleep(250,500)
 Send {Esc}
-randsleep(1000,2000)
+randsleep(250,500)
+break
+}
 }
 
 xpdrop(x,color){
@@ -929,6 +858,81 @@ UUID()
 
 
 
+clickspotres(color,range){
+getplayarea()
+IniRead, playable_topleftx, inventory, screen, playable_topleftx
+IniRead, playable_toplefty, inventory, screen, playable_toplefty
+IniRead, playable_bottomrightx, inventory, screen, playable_bottomrightx
+IniRead, playable_bottomrighty, inventory, screen, playable_bottomrighty
+
+centerx := playable_topleftx + playable_bottomrightx/2
+centery := playable_toplefty + playable_bottomrighty/2
+
+cx1 := centerx - 25
+cy1 := centery - 50
+cw1 := centerx + 150
+ch1 := centery + 50
+
+cx2 := centerx - 50
+cy2 := centery - 100
+cw2 := centerx + 200
+ch2 := centery + 100
+
+cx3 := centerx - 100
+cy3 := centery - 300
+cw3 := centerx + 400
+ch3 := centery + 200
+
+PixelSearch, px, py, cx1, cy1, cw1, ch1, color, 15, Fast RGB
+    If (errorlevel = 0)
+        findspot(color, px-range, py-range, px + range, py + range)
+    If (errorlevel = 1)
+    {
+        PixelSearch, px, py, cx2, cy2, cw2, ch2, color, 15, Fast RGB
+            If (errorlevel = 0)
+                findspot(color, px-range, py-range, px + range, py + range)
+            If (errorlevel = 1)
+                {
+                    Pixelsearch, px,py, playable_topleftx,playable_toplefty,playable_bottomrightx,playable_bottomrighty,color, 15, Fast RGB
+                        If (errorlevel = 0)
+                            findspot(color, px-range, py-range, px + range, py + range)
+
+                }
+    }
+
+; PixelSearch, px, py, xx1, yy1, ww1, hh1, color, 15, Fast RGB
+;     If (errorlevel = 0)
+;         findspot(color, px-range, py-range, px + range, py + range)
+;     If (errorlevel = 1)
+;         {
+;             PixelSearch, px2,py2,xx2,yy2,ww2,hh2,color, 15, Fast RGB
+;             If (errorlevel = 0)
+;                 findspot(color, px2-range, py2-range, px2 + range, py2 + range)
+
+;         }
+
+
+
+}
+
+getstatus(){
+loop{
+PixelSearch, px, py, 20, 56, 131, 87, 0x00FF00, 5, Fast RGB
+    If (errorlevel = 0)
+    {
+        sleep 200
+    }
+    If (errorlevel = 1)
+    {
+        randsleep(1200,1700)
+        break
+    }
+
+}
+}
+
+
+
 
 
 clickspot(color){
@@ -1007,6 +1011,11 @@ Pixelsearch,px,py, 516, 164, 538, 185, color, 15, Fast RGB
 ;;;; waitbank() information
 ;; waits for bank window to be open returns true or false, can use that to either close the script or re-search for the bank etc
 waitbank(sec){
+IniRead, playable_topleftx, inventory, screen, playable_topleftx
+IniRead, playable_toplefty, inventory, screen, playable_toplefty
+IniRead, playable_bottomrightx, inventory, screen, playable_bottomrightx
+IniRead, playable_bottomrighty, inventory, screen, playable_bottomrighty
+
 wait = 0
 loop{
 wait += 1
@@ -1029,6 +1038,25 @@ Pixelsearch,px, py, 173, 35, 372, 65,0xFF981F,15, Fast RGB
 }
 return true
 }
+
+waitbank2(sec){
+loop{
+        IniRead, compassx, inventory, slots, compassx
+        IniRead, compassy, inventory, slots, compassy
+
+        topleftx := compassx - 1500
+        toplefty := compassy - 40
+        bottomrightx := topleftx + 1500
+        bottomrighty := toplefty + 150
+     PixelSearch, xx2, yy2, topleftx, toplefty, bottomrightx, bottomrighty, 0xFF981F, 10, Fast RGB
+        If (errorlevel = 0)
+            break
+        If (errorlevel = 1)
+            sleep 100
+
+}
+}
+
 
 
 
@@ -1074,6 +1102,71 @@ mousegetpos, MouseXpos, MouseYpos
 
 
                 } 
+
+
+getcolormm(color){
+getmmarea()
+        IniRead, compassx, inventory, slots, compassx
+        IniRead, compassy, inventory, slots, compassy
+
+        centermapx := compassx + 20
+        centermapy := compassy + 60
+
+        PixelSearch, px, py, centermapx - 180, centermapy - 180, centermapx + 180, centermapy + 180, color, 25, Fast RGB
+            If (errorlevel = 0)
+                return true
+            If (errorlevel = 1)
+                return false
+
+}
+
+
+
+
+ clickcolorminimap(color){
+    mousegetpos, x,y
+getmmarea()
+IniRead, playable_topleftx, inventory, screen, playable_topleftx
+IniRead, playable_toplefty, inventory, screen, playable_toplefty
+IniRead, playable_bottomrightx, inventory, screen, playable_bottomrightx
+IniRead, playable_bottomrighty, inventory, screen, playable_bottomrighty
+
+centerx := playable_topleftx + playable_bottomrightx/2
+centery := playable_toplefty + playable_bottomrighty/2
+
+
+        IniRead, compassx, inventory, slots, compassx
+        IniRead, compassy, inventory, slots, compassy
+
+        centermapx := compassx + 20
+        centermapy := compassy + 60
+
+        PixelSearch, px, py, centermapx -180, centermapy - 180, centermapx +180, centermapy + 180, color, 25, Fast RGB
+            If (errorlevel = 0){
+                mousemove, px, py
+                click
+                randsleep(150,250)
+                mousemove, x,y
+
+            }
+            loop{
+                            cx1 := centerx - 50
+cy1 := centery - 100
+cw1 := centerx + 250
+ch1 := centery + 100
+                Pixelsearch, px2,py2, cx1,cy1,cw1,ch1, color, 15, Fast RGB
+                    If (errorlevel = 0)
+                        {
+                        randsleep(1500,2000)
+                        break
+                        }
+                    If (errorlevel = 1)
+                        {
+                        sleep 100
+                        }
+
+}               
+ }
 
 
 mmpathing2(color,offsetx,offsety){
@@ -1126,13 +1219,18 @@ mousegetpos, MouseXpos, MouseYpos
 
 checkdrop(color){
 loop{
-PixelSearch, xx1, yy1, 693, 458, 725, 490, color, 5, Fast RGB
+    getinventory()
+        IniRead, slot1x, inventory, slots, slot1x
+        IniRead, slot1y, inventory, slots, slot1y
+    IniRead, slot28x, inventory, slots, slot28x
+IniRead, slot28y, inventory, slots, slot28y
+PixelSearch, xx1, yy1, slot1x, slot1y , slot28x, slot28y, color, 5, Fast RGB
     If (errorlevel = 0)
         {
                 Random, pattern, 1,3
             
                 If (pattern = 1){
-                  PixelSearch, xx2, yy2, 556, 235, 737, 492, color, 5, Fast RGB
+                  PixelSearch, xx2, yy2, slot1x, slot1y , slot28x, slot28y, color, 5, Fast RGB
                     If (errorlevel = 0){
                             send {shift down}
                             firstrow(color)
@@ -1148,7 +1246,7 @@ PixelSearch, xx1, yy1, 693, 458, 725, 490, color, 5, Fast RGB
                 }
 
                 If (pattern = 2){
-                    PixelSearch, xx2, yy2, 556, 235, 737, 492, color, 5, Fast RGB
+                    PixelSearch, xx2, yy2, slot1x, slot1y , slot28x, slot28y, color, 5, Fast RGB
                         If (errorlevel = 0){
                             send {shift down}
                             secondrow(color)
@@ -1165,7 +1263,7 @@ PixelSearch, xx1, yy1, 693, 458, 725, 490, color, 5, Fast RGB
 
 
                 If (pattern = 3){
-                    PixelSearch, xx2, yy2, 556, 235, 737, 492, color, 5, Fast RGB
+                    PixelSearch, xx2, yy2, slot1x, slot1y , slot28x, slot28y, color, 5, Fast RGB
                         If (errorlevel = 0){
                             send {shift down}
                             seventhrow(color)
@@ -1193,32 +1291,40 @@ PixelSearch, xx1, yy1, 693, 458, 725, 490, color, 5, Fast RGB
 
 
 firstrow(color){
+IniRead, slot1x, inventory, slots, slot1x
+IniRead, slot1y, inventory, slots, slot1y
+IniRead, slot2x, inventory, slots, slot2x
+IniRead, slot2y, inventory, slots, slot2y
+IniRead, slot3x, inventory, slots, slot3x
+IniRead, slot3y, inventory, slots, slot3y
+IniRead, slot4x, inventory, slots, slot4x
+IniRead, slot4y, inventory, slots, slot4y
 
 Random, x, 1,3
 
 if x = 1
 {
 
-slots(color,568, 242, 599, 272)
-slots(color,613, 244, 638, 270)
-slots(color,648, 243, 680, 273)
-slots(color,686, 241, 724, 275)
+slots(color,slot1x,slot1y)
+slots(color,slot2x,slot2y)
+slots(color,slot3x,slot3y)
+slots(color,slot4x,slot4y)
 }
 
 if x = 2
 {
-slots(color,648, 243, 680, 273)
-slots(color,686, 241, 724, 275)
-slots(color,568, 242, 599, 272)
-slots(color,613, 244, 638, 270)
+slots(color,slot3x,slot3y)
+slots(color,slot4x,slot4y)
+slots(color,slot1x,slot1y)
+slots(color,slot2x,slot2y)
 }
 
 if x = 3
 {
-slots(color,613, 244, 638, 270)
-slots(color,568, 242, 599, 272)
-slots(color,648, 243, 680, 273)
-slots(color,686, 241, 724, 275)
+slots(color,slot4x,slot4y)
+slots(color,slot2x,slot2y)
+slots(color,slot3x,slot3y)
+slots(color,slot1x,slot1y)
 
 }
 
@@ -1248,30 +1354,38 @@ slotsrange(color,slot4x,slot4y)
 
 
 secondrow(color){
+    IniRead, slot5x, inventory, slots, slot5x
+IniRead, slot5y, inventory, slots, slot5y
+IniRead, slot6x, inventory, slots, slot6x
+IniRead, slot6y, inventory, slots, slot6y
+IniRead, slot7x, inventory, slots, slot7x
+IniRead, slot7y, inventory, slots, slot7y
+IniRead, slot8x, inventory, slots, slot8x
+IniRead, slot8y, inventory, slots, slot8y
 Random, x, 1,3
 if x = 1
 {
 
-slots(color,562, 278, 600, 310)
-slots(color,604, 278, 645, 310)
-slots(color,651, 277, 683, 311)
-slots(color,687, 275, 726, 310)
+slots(color,slot5x,slot5y)
+slots(color,slot6x,slot6y)
+slots(color,slot7x,slot7y)
+slots(color,slot8x,slot8y)
 
 }
 if x = 2
 {
-slots(color,604, 278, 645, 310)
-slots(color,562, 278, 600, 310)
-slots(color,687, 275, 726, 310)
-slots(color,651, 277, 683, 311)
+slots(color,slot5x,slot5y)
+slots(color,slot6x,slot6y)
+slots(color,slot7x,slot7y)
+slots(color,slot8x,slot8y)
 
 }
 if x = 3
 {
-slots(color,651, 277, 683, 311)
-slots(color,687, 275, 726, 310)
-slots(color,562, 278, 600, 310)
-slots(color,604, 278, 645, 310)
+slots(color,slot5x,slot5y)
+slots(color,slot6x,slot6y)
+slots(color,slot7x,slot7y)
+slots(color,slot8x,slot8y)
 
 }
 
@@ -1313,10 +1427,10 @@ IniRead, slot12y, inventory, slots, slot12y
 
 
 
-slotsrange(color,slot9x,slot9y)
-slotsrange(color,slot10x,slot10y)
-slotsrange(color,slot11x,slot11y)
-slotsrange(color,slot12x,slot12y)
+slots(color,slot9x,slot9y)
+slots(color,slot10x,slot10y)
+slots(color,slot11x,slot11y)
+slots(color,slot12x,slot12y)
 
 
 }
@@ -1369,32 +1483,39 @@ slotsrange(color,slot12x,slot12y)
 
 
 fourthrow(color){
+    IniRead, slot13x, inventory, slots, slot13x
+IniRead, slot13y, inventory, slots, slot13y
+IniRead, slot14x, inventory, slots, slot14x
+IniRead, slot14y, inventory, slots, slot14y
+IniRead, slot15x, inventory, slots, slot15x
+IniRead, slot15y, inventory, slots, slot15y
+IniRead, slot16x, inventory, slots, slot16x
+IniRead, slot16y, inventory, slots, slot16y
 Random, x, 1,3
      if x = 1
     {
-        slots(color,691, 349, 727, 381)
-        slots(color,644, 346, 685, 383)
-        slots(color,607, 349, 641, 381)
-        slots(color,560, 352, 604, 383)
+slots(color,slot13x,slot13y)
+slots(color,slot14x,slot14y)
+slots(color,slot15x,slot15y)
+slots(color,slot16x,slot16y)
 
 
     }     
      if x = 2
     {
-        slots(color,607, 349, 641, 381)
-        slots(color,560, 352, 604, 383)
-        slots(color,691, 349, 727, 381)
-        slots(color,644, 346, 685, 383)
+slots(color,slot13x,slot13y)
+slots(color,slot14x,slot14y)
+slots(color,slot15x,slot15y)
+slots(color,slot16x,slot16y)
 
 
     } 
      if x = 3
     {
-        slots(color,560, 352, 604, 383)
-        slots(color,644, 346, 685, 383)
-        slots(color,607, 349, 641, 381)
-        slots(color,560, 352, 604, 383)
-        slots(color,691, 349, 727, 381)
+slots(color,slot13x,slot13y)
+slots(color,slot14x,slot14y)
+slots(color,slot15x,slot15y)
+slots(color,slot16x,slot16y)
 
     }       
 
@@ -1434,32 +1555,39 @@ slotsrange(color,slot16x,slot16y)
 
 
 fifthrow(color){
+IniRead, slot17x, inventory, slots, slot17x
+IniRead, slot17y, inventory, slots, slot17y
+IniRead, slot18x, inventory, slots, slot18x
+IniRead, slot18y, inventory, slots, slot18y
+IniRead, slot19x, inventory, slots, slot19x
+IniRead, slot19y, inventory, slots, slot19y
+IniRead, slot20x, inventory, slots, slot20x
+IniRead, slot20y, inventory, slots, slot20y
+
     Random, x, 1,3
      if x = 1
     {
-        slots(color,694, 389, 724, 415)
-        slots(color,655, 393, 680, 415)
-        slots(color,611, 390, 641, 412)
-        slots(color,568, 390, 596, 414)
-
+slots(color,slot17x,slot17y)
+slots(color,slot18x,slot18y)
+slots(color,slot19x,slot19y)
+slots(color,slot20x,slot20y)
 
     } 
      if x = 2
     {
-        slots(color,611, 390, 641, 412)
-        slots(color,568, 390, 596, 414)
-        slots(color,694, 389, 724, 415)
-        slots(color,655, 393, 680, 415)
+slots(color,slot17x,slot17y)
+slots(color,slot18x,slot18y)
+slots(color,slot19x,slot19y)
+slots(color,slot20x,slot20y)
 
 
     } 
      if x = 3
     {
-        slots(color,568, 390, 596, 414)
-        slots(color,655, 393, 680, 415)
-        slots(color,611, 390, 641, 412)
-        slots(color,694, 389, 724, 415)
-
+slots(color,slot17x,slot17y)
+slots(color,slot18x,slot18y)
+slots(color,slot19x,slot19y)
+slots(color,slot20x,slot20y)
 
     } 
 
@@ -1498,34 +1626,44 @@ slotsrange(color,slot20x,slot20y)
 
 
 sixthrow(color){
+    IniRead, slot21x, inventory, slots, slot21x
+IniRead, slot21y, inventory, slots, slot21y
+IniRead, slot22x, inventory, slots, slot22x
+IniRead, slot22y, inventory, slots, slot22y
+IniRead, slot23x, inventory, slots, slot23x
+IniRead, slot23y, inventory, slots, slot23y
+IniRead, slot24x, inventory, slots, slot24x
+IniRead, slot24y, inventory, slots, slot24y
+
     Random, x, 1,3
      if x = 1
     {
-        slots(color,691, 425, 723, 453)
-        slots(color,650, 425, 684, 455)
-        slots(color,606, 425, 642, 450)
-        slots(color,569, 423, 595, 447)
+
+slots(color,slot21x,slot21y)
+slots(color,slot22x,slot22y)
+slots(color,slot23x,slot23y)
+slots(color,slot24x,slot24y)
 
 
 
     } 
      if x = 2
     {
-        slots(color,606, 425, 642, 450)
-        slots(color,569, 423, 595, 447)
-        slots(color,691, 425, 723, 453)
-        slots(color,650, 425, 684, 455)
 
+slots(color,slot21x,slot21y)
+slots(color,slot22x,slot22y)
+slots(color,slot23x,slot23y)
+slots(color,slot24x,slot24y)
 
 
     } 
      if x = 3
     {
-                slots(color,569, 423, 595, 447)
-        slots(color,650, 425, 684, 455)
-        slots(color,606, 425, 642, 450)
-        slots(color,691, 425, 723, 453)
 
+slots(color,slot21x,slot21y)
+slots(color,slot22x,slot22y)
+slots(color,slot23x,slot23y)
+slots(color,slot24x,slot24y)
 
 
     } 
@@ -1555,22 +1693,32 @@ slotsrange(color,slot24x,slot24y)
 
 
 seventhrow(color){
+    IniRead, slot25x, inventory, slots, slot25x
+IniRead, slot25y, inventory, slots, slot25y
+IniRead, slot26x, inventory, slots, slot26x
+IniRead, slot26y, inventory, slots, slot26y
+IniRead, slot27x, inventory, slots, slot27x
+IniRead, slot27y, inventory, slots, slot27y
+IniRead, slot28x, inventory, slots, slot28x
+IniRead, slot28y, inventory, slots, slot28y
+
 Random, x, 1,3
      if x = 1
     {
-    slots(color,694, 458, 726, 487)
-    slots(color,645, 457, 681, 489)
-    slots(color,603, 455, 641, 487)
-    slots(color,563, 456, 601, 486)
+
+slots(color,slot25x,slot25y)
+slots(color,slot26x,slot26y)
+slots(color,slot27x,slot27y)
+slots(color,slot28x,slot28y)
 
 
     } 
      if x = 2
     {
-    slots(color,603, 455, 641, 487)
-    slots(color,563, 456, 601, 486)
-    slots(color,694, 458, 726, 487)
-    slots(color,645, 457, 681, 489)
+slots(color,slot25x,slot25y)
+slots(color,slot26x,slot26y)
+slots(color,slot27x,slot27y)
+slots(color,slot28x,slot28y)
 
 
 
@@ -1578,11 +1726,10 @@ Random, x, 1,3
 
      if x = 3
     {
-    slots(color,563, 456, 601, 486)
-    slots(color,645, 457, 681, 489)
-    slots(color,603, 455, 641, 487)
-    slots(color,694, 458, 726, 487)
-
+slots(color,slot25x,slot25y)
+slots(color,slot26x,slot26y)
+slots(color,slot27x,slot27y)
+slots(color,slot28x,slot28y)
 
     } 
 }
@@ -1609,9 +1756,9 @@ slotsrange(color,slot28x,slot28y)
 
 ;;; very important tightly wrapped function. Basically, use it on each inventory slot to determine whether to click a color or not
 
-slots(color,x,y,w,h)
+slots(color,x,y)
 {
- PixelSearch, px, py, x, y, w, h, color,5, Fast RGB
+ PixelSearch, px, py, x-10, y-10, x+10, y+10, color,5, Fast RGB
  If (errorlevel = 0)
                 {
                     findspot(color, px-12, py-20, px+12,py+20)
