@@ -1,7 +1,7 @@
 ;;;;; Tom's Runescape Library ;;;;; Stored on Github for live updating
 ;
 ; - This library contains useful functions for coding ahk bots in runescape. Use #Include TomRSLib.ahk and it will compile into your script when you package it as an exe. 
-; - Most of the function in this library can only be used in fixed mode with the smallest window size. Sidebar can be open. It only reads game screen
+; - Most of the function in this library can only be used in resizable classic mode or fixed mode. Sidebar cannot be open. It only reads game screen
 ; #Include C:\Users\tomal\OneDrive\Documents\GitHub\TomRSLib\TomRSLib.ahk
 ;
 ; Feel free to comment and suggest updates.
@@ -22,7 +22,6 @@
 ; -- findspotright(color,x,y,w,h): finds a spot on the screen and right clicks it
 ; -- weightedclick(min, target, max): min, max, target, generates a value 
 ; -- randsleep(x,y): randomized sleep between two values
-; -- bank(tilecolor,bankcolor,itemcolor,sec): clicks tile, runs to tile, clicks bank, waits for it to open, deposits color in inventory
 ; -- antiban(x) - randomized small sleeps with the ability to set a percentage
 ; -- antibanstats() - perfectly waited for randomly checking thes stats page for a few seconds, just place into a function that is looping or where you want the chance of checking the page. I personally place it in downtime loops
 ; -- antibanfriends() - perfectly weighted to check friends list randomly for a few seconds  
@@ -35,11 +34,15 @@
 ; -- the findtext() function is included in this script. Only use the tool to grab images.
 ; -- getinventory(): grabs the classic inventory coords in resizeable or fixed, can be used to scale up almost any script
 ; -- getinventory has lots of subfunctions here including all of the pk swapping and the swap(color) function which is extremely useful
+; -- radial(color,spot): searches from center of play area, 10px each loop out and then spot parameter is for how big to search from cursor
+; -- slots(color,x,y), slotsrange(color,x,y): first is for regular 2nd is for pking
+; lots of other functions in here now, please explore
+
 ; ========== To do ========= ;
 ; - Code a logout function
 ; - code more antiban functions and an antiban wrapper for selecting random types of antiban
 ; - give things more options as needed and expand on function list. Need new projects to come up with new functions
-
+;
 ;
 ;
 ; == Function Groups == ; functions mainly specialized for something above, but could be useful
@@ -459,6 +462,27 @@ setup(x){
 if x = North
 {
 compassposition()
+IniRead, playable_topleftx, inventory, screen, playable_topleftx
+IniRead, playable_toplefty, inventory, screen, playable_toplefty
+IniRead, playable_bottomrightx, inventory, screen, playable_bottomrightx
+IniRead, playable_bottomrighty, inventory, screen, playable_bottomrighty
+WinGetActiveStats, Runelite, Width, Height, X, Y
+If Width <= 810
+{
+    centerx := (Width - 200) / 2
+}
+If Width > 810
+{
+    centerx := (Width) / 2
+}
+If Height <= 650
+{
+    centery := (Height - 160) / 2
+}
+If Height > 650
+{
+    centery := (Height) / 2
+}
 IniRead, compassx, inventory, slots, compassx
 IniRead, compassy, inventory, slots, compassy 
 mousemove, compassx, compassy
@@ -478,11 +502,33 @@ randsleep(50,150)
 mousemove, compassx+20, compassy+50
 randsleep(50,150)
 Send {WheelDown 100}
+mousemove, centerx, centery
 }
 
 if x = East
 {
 compassposition()
+IniRead, playable_topleftx, inventory, screen, playable_topleftx
+IniRead, playable_toplefty, inventory, screen, playable_toplefty
+IniRead, playable_bottomrightx, inventory, screen, playable_bottomrightx
+IniRead, playable_bottomrighty, inventory, screen, playable_bottomrighty
+WinGetActiveStats, Runelite, Width, Height, X, Y
+If Width <= 810
+{
+    centerx := (Width - 200) / 2
+}
+If Width > 810
+{
+    centerx := (Width) / 2
+}
+If Height <= 650
+{
+    centery := (Height - 160) / 2
+}
+If Height > 650
+{
+    centery := (Height) / 2
+}
 IniRead, compassx, inventory, slots, compassx
 IniRead, compassy, inventory, slots, compassy 
 mousemove, compassx, compassy
@@ -506,10 +552,32 @@ randsleep(50,150)
 mousemove, compassx+20, compassy+50
 randsleep(50,150)
 Send {WheelDown 100}
+mousemove, centerx, centery
 }
 if x = South
 {
 compassposition()
+IniRead, playable_topleftx, inventory, screen, playable_topleftx
+IniRead, playable_toplefty, inventory, screen, playable_toplefty
+IniRead, playable_bottomrightx, inventory, screen, playable_bottomrightx
+IniRead, playable_bottomrighty, inventory, screen, playable_bottomrighty
+WinGetActiveStats, Runelite, Width, Height, X, Y
+If Width <= 810
+{
+    centerx := (Width - 200) / 2
+}
+If Width > 810
+{
+    centerx := (Width) / 2
+}
+If Height <= 650
+{
+    centery := (Height - 160) / 2
+}
+If Height > 650
+{
+    centery := (Height) / 2
+}
 IniRead, compassx, inventory, slots, compassx
 IniRead, compassy, inventory, slots, compassy 
 mousemove, compassx, compassy
@@ -533,6 +601,7 @@ randsleep(50,150)
 mousemove, compassx+20, compassy+50
 randsleep(50,150)
 Send {WheelDown 100}
+mousemove, centerx, centery
 }
 if x = West
 {
@@ -560,6 +629,7 @@ randsleep(50,150)
 mousemove, compassx+20, compassy+50
 randsleep(50,150)
 Send {WheelDown 100}
+mousemove, centerx, centery
 }
 }
 
@@ -726,13 +796,14 @@ PixelSearch, px, py, 11, 31, 525, 369, color, 5, Fast RGB
 
 deposit(bankcolor,itemcolor){
 loop{
-IniRead, slot1x, inventory, slots, slot8x
-IniRead, slot28y, inventory, slots, slot8y
-clickspotres(bankcolor,50)
+  getinventory()
+IniRead, slot1x, inventory, slots, slot1x
+IniRead, slot28y, inventory, slots, slot28y
+radial(bankcolor,10)
 waitbank2(10)
-randsleep(250,500)
+randsleep(1250,1500)
 slots(itemcolor,slot1x,slot28y)
-randsleep(250,500)
+randsleep(1250,1500)
 Send {Esc}
 randsleep(250,500)
 break
@@ -856,64 +927,6 @@ UUID()
 		return obj.UUID	; http://msdn.microsoft.com/en-us/library/aa394105%28v=vs.85%29.aspx
 }
 
-
-
-clickspotres(color,range){
-getplayarea()
-IniRead, playable_topleftx, inventory, screen, playable_topleftx
-IniRead, playable_toplefty, inventory, screen, playable_toplefty
-IniRead, playable_bottomrightx, inventory, screen, playable_bottomrightx
-IniRead, playable_bottomrighty, inventory, screen, playable_bottomrighty
-
-centerx := playable_topleftx + playable_bottomrightx/2
-centery := playable_toplefty + playable_bottomrighty/2
-
-cx1 := centerx - 25
-cy1 := centery - 50
-cw1 := centerx + 150
-ch1 := centery + 50
-
-cx2 := centerx - 50
-cy2 := centery - 100
-cw2 := centerx + 200
-ch2 := centery + 100
-
-cx3 := centerx - 100
-cy3 := centery - 300
-cw3 := centerx + 400
-ch3 := centery + 200
-
-PixelSearch, px, py, cx1, cy1, cw1, ch1, color, 15, Fast RGB
-    If (errorlevel = 0)
-        findspot(color, px-range, py-range, px + range, py + range)
-    If (errorlevel = 1)
-    {
-        PixelSearch, px, py, cx2, cy2, cw2, ch2, color, 15, Fast RGB
-            If (errorlevel = 0)
-                findspot(color, px-range, py-range, px + range, py + range)
-            If (errorlevel = 1)
-                {
-                    Pixelsearch, px,py, playable_topleftx,playable_toplefty,playable_bottomrightx,playable_bottomrighty,color, 15, Fast RGB
-                        If (errorlevel = 0)
-                            findspot(color, px-range, py-range, px + range, py + range)
-
-                }
-    }
-
-; PixelSearch, px, py, xx1, yy1, ww1, hh1, color, 15, Fast RGB
-;     If (errorlevel = 0)
-;         findspot(color, px-range, py-range, px + range, py + range)
-;     If (errorlevel = 1)
-;         {
-;             PixelSearch, px2,py2,xx2,yy2,ww2,hh2,color, 15, Fast RGB
-;             If (errorlevel = 0)
-;                 findspot(color, px2-range, py2-range, px2 + range, py2 + range)
-
-;         }
-
-
-
-}
 
 getstatus(){
 loop{
@@ -1131,8 +1144,23 @@ IniRead, playable_toplefty, inventory, screen, playable_toplefty
 IniRead, playable_bottomrightx, inventory, screen, playable_bottomrightx
 IniRead, playable_bottomrighty, inventory, screen, playable_bottomrighty
 
-centerx := playable_topleftx + playable_bottomrightx/2
-centery := playable_toplefty + playable_bottomrighty/2
+WinGetActiveStats, Runelite, Width, Height, X, Y
+If Width <= 810
+{
+    centerx := (Width - 200) / 2
+}
+If Width > 810
+{
+    centerx := (Width) / 2
+}
+If Height <= 650
+{
+    centery := (Height - 160) / 2
+}
+If Height > 650
+{
+    centery := (Height) / 2
+}
 
 
         IniRead, compassx, inventory, slots, compassx
@@ -1146,18 +1174,21 @@ centery := playable_toplefty + playable_bottomrighty/2
                 mousemove, px, py
                 click
                 randsleep(150,250)
-                mousemove, x,y
+                mousemove, centerx,centery
 
             }
+            goto waitunder
+            Return
+            waitunder:
             loop{
-                            cx1 := centerx - 50
-cy1 := centery - 100
-cw1 := centerx + 250
-ch1 := centery + 100
+              cx1 := centerx - 40
+              cy1 := centery - 40
+              cw1 := centerx + 40
+              ch1 := centery + 40
                 Pixelsearch, px2,py2, cx1,cy1,cw1,ch1, color, 15, Fast RGB
                     If (errorlevel = 0)
                         {
-                        randsleep(1500,2000)
+                        randsleep(3000,4200)
                         break
                         }
                     If (errorlevel = 1)
@@ -1880,7 +1911,43 @@ antiban(x)
 		}
 
 
-
+radial(color,spot){
+    Random, MouseSpeed, 20,50
+WinGetActiveStats, Runelite, Width, Height, X, Y
+If Width <= 810
+{
+    centerx := (Width - 200) / 2
+}
+If Width > 810
+{
+    centerx := (Width) / 2
+}
+If Height <= 650
+{
+    centery := (Height - 160) / 2
+}
+If Height > 650
+{
+    centery := (Height) / 2
+}
+ ;fixed
+; centerx := (Width - 200) / 2
+; centery := (Height - 160) / 2
+; mousegetpos, MouseXpos, MouseYpos
+; RandomBezier( MouseXpos, MouseYpos, centerx+ weightedclick(-1,0,1), centery+ weightedclick(-1,0,1), "T"MouseSpeed "P3-1")
+; mousegetpos, cx, cy
+offset = 10
+loop{
+PixelSearch, px, py, centerx - offset,centery - offset,centerx + offset,centery + offset, color, 15, Fast RGB
+    If (errorlevel = 0)
+{        
+        findspot(color,px-spot, py-spot, px + spot, py + spot)
+        break
+        }
+    If (errorlevel = 1)
+        offset += 10
+}
+}
 
 
 
