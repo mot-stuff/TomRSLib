@@ -1,7 +1,7 @@
 ;;;;; Tom's Runescape Library ;;;;; Stored on Github for live updating
 ;
 ; - This library contains useful functions for coding ahk bots in runescape. Use #Include TomRSLib.ahk and it will compile into your script when you package it as an exe. 
-; - This can only be used in fixed mode with the smallest window size. Sidebar can be open. It only reads game screen
+; - Most of the function in this library can only be used in fixed mode with the smallest window size. Sidebar can be open. It only reads game screen
 ; #Include C:\Users\tomal\OneDrive\Documents\GitHub\TomRSLib\TomRSLib.ahk
 ;
 ; Feel free to comment and suggest updates.
@@ -33,8 +33,8 @@
 ; -- combine(color1,color2,sendspace): Uses one color on another in the inventory, just uses the slots function using inventory coordinates. 0 is no for sending spacebar, 1 is yes
 ; -- zoomin(x) and zoomout(x): sends the wheel in either direction, pretty straight forward
 ; -- the findtext() function is included in this script. Only use the tool to grab images.
-;
-;
+; -- getinventory(): grabs the classic inventory coords in resizeable or fixed, can be used to scale up almost any script
+; -- getinventory has lots of subfunctions here including all of the pk swapping and the swap(color) function which is extremely useful
 ; ========== To do ========= ;
 ; - Code a logout function
 ; - code more antiban functions and an antiban wrapper for selecting random types of antiban
@@ -65,7 +65,61 @@
 ;
 ;----------- Start library -----------------;
 ;;
-;;
+
+
+sendfkey(x){
+guicontrolget,fk1,,%x%
+if fk1 = F1
+    fk1 := "F1"
+if fk1 = F2
+    fk1 := "F2"
+if fk1 = F3
+    fk1 := "F3"
+if fk1 = F4
+    fk1 := "F4"
+if fk1 = F5
+    fk1 := "F5"
+if fk1 = F6
+    fk1 := "F6"
+if fk1 = F7
+    fk1 := "F7"
+if fk1 = F8
+    fk1 := "F8"
+if fk1 = F9
+    fk1 := "F9"
+if fk1 = F10
+    fk1 := "F10"
+if fk1 = Esc
+    fk1 := "Esc"
+Send, {%fk1%}
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+searchcursor(x,y,color){
+PixelSearch, px, py, x-50,y-50, x+50, y+50, color,1, Fast RGB
+    If (errorlevel = 0)
+        mousemove, px,py,0
+        click
+}
+
 ;;
 ;;
 ;;
@@ -1682,8 +1736,8 @@ sleep 20
                 centerTileX := ((OutputVarX + OutputVarX2) / 2)
                 centerTileY := ((OutputVarY + OutputVarY2) / 2)
         if (errorlevel = 0){ 
-            mousemove, centerTileX+ weightedclick(-1,0,1), centerTileY+ weightedclick(-1,0,1), 0
-             randsleep(5,15)
+            mousemove, centerTileX, centerTileY, 0
+             randsleep(15,25)
             click
         }
 }
