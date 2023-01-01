@@ -216,11 +216,45 @@ Unz(sZip, sUnz)
 
 
 
+clickqp(){
+getmmarea()
+        IniRead, compassx, inventory, slots, compassx
+        IniRead, compassy, inventory, slots, compassy
+    mousemove, compassx-15,compassy+80
+}
 
 
 
 
 
+getmmarea(){
+Pixelsearch, compassx,compassy,0, 0, A_ScreenWidth, A_ScreenHeight,0xB54042, 0, Fast RGB
+    If (errorlevel = 0)
+    {
+        IniWrite, %compassx%, inventory, slots, compassx
+        IniWrite, %compassy%, inventory, slots, compassy
+    }   
+}
+
+
+
+getplayarea(){
+WinGetPos,xx, yy, ww, hh,ahk_class SunAwtFrame
+
+global playable_topleftx := xx
+global playable_toplefty := yy
+global playable_bottomrightx := ww - 210
+global playable_bottomrighty := hh
+
+IniWrite, %playable_topleftx%, inventory, screen, playable_topleftx
+IniWrite, %playable_toplefty%, inventory, screen, playable_toplefty
+IniWrite, %playable_bottomrightx%, inventory, screen, playable_bottomrightx
+IniWrite, %playable_bottomrighty%, inventory, screen, playable_bottomrighty
+IniRead, playable_topleftx, inventory, screen, playable_topleftx
+IniRead, playable_toplefty, inventory, screen, playable_toplefty
+IniRead, playable_bottomrightx, inventory, screen, playable_bottomrightx
+IniRead, playable_bottomrighty, inventory, screen, playable_bottomrighty
+}
 
 
 
