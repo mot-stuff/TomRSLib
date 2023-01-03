@@ -71,7 +71,7 @@
 
 
 sendfkey(x){
-guicontrolget,fk1,,%x%
+guicontrolget,fk1,,x
 if fk1 = F1
     fk1 := "F1"
 if fk1 = F2
@@ -94,6 +94,7 @@ if fk1 = F10
     fk1 := "F10"
 if fk1 = Esc
     fk1 := "Esc"
+    SendLevel,1
 Send, {%fk1%}
 
 
@@ -220,15 +221,15 @@ Unz(sZip, sUnz)
 
 
 clickqp(){
-getmmarea()
+  compassposition()
         IniRead, compassx, inventory, slots, compassx
         IniRead, compassy, inventory, slots, compassy
-    mousemove, compassx-15,compassy+80
-    randsleep(10,50)
-    click
-    randsleep(10,50)
-
+    qpx := compassx-15
+    qpy := compassy+80
+        IniWrite,%qpx%,%A_Desktop%\pureconfig.ini,Config,qpx
+        IniWrite,%qpy%,%A_Desktop%\pureconfig.ini,Config,qpy
 }
+
 
 
 
@@ -294,11 +295,11 @@ WM_MOUSEMOVE( wparam, lparam, msg, hwnd )
 
 
 
-getinventory(){
+getinventorycc(color){
 
 
 
-Pixelsearch, px,py,0, 0, A_ScreenWidth, A_ScreenHeight,0x775631, 0, Fast RGB
+Pixelsearch, px,py,0, 0, A_ScreenWidth, A_ScreenHeight,color, 0, Fast RGB
     If (errorlevel = 0)
     {
     ; start first row
@@ -457,6 +458,173 @@ Pixelsearch, px,py,0, 0, A_ScreenWidth, A_ScreenHeight,0x775631, 0, Fast RGB
 
 
 
+getinventory(){
+
+
+
+Pixelsearch, px,py,0, 0, A_ScreenWidth, A_ScreenHeight,0x28263C, 0, Fast RGB
+    If (errorlevel = 0)
+    {
+    ; start first row
+      global itopleftx := px-42
+      global itoplefty := py+19
+     global ibottomrightx := px+155
+      global ibottomrighty := py + 268
+      global slot1x := itopleftx+35
+      global slot1y := itoplefty+20
+      global slot2x := slot1x+40
+      global slot2y := slot1y + 0
+      global slot3x := slot2x+40
+      global slot3y := slot2y + 0
+      global slot4x := slot3x+40
+      global slot4y := slot3y + 0
+    ;end first row
+
+    ; start second row
+      global slot5x := slot1x + 0
+      global slot5y := slot1y + 35
+      global slot6x := slot5x + 40
+      global slot6y := slot5y +0
+      global slot7x :=slot6x + 40
+      global slot7y := slot5y +0
+      global slot8x := slot7x + 40
+      global slot8y := slot5y +0
+    ;end second row
+
+    ; start third row
+        global slot9x := slot1x + 0
+      global slot9y := slot5y + 35
+      global slot10x := slot9x + 40
+      global slot10y := slot9y +0
+      global slot11x :=slot10x + 40
+      global slot11y := slot9y +0
+      global slot12x := slot11x + 40
+      global slot12y := slot9y +0
+
+    ; end third row
+
+
+    ; fourth row start
+        global slot13x := slot1x + 0
+      global slot13y := slot9y + 35
+      global slot14x := slot13x + 40
+      global slot14y := slot13y +0
+      global slot15x :=slot14x + 40
+      global slot15y := slot13y +0
+      global slot16x := slot15x + 40
+      global slot16y := slot13y +0
+
+
+    ; fourth row end
+
+
+    ;fifth row start
+        global slot17x := slot1x + 0
+      global slot17y := slot13y + 35
+      global slot18x := slot17x + 40
+      global slot18y := slot17y +0
+      global slot19x :=slot18x + 40
+      global slot19y := slot17y +0
+      global slot20x := slot19x + 40
+      global slot20y := slot17y +0
+    ;fifth row end
+
+    ; sixth row start
+        global slot21x := slot1x + 0
+      global slot21y := slot17y + 35
+      global slot22x := slot21x + 40
+      global slot22y := slot21y +0
+      global slot23x :=slot22x + 40
+      global slot23y := slot21y +0
+      global slot24x := slot23x + 40
+      global slot24y := slot21y +0
+
+
+    ;sixth row end
+
+    ; seventh row start
+        global slot25x := slot1x + 0
+      global slot25y := slot21y + 35
+      global slot26x := slot25x + 40
+      global slot26y := slot25y +0
+      global slot27x :=slot26x + 40
+      global slot27y := slot25y +0
+      global slot28x := slot27x + 40
+      global slot28y := slot25y +0
+      ;seventh row end
+
+    ; write all to config file
+    IniWrite, %itopleftx%, inventory, slots, itopleftx
+    IniWrite, %itoplefty%, inventory, slots, itoplefty
+    IniWrite, %ibottomrightx%, inventory, slots, ibottomrightx
+    IniWrite, %ibottomrighty%, inventory, slots, ibottomrighty
+    IniWrite, %slot1x%, inventory, slots, slot1x
+    IniWrite, %slot1y%, inventory, slots, slot1y
+    IniWrite, %slot2x%, inventory, slots, slot2x
+    IniWrite, %slot2y%, inventory, slots, slot2y
+    IniWrite, %slot3x%, inventory, slots, slot3x
+    IniWrite, %slot3y%, inventory, slots, slot3y
+    IniWrite, %slot4x%, inventory, slots, slot4x
+    IniWrite, %slot4y%, inventory, slots, slot4y
+    IniWrite, %slot5x%, inventory, slots, slot5x
+    IniWrite, %slot5y%, inventory, slots, slot5y
+    IniWrite, %slot6x%, inventory, slots, slot6x
+    IniWrite, %slot6y%, inventory, slots, slot6y
+    IniWrite, %slot7x%, inventory, slots, slot7x
+    IniWrite, %slot7y%, inventory, slots, slot7y
+    IniWrite, %slot8x%, inventory, slots, slot8x
+    IniWrite, %slot8y%, inventory, slots, slot8y
+    IniWrite, %slot9x%, inventory, slots, slot9x
+    IniWrite, %slot9y%, inventory, slots, slot9y
+    IniWrite, %slot10x%, inventory, slots, slot10x
+    IniWrite, %slot10y%, inventory, slots, slot10y
+    IniWrite, %slot11x%, inventory, slots, slot11x
+    IniWrite, %slot11y%, inventory, slots, slot11y
+    IniWrite, %slot12x%, inventory, slots, slot12x
+    IniWrite, %slot12y%, inventory, slots, slot12y
+    IniWrite, %slot13x%, inventory, slots, slot13x
+    IniWrite, %slot13y%, inventory, slots, slot13y
+    IniWrite, %slot14x%, inventory, slots, slot14x
+    IniWrite, %slot14y%, inventory, slots, slot14y
+    IniWrite, %slot15x%, inventory, slots, slot15x
+    IniWrite, %slot15y%, inventory, slots, slot15y
+    IniWrite, %slot16x%, inventory, slots, slot16x
+    IniWrite, %slot16y%, inventory, slots, slot16y
+    IniWrite, %slot17x%, inventory, slots, slot17x
+    IniWrite, %slot17y%, inventory, slots, slot17y
+    IniWrite, %slot18x%, inventory, slots, slot18x
+    IniWrite, %slot18y%, inventory, slots, slot18y
+    IniWrite, %slot19x%, inventory, slots, slot19x
+    IniWrite, %slot19y%, inventory, slots, slot19y
+    IniWrite, %slot20x%, inventory, slots, slot20x
+    IniWrite, %slot20y%, inventory, slots, slot20y
+    IniWrite, %slot21x%, inventory, slots, slot21x
+    IniWrite, %slot21y%, inventory, slots, slot21y
+    IniWrite, %slot22x%, inventory, slots, slot22x
+    IniWrite, %slot22y%, inventory, slots, slot22y
+    IniWrite, %slot23x%, inventory, slots, slot23x
+    IniWrite, %slot23y%, inventory, slots, slot23y
+    IniWrite, %slot24x%, inventory, slots, slot24x
+    IniWrite, %slot24y%, inventory, slots, slot24y
+    IniWrite, %slot25x%, inventory, slots, slot25x
+    IniWrite, %slot25y%, inventory, slots, slot25y
+    IniWrite, %slot26x%, inventory, slots, slot26x
+    IniWrite, %slot26y%, inventory, slots, slot26y
+    IniWrite, %slot27x%, inventory, slots, slot27x
+    IniWrite, %slot27y%, inventory, slots, slot27y
+    IniWrite, %slot28x%, inventory, slots, slot28x
+    IniWrite, %slot28y%, inventory, slots, slot28y
+
+        }
+}
+
+
+
+
+
+
+
+
 setup(x){
 
 if x = North
@@ -485,6 +653,25 @@ If Height > 650
 }
 IniRead, compassx, inventory, slots, compassx
 IniRead, compassy, inventory, slots, compassy 
+WinGetActiveStats, Runelite, Width, Height, X, Y
+If Width <= 810
+{
+    3hpx := compassx-13
+}
+If Width > 810
+{
+    3hpx := compassx-20
+}
+If Height <= 650
+{
+    3hpy := compassy+46
+}
+If Height > 650
+{
+    3hpy := compassy+48
+}
+IniWrite, %3hpx%,inventory,slots,3hpx
+IniWrite, %3hpy%,inventory,slots,3hpy
 mousemove, compassx, compassy
 randsleep(50,150)
 click
@@ -532,6 +719,26 @@ If Height > 650
 IniRead, compassx, inventory, slots, compassx
 IniRead, compassy, inventory, slots, compassy 
 mousemove, compassx, compassy
+click
+WinGetActiveStats, Runelite, Width, Height, X, Y
+If Width <= 810
+{
+    3hpx := compassx-13
+}
+If Width > 810
+{
+    3hpx := compassx-20
+}
+If Height <= 650
+{
+    3hpy := compassy+46
+}
+If Height > 650
+{
+    3hpy := compassy+48
+}
+IniWrite, %3hpx%,inventory,slots,3hpx
+IniWrite, %3hpy%,inventory,slots,3hpy
 randsleep(50,150)
 click,right
 randsleep(150,250)
@@ -581,6 +788,26 @@ If Height > 650
 IniRead, compassx, inventory, slots, compassx
 IniRead, compassy, inventory, slots, compassy 
 mousemove, compassx, compassy
+click
+WinGetActiveStats, Runelite, Width, Height, X, Y
+If Width <= 810
+{
+    3hpx := compassx-13
+}
+If Width > 810
+{
+    3hpx := compassx-20
+}
+If Height <= 650
+{
+    3hpy := compassy+46
+}
+If Height > 650
+{
+    3hpy := compassy+48
+}
+IniWrite, %3hpx%,inventory,slots,3hpx
+IniWrite, %3hpy%,inventory,slots,3hpy
 randsleep(50,150)
 click,right
 randsleep(150,250)
@@ -609,6 +836,26 @@ compassposition()
 IniRead, compassx, inventory, slots, compassx
 IniRead, compassy, inventory, slots, compassy 
 mousemove, compassx, compassy
+click
+WinGetActiveStats, Runelite, Width, Height, X, Y
+If Width <= 810
+{
+    3hpx := compassx-13
+}
+If Width > 810
+{
+    3hpx := compassx-20
+}
+If Height <= 650
+{
+    3hpy := compassy+46
+}
+If Height > 650
+{
+    3hpy := compassy+48
+}
+IniWrite, %3hpx%,inventory,slots,3hpx
+IniWrite, %3hpy%,inventory,slots,3hpy
 randsleep(50,150)
 click,right
 randsleep(150,250)
@@ -633,10 +880,49 @@ mousemove, centerx, centery
 }
 }
 
+eatlow(){
+if (checklowhp() == True)
+    {
+      getinventory()
+      slotsinv(0x00FF00)
+    }
+}
 
 
+checklowhp(){
+  ; integrated with setup(x)
+IniRead, 3hpx,inventory,slots,3hpx
+IniRead, 3hpy,inventory,slots,3hpy
+PixelSearch, px,py, 3hpx, 3hpy,3hpx+1,3hpy-1, 0x9C0704, 5, Fast RGB
+    If (errorlevel = 0)
+        return false
+    If (errorlevel = 1)
+        return true
+
+}
 
 
+gethp(){
+  WinGetActiveStats, Runelite, Width, Height, X, Y
+If Width <= 810
+{
+    3hpx := compassx-13
+}
+If Width > 810
+{
+    3hpx := compassx-20
+}
+If Height <= 650
+{
+    3hpy := compassy+46
+}
+If Height > 650
+{
+    3hpy := compassy+48
+}
+IniWrite, %3hpx%,inventory,slots,3hpx
+IniWrite, %3hpy%,inventory,slots,3hpy
+}
 
 
 bankscn(color){
@@ -784,7 +1070,126 @@ PixelSearch, px, py, 11, 31, 525, 369, color, 5, Fast RGB
 
 }
 
+invdeposit(color){
+  getinventory()
+IniRead, slot1x, inventory, slots, slot1x
+IniRead, slot1y, inventory, slots, slot1y
+IniRead, slot2x, inventory, slots, slot2x
+IniRead, slot2y, inventory, slots, slot2y
+IniRead, slot3x, inventory, slots, slot3x
+IniRead, slot3y, inventory, slots, slot3y
+IniRead, slot4x, inventory, slots, slot4x
+IniRead, slot4y, inventory, slots, slot4y
+IniRead, slot5y, inventory, slots, slot5y
+IniRead, slot6x, inventory, slots, slot6x
+IniRead, slot6y, inventory, slots, slot6y
+IniRead, slot7x, inventory, slots, slot7x
+IniRead, slot7y, inventory, slots, slot7y
+IniRead, slot8x, inventory, slots, slot8x
+IniRead, slot8y, inventory, slots, slot8y
+IniRead, slot9x, inventory, slots, slot9x
+IniRead, slot9y, inventory, slots, slot9y
+IniRead, slot10x, inventory, slots, slot10x
+IniRead, slot10y, inventory, slots, slot10y
+IniRead, slot11x, inventory, slots, slot11x
+IniRead, slot11y, inventory, slots, slot11y
+IniRead, slot12x, inventory, slots, slot12x
+IniRead, slot12y, inventory, slots, slot12y
+    IniRead, slot13x, inventory, slots, slot13x
+IniRead, slot13y, inventory, slots, slot13y
+IniRead, slot14x, inventory, slots, slot14x
+IniRead, slot14y, inventory, slots, slot14y
+IniRead, slot15x, inventory, slots, slot15x
+IniRead, slot15y, inventory, slots, slot15y
+IniRead, slot16x, inventory, slots, slot16x
+IniRead, slot16y, inventory, slots, slot16y
+IniRead, slot17x, inventory, slots, slot17x
+IniRead, slot17y, inventory, slots, slot17y
+IniRead, slot18x, inventory, slots, slot18x
+IniRead, slot18y, inventory, slots, slot18y
+IniRead, slot19x, inventory, slots, slot19x
+IniRead, slot19y, inventory, slots, slot19y
+IniRead, slot20x, inventory, slots, slot20x
+IniRead, slot20y, inventory, slots, slot20y
+    IniRead, slot21x, inventory, slots, slot21x
+IniRead, slot21y, inventory, slots, slot21y
+IniRead, slot22x, inventory, slots, slot22x
+IniRead, slot22y, inventory, slots, slot22y
+IniRead, slot23x, inventory, slots, slot23x
+IniRead, slot23y, inventory, slots, slot23y
+IniRead, slot24x, inventory, slots, slot24x
+IniRead, slot24y, inventory, slots, slot24y
+    IniRead, slot25x, inventory, slots, slot25x
+IniRead, slot25y, inventory, slots, slot25y
+IniRead, slot26x, inventory, slots, slot26x
+IniRead, slot26y, inventory, slots, slot26y
+IniRead, slot27x, inventory, slots, slot27x
+IniRead, slot27y, inventory, slots, slot27y
+IniRead, slot28x, inventory, slots, slot28x
+IniRead, slot28y, inventory, slots, slot28y
 
+
+
+depslots(color,slot1x,slot1y)
+
+depslots(color,slot2x,slot2y)
+
+depslots(color,slot3x,slot3y)
+
+depslots(color,slot4x,slot4y)
+
+depslots(color,slot5x,slot5y)
+
+depslots(color,slot6x,slot6y)
+
+depslots(color,slot7x,slot7y)
+
+depslots(color,slot8x,slot8y)
+
+depslots(color,slot9x,slot9y)
+
+depslots(color,slot10x,slot10y)
+
+depslots(color,slot11x,slot11y)
+
+depslots(color,slot12x,slot12y)
+
+depslots(color,slot13x,slot13y)
+
+depslots(color,slot14x,slot14y)
+
+depslots(color,slot15x,slot15y)
+
+depslots(color,slot16x,slot16y)
+
+depslots(color,slot17x,slot17y)
+
+depslots(color,slot18x,slot18y)
+
+depslots(color,slot19x,slot19y)
+
+depslots(color,slot20x,slot20y)
+
+depslots(color,slot21x,slot21y)
+
+depslots(color,slot22x,slot22y)
+
+depslots(color,slot23x,slot23y)
+
+depslots(color,slot24x,slot24y)
+
+depslots(color,slot25x,slot25y)
+
+depslots(color,slot26x,slot26y)
+
+depslots(color,slot27x,slot27y)
+
+depslots(color,slot28x,slot28y)
+
+randsleep(1000,2000)
+Send {Esc}
+randsleep(1000,2000)
+}
 
 
 
@@ -810,27 +1215,34 @@ break
 }
 }
 
-xpdrop(x,color){
+xpdrop(sec,color){
+  compassposition()
 wait = 0
 loop{
-PixelSearch, xpx, xpy, 467, 81, 521, 127, color, 0, Fast RGB
+IniRead, compassx, inventory, slots, compassx
+IniRead, compassy, inventory, slots, compassy
+xpx1 := compassx - 350
+xpy1 := compassy + 70
+xpw1 := compassx - 50
+xph1 := compassy + 375
+PixelSearch, xpx, xpy, xpx1, xpy1, xpw1, xph1, color, 3, Fast RGB
     If (errorlevel = 0){
-        randsleep(300,600)
+        randsleep(1100,1300)
         break
     }
     If (errorlevel = 1)
     {
         wait +=1
 
-        if wait > %x%
+        if wait > %sec%
         {
             wait = 0
-            randsleep(300,600)
+            randsleep(800,1100)
             break
         }
-             if wait < %x%
+             if wait < %sec%
         {
-            randsleep(200,400)
+            randsleep(50,100)
         }
     }
 }
@@ -881,6 +1293,33 @@ PixelSearch, xpx, xpy, 467, 81, 521, 127, color, 0, Fast RGB
     }
 }
 }
+
+
+
+
+
+
+checkhp(){
+  compassposition()
+        IniRead, compassx, inventory, slots, compassx
+        IniRead, compassy, inventory, slots, compassy
+
+        hpx := compassx - 10
+        hpy := compassy +30
+
+mousemove, hpx, hpy
+
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1137,7 +1576,6 @@ getmmarea()
 
 
  clickcolorminimap(color){
-    mousegetpos, x,y
 getmmarea()
 IniRead, playable_topleftx, inventory, screen, playable_topleftx
 IniRead, playable_toplefty, inventory, screen, playable_toplefty
@@ -1168,13 +1606,19 @@ If Height > 650
 
         centermapx := compassx + 20
         centermapy := compassy + 60
-
+         mousegetpos, x,y
         PixelSearch, px, py, centermapx -180, centermapy - 180, centermapx +180, centermapy + 180, color, 25, Fast RGB
             If (errorlevel = 0){
-                mousemove, px, py
+              Random, MouseSpeed, 165,220
+                mousegetpos, MouseXpos, MouseYpos
+                RandomBezier( MouseXpos, MouseYpos, px-2, py+1, "T"MouseSpeed "P2-5")
                 click
                 randsleep(150,250)
-                mousemove, centerx,centery
+                mousegetpos, MouseXpos, MouseYpos
+                              Random, MouseSpeed, 200,320
+
+                RandomBezier( MouseXpos, MouseYpos, x + weightedclick(-200,0,200), y+ weightedclick(-200,0,200), "T"MouseSpeed "P2-5")
+
 
             }
             goto waitunder
@@ -1188,7 +1632,7 @@ If Height > 650
                 Pixelsearch, px2,py2, cx1,cy1,cw1,ch1, color, 15, Fast RGB
                     If (errorlevel = 0)
                         {
-                        randsleep(3000,4200)
+                        randsleep(2200,2400)
                         break
                         }
                     If (errorlevel = 1)
@@ -1330,7 +1774,6 @@ IniRead, slot3x, inventory, slots, slot3x
 IniRead, slot3y, inventory, slots, slot3y
 IniRead, slot4x, inventory, slots, slot4x
 IniRead, slot4y, inventory, slots, slot4y
-
 Random, x, 1,3
 
 if x = 1
@@ -1789,10 +2232,43 @@ slotsrange(color,slot28x,slot28y)
 
 slots(color,x,y)
 {
- PixelSearch, px, py, x-10, y-10, x+10, y+10, color,5, Fast RGB
+ PixelSearch, px, py, x-10, y-10, x+10, y+10, color,2, Fast RGB
  If (errorlevel = 0)
                 {
                     findspot(color, px-12, py-20, px+12,py+20)
+                    return true
+                }
+    Else
+        return false
+}
+
+
+slotsinv(color)
+{
+  getinventory()
+  IniRead, slot1x, inventory, slots, slot1x
+  IniRead, slot1y, inventory, slots, slot1y
+  IniRead, slot28y, inventory, slots, slot28y
+  IniRead, slot28x, inventory, slots, slot28x
+ PixelSearch, px, py, slot1x, slot1y, slot28x, slot28y, color,2, Fast RGB
+ If (errorlevel = 0)
+                {
+                    findspot(color, px-12, py-20, px+12,py+20)
+                    return true
+                }
+    Else
+        return false
+}
+
+
+
+depslots(color,x,y)
+{
+ PixelSearch, px, py, x-10, y-10, x+10, y+10, color,2, Fast RGB
+ If (errorlevel = 0)
+                {
+                    findspot(color, px-12, py-20, px+12,py+20)
+                    randsleep(700,1000)
                     return true
                 }
     Else
@@ -1936,7 +2412,7 @@ If Height > 650
 ; mousegetpos, MouseXpos, MouseYpos
 ; RandomBezier( MouseXpos, MouseYpos, centerx+ weightedclick(-1,0,1), centery+ weightedclick(-1,0,1), "T"MouseSpeed "P3-1")
 ; mousegetpos, cx, cy
-offset = 10
+offset = 5
 loop{
 PixelSearch, px, py, centerx - offset,centery - offset,centerx + offset,centery + offset, color, 15, Fast RGB
     If (errorlevel = 0)
@@ -1946,8 +2422,53 @@ PixelSearch, px, py, centerx - offset,centery - offset,centerx + offset,centery 
         }
     If (errorlevel = 1)
         offset += 10
+
+        if offset > 1500
+          break
 }
 }
+
+
+
+reset(color){
+    Random, MouseSpeed, 20,50
+WinGetActiveStats, Runelite, Width, Height, X, Y
+If Width <= 810
+{
+    centerx := (Width - 200) / 2
+}
+If Width > 810
+{
+    centerx := (Width) / 2
+}
+If Height <= 650
+{
+    centery := (Height - 160) / 2
+}
+If Height > 650
+{
+    centery := (Height) / 2
+}
+ ;fixed
+; centerx := (Width - 200) / 2
+; centery := (Height - 160) / 2
+; mousegetpos, MouseXpos, MouseYpos
+; RandomBezier( MouseXpos, MouseYpos, centerx+ weightedclick(-1,0,1), centery+ weightedclick(-1,0,1), "T"MouseSpeed "P3-1")
+; mousegetpos, cx, cy
+offset = 600
+PixelSearch, px, py, centerx - offset,centery - offset,centerx + offset,centery + offset, color, 15, Fast RGB
+    If (errorlevel = 0)    
+      return true
+        
+    If (errorlevel = 1)
+        return false
+
+}
+
+
+
+
+
 
 
 
@@ -1966,7 +2487,7 @@ sleep 120
                 centerTileX := ((OutputVarX + OutputVarX2) / 2)
                 centerTileY := ((OutputVarY + OutputVarY2) / 2)
         if (errorlevel = 0){ 
-            RandomBezier( MouseXpos, MouseYpos, centerTileX+ weightedclick(-1,0,1), centerTileY+ weightedclick(-1,0,1), "T"MouseSpeed "P3-1")
+            RandomBezier( MouseXpos, MouseYpos, centerTileX+ weightedclick(-3,0,3), centerTileY+ weightedclick(-3,0,3), "T"MouseSpeed "P2-5")
              randsleep(50,90)
             click
             randsleep(50,90)
@@ -1999,13 +2520,14 @@ Random, ms, 3,5
 Random, MouseSpeed, 165,220
 mousegetpos, MouseXpos, MouseYpos
 PixelSearch, OutputVarX, OutputVarY, x, y, w, h, color, 15, Fast RGB
-sleep 20
+sleep 5
     PixelSearch, OutputVarX2, OutputVarY2, w, h, x, y, color, 14, Fast RGB
                 centerTileX := ((OutputVarX + OutputVarX2) / 2)
                 centerTileY := ((OutputVarY + OutputVarY2) / 2)
         if (errorlevel = 0){ 
             mousemove, centerTileX, centerTileY, 0
-             randsleep(15,25)
+              IniRead, Delay, %A_Desktop%\pureconfig.ini,Config,Delay
+              sleep Delay
             click
         }
 }
@@ -2013,9 +2535,28 @@ sleep 20
 
 
 
+sleepdelay()
+{
+  IniRead, Delay, %A_Desktop%\pureconfig.ini,Config,Delay
 
+             if (Delay >= 45 <= 60)
+                {
+                randsleep(40,60)
+                }
+                if (Delay >= 1 <= 25)
+                {
+                randsleep(110,150)
+                }
+                if (Delay >= 26 <= 44)
+                {
+                randsleep(80,100)
+                }
+                if (Delay >= 61 <= 100)
+                {
+                randsleep(0,1)
+                }
 
-
+}
 
 
 ;;; Some General useful functions
