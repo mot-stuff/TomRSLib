@@ -220,37 +220,6 @@ Unz(sZip, sUnz)
 
 
 
-clickqp(){
-  compassposition()
-        IniRead, compassx, inventory, slots, compassx
-        IniRead, compassy, inventory, slots, compassy
-    qpx := compassx-15
-    qpy := compassy+80
-        IniWrite,%qpx%,%A_Desktop%\pureconfig.ini,Config,qpx
-        IniWrite,%qpy%,%A_Desktop%\pureconfig.ini,Config,qpy
-}
-
-
-
-
-
-getmmarea(){
-Pixelsearch, compassx,compassy,0, 0, A_ScreenWidth, A_ScreenHeight,0xB54042, 0, Fast RGB
-    If (errorlevel = 0)
-    {
-        IniWrite, %compassx%, inventory, slots, compassx
-        IniWrite, %compassy%, inventory, slots, compassy
-    }   
-}
-
-compassposition(){
-Pixelsearch, compassx,compassy,0, 0, A_ScreenWidth, A_ScreenHeight,0xB54042, 0, Fast RGB
-    If (errorlevel = 0)
-    {
-        IniWrite, %compassx%, inventory, slots, compassx
-        IniWrite, %compassy%, inventory, slots, compassy
-    }   
-}
 
 
 getplayarea(){
@@ -278,6 +247,25 @@ IniRead, playable_bottomrighty, inventory, screen, playable_bottomrighty
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 CenterWindow(WinTitle)
 {
     WinGetPos,,, Width, Height, %WinTitle%
@@ -295,171 +283,18 @@ WM_MOUSEMOVE( wparam, lparam, msg, hwnd )
 
 
 
-getinventorycc(color){
-
-
-
-Pixelsearch, px,py,0, 0, A_ScreenWidth, A_ScreenHeight,color, 0, Fast RGB
-    If (errorlevel = 0)
-    {
-    ; start first row
-      global itopleftx := px-200
-      global itoplefty := py+30
-      global ibottomrightx := px-5
-      global ibottomrighty := py + 286
-      global slot1x := itopleftx+35
-      global slot1y := itoplefty+20
-      global slot2x := slot1x+40
-      global slot2y := slot1y + 0
-      global slot3x := slot2x+40
-      global slot3y := slot2y + 0
-      global slot4x := slot3x+40
-      global slot4y := slot3y + 0
-    ;end first row
-
-    ; start second row
-      global slot5x := slot1x + 0
-      global slot5y := slot1y + 35
-      global slot6x := slot5x + 40
-      global slot6y := slot5y +0
-      global slot7x :=slot6x + 40
-      global slot7y := slot5y +0
-      global slot8x := slot7x + 40
-      global slot8y := slot5y +0
-    ;end second row
-
-    ; start third row
-        global slot9x := slot1x + 0
-      global slot9y := slot5y + 35
-      global slot10x := slot9x + 40
-      global slot10y := slot9y +0
-      global slot11x :=slot10x + 40
-      global slot11y := slot9y +0
-      global slot12x := slot11x + 40
-      global slot12y := slot9y +0
-
-    ; end third row
-
-
-    ; fourth row start
-        global slot13x := slot1x + 0
-      global slot13y := slot9y + 35
-      global slot14x := slot13x + 40
-      global slot14y := slot13y +0
-      global slot15x :=slot14x + 40
-      global slot15y := slot13y +0
-      global slot16x := slot15x + 40
-      global slot16y := slot13y +0
-
-
-    ; fourth row end
-
-
-    ;fifth row start
-        global slot17x := slot1x + 0
-      global slot17y := slot13y + 35
-      global slot18x := slot17x + 40
-      global slot18y := slot17y +0
-      global slot19x :=slot18x + 40
-      global slot19y := slot17y +0
-      global slot20x := slot19x + 40
-      global slot20y := slot17y +0
-    ;fifth row end
-
-    ; sixth row start
-        global slot21x := slot1x + 0
-      global slot21y := slot17y + 35
-      global slot22x := slot21x + 40
-      global slot22y := slot21y +0
-      global slot23x :=slot22x + 40
-      global slot23y := slot21y +0
-      global slot24x := slot23x + 40
-      global slot24y := slot21y +0
-
-
-    ;sixth row end
-
-    ; seventh row start
-        global slot25x := slot1x + 0
-      global slot25y := slot21y + 35
-      global slot26x := slot25x + 40
-      global slot26y := slot25y +0
-      global slot27x :=slot26x + 40
-      global slot27y := slot25y +0
-      global slot28x := slot27x + 40
-      global slot28y := slot25y +0
-      ;seventh row end
-
-    ; write all to config file
-    IniWrite, %itopleftx%, inventory, slots, itopleftx
-    IniWrite, %itoplefty%, inventory, slots, itoplefty
-    IniWrite, %ibottomrightx%, inventory, slots, ibottomrightx
-    IniWrite, %ibottomrighty%, inventory, slots, ibottomrighty
-    IniWrite, %slot1x%, inventory, slots, slot1x
-    IniWrite, %slot1y%, inventory, slots, slot1y
-    IniWrite, %slot2x%, inventory, slots, slot2x
-    IniWrite, %slot2y%, inventory, slots, slot2y
-    IniWrite, %slot3x%, inventory, slots, slot3x
-    IniWrite, %slot3y%, inventory, slots, slot3y
-    IniWrite, %slot4x%, inventory, slots, slot4x
-    IniWrite, %slot4y%, inventory, slots, slot4y
-    IniWrite, %slot5x%, inventory, slots, slot5x
-    IniWrite, %slot5y%, inventory, slots, slot5y
-    IniWrite, %slot6x%, inventory, slots, slot6x
-    IniWrite, %slot6y%, inventory, slots, slot6y
-    IniWrite, %slot7x%, inventory, slots, slot7x
-    IniWrite, %slot7y%, inventory, slots, slot7y
-    IniWrite, %slot8x%, inventory, slots, slot8x
-    IniWrite, %slot8y%, inventory, slots, slot8y
-    IniWrite, %slot9x%, inventory, slots, slot9x
-    IniWrite, %slot9y%, inventory, slots, slot9y
-    IniWrite, %slot10x%, inventory, slots, slot10x
-    IniWrite, %slot10y%, inventory, slots, slot10y
-    IniWrite, %slot11x%, inventory, slots, slot11x
-    IniWrite, %slot11y%, inventory, slots, slot11y
-    IniWrite, %slot12x%, inventory, slots, slot12x
-    IniWrite, %slot12y%, inventory, slots, slot12y
-    IniWrite, %slot13x%, inventory, slots, slot13x
-    IniWrite, %slot13y%, inventory, slots, slot13y
-    IniWrite, %slot14x%, inventory, slots, slot14x
-    IniWrite, %slot14y%, inventory, slots, slot14y
-    IniWrite, %slot15x%, inventory, slots, slot15x
-    IniWrite, %slot15y%, inventory, slots, slot15y
-    IniWrite, %slot16x%, inventory, slots, slot16x
-    IniWrite, %slot16y%, inventory, slots, slot16y
-    IniWrite, %slot17x%, inventory, slots, slot17x
-    IniWrite, %slot17y%, inventory, slots, slot17y
-    IniWrite, %slot18x%, inventory, slots, slot18x
-    IniWrite, %slot18y%, inventory, slots, slot18y
-    IniWrite, %slot19x%, inventory, slots, slot19x
-    IniWrite, %slot19y%, inventory, slots, slot19y
-    IniWrite, %slot20x%, inventory, slots, slot20x
-    IniWrite, %slot20y%, inventory, slots, slot20y
-    IniWrite, %slot21x%, inventory, slots, slot21x
-    IniWrite, %slot21y%, inventory, slots, slot21y
-    IniWrite, %slot22x%, inventory, slots, slot22x
-    IniWrite, %slot22y%, inventory, slots, slot22y
-    IniWrite, %slot23x%, inventory, slots, slot23x
-    IniWrite, %slot23y%, inventory, slots, slot23y
-    IniWrite, %slot24x%, inventory, slots, slot24x
-    IniWrite, %slot24y%, inventory, slots, slot24y
-    IniWrite, %slot25x%, inventory, slots, slot25x
-    IniWrite, %slot25y%, inventory, slots, slot25y
-    IniWrite, %slot26x%, inventory, slots, slot26x
-    IniWrite, %slot26y%, inventory, slots, slot26y
-    IniWrite, %slot27x%, inventory, slots, slot27x
-    IniWrite, %slot27y%, inventory, slots, slot27y
-    IniWrite, %slot28x%, inventory, slots, slot28x
-    IniWrite, %slot28y%, inventory, slots, slot28y
-
-        }
-}
-
 
 
 
 getinventory(){
-
+Pixelsearch, compassx2,compassy2,0, 0, A_ScreenWidth, A_ScreenHeight,0xA35C17, 0, Fast RGB
+    If (errorlevel = 0)
+    {
+        global compassx := compassx2 - 50
+        global compassy := compassy2 - 130
+        global qpx := compassx-5
+        global qpy := compassy+80
+    }   
 
 
 Pixelsearch, px,py,0, 0, A_ScreenWidth, A_ScreenHeight,0x28263C, 0, Fast RGB
@@ -470,158 +305,304 @@ Pixelsearch, px,py,0, 0, A_ScreenWidth, A_ScreenHeight,0x28263C, 0, Fast RGB
       global itoplefty := py+19
      global ibottomrightx := px+155
       global ibottomrighty := py + 268
-      global slot1x := itopleftx+35
-      global slot1y := itoplefty+20
+      global slot1x := itopleftx+17
+      global slot1y := itoplefty+8
+      global slot1w :=itopleftx+45
+      global slot1h :=itoplefty+30
+
+      global slotx1 := (slot1x + slot1w)/2
+      global sloty1 := (slot1y + slot1h)/2
+
       global slot2x := slot1x+40
       global slot2y := slot1y + 0
+      global slot2w := slot1w +40
+      global slot2h := slot1h + 0
+
+      global slotx2 := (slot2x + slot2w)/2
+      global sloty2 := (slot2y + slot2h)/2
+
       global slot3x := slot2x+40
       global slot3y := slot2y + 0
+      global slot3w := slot2w +40
+      global slot3h := slot1h + 0
+
+      global slotx3 := (slot3x + slot3w)/2
+      global sloty3 := (slot3y + slot3h)/2
+
       global slot4x := slot3x+40
       global slot4y := slot3y + 0
+      global slot4w := slot3w + 40
+      global slot4h := slot3h + 0
+
+      global slotx4 := (slot4x + slot4w)/2
+      global sloty4 := (slot4y + slot4h)/2
     ;end first row
 
+
     ; start second row
-      global slot5x := slot1x + 0
-      global slot5y := slot1y + 35
+      global slot5x := slot1x - 3
+      global slot5y := slot1y + 32
+      global slot5w := slot1w+5
+      global slot5h := slot1h + 35
+
+      global slotx5 := (slot5x + slot5w)/2
+      global sloty5 := (slot5y + slot5h)/2
+
+
       global slot6x := slot5x + 40
       global slot6y := slot5y +0
+      global slot6w := slot6x + 35
+      global slot6h := slot5h
+
+
+      global slotx6 := (slot6x + slot6w)/2
+      global sloty6 := (slot6y + slot6h)/2
+
+
       global slot7x :=slot6x + 40
       global slot7y := slot5y +0
-      global slot8x := slot7x + 40
+      global slot7w := slot7x + 40
+      global slot7h := slot6h
+
+      global slotx7 := (slot7x + slot7w)/2
+      global sloty7 := (slot7y + slot7h)/2
+
+      global slot8x := slot7x + 44
       global slot8y := slot5y +0
+      global slot8w := slot8x + 40
+      global slot8h := slot6h
+
+      global slotx8 := (slot8x + slot8w)/2
+      global sloty8 := (slot8y + slot8h)/2
+
+      
     ;end second row
 
     ; start third row
-        global slot9x := slot1x + 0
+      global slot9x := slot1x + 0
       global slot9y := slot5y + 35
+      global slot9w := slot1w
+      global slot9h := slot5h + 35
+  
+      global slotx9 := (slot9x + slot9w)/2
+      global sloty9 := (slot9y + slot9h)/2
+
+
       global slot10x := slot9x + 40
       global slot10y := slot9y +0
+      global slot10w := slot9w + 40
+      global slot10h := slot9h
+
+      global slotx10 := (slot10x + slot10w)/2
+      global sloty10 := (slot10y + slot10h)/2
+
       global slot11x :=slot10x + 40
       global slot11y := slot9y +0
+    global slot11w := slot10w + 40
+      global slot11h := slot9h
+
+      global slotx11 := (slot11x + slot11w)/2
+      global sloty11 := (slot11y + slot11h)/2
+
       global slot12x := slot11x + 40
       global slot12y := slot9y +0
+    global slot12w := slot11w + 40
+      global slot12h := slot9h
 
+          global slotx12 := (slot12x + slot12w)/2
+      global sloty12 := (slot12y + slot12h)/2
     ; end third row
 
 
     ; fourth row start
         global slot13x := slot1x + 0
       global slot13y := slot9y + 35
+      global slot13w := slot1w
+      global slot13h := slot9h + 35
+
+      global slotx13 := (slot13x + slot13w)/2
+      global sloty13 := (slot13y + slot13h)/2
+
+
+
       global slot14x := slot13x + 40
       global slot14y := slot13y +0
+      global slot14w := slot13w+40
+      global slot14h := slot13h
+
+
+      global slotx14 := (slot14x + slot14w)/2
+      global sloty14 := (slot14y + slot14h)/2
+
+
       global slot15x :=slot14x + 40
       global slot15y := slot13y +0
+      global slot15w := slot14w+40
+      global slot15h := slot13h
+
+
+      global slotx15 := (slot15x + slot15w)/2
+      global sloty15 := (slot15y + slot15h)/2
+
+
+
       global slot16x := slot15x + 40
       global slot16y := slot13y +0
+        global slot16w := slot15w+40
+      global slot16h := slot13h
 
+  global slotx16 := (slot16x + slot16w)/2
+      global sloty16 := (slot16y + slot16h)/2
 
     ; fourth row end
 
 
     ;fifth row start
+
         global slot17x := slot1x + 0
       global slot17y := slot13y + 35
+      global slot17w := slot1w
+      global slot17h := slot13h + 35
+
+
+  global slotx17 := (slot17x + slot17w)/2
+      global sloty17 := (slot17y + slot17h)/2
+  
       global slot18x := slot17x + 40
       global slot18y := slot17y +0
+      global slot18w := slot17w + 40
+      global slot18h := slot17h
+
+  global slotx18 := (slot18x + slot18w)/2
+      global sloty18 := (slot18y + slot18h)/2
+
+
       global slot19x :=slot18x + 40
       global slot19y := slot17y +0
+      global slot19w := slot18w + 40
+      global slot19h := slot17h
+
+  global slotx19 := (slot19x + slot19w)/2
+      global sloty19 := (slot19y + slot19h)/2
+
       global slot20x := slot19x + 40
       global slot20y := slot17y +0
+      global slot20w := slot19w + 40
+      global slot20h := slot17h
+
+  global slotx20 := (slot20x + slot20w)/2
+      global sloty20 := (slot20y + slot20h)/2
+
+
     ;fifth row end
+
+
+
+
+
 
     ; sixth row start
         global slot21x := slot1x + 0
       global slot21y := slot17y + 35
+      global slot21w := slot1w
+      global slot21h := slot17h + 35
+
+  global slotx21 := (slot21x + slot21w)/2
+      global sloty21 := (slot21y + slot21h)/2
+
+
       global slot22x := slot21x + 40
       global slot22y := slot21y +0
+      global slot22w := slot21w + 40
+      global slot22h := slot21h
+
+  global slotx22 := (slot22x + slot22w)/2
+      global sloty22 := (slot22y + slot22h)/2
+
       global slot23x :=slot22x + 40
       global slot23y := slot21y +0
+      global slot23w := slot22w + 40
+      global slot23h := slot21h
+
+  global slotx23 := (slot23x + slot23w)/2
+      global sloty23 := (slot23y + slot23h)/2
+
       global slot24x := slot23x + 40
       global slot24y := slot21y +0
+      global slot24w := slot23w + 40
+      global slot24h := slot21h
+  global slotx24 := (slot24x + slot24w)/2
+      global sloty24 := (slot24y + slot24h)/2
 
+      
 
     ;sixth row end
 
     ; seventh row start
         global slot25x := slot1x + 0
       global slot25y := slot21y + 35
+      global slot25w := slot1w
+      global slot25h := slot21h + 35
+
+        global slotx25 := (slot25x + slot25w)/2
+      global sloty25 := (slot25y + slot25h)/2
+
       global slot26x := slot25x + 40
       global slot26y := slot25y +0
+      global slot26w := slot25w + 40
+      global slot26h := slot25h
+
+        global slotx26 := (slot26x + slot26w)/2
+      global sloty26 := (slot26y + slot26h)/2
+
       global slot27x :=slot26x + 40
       global slot27y := slot25y +0
+      global slot27w := slot26w + 40
+      global slot27h := slot25h
+
+        global slotx27 := (slot27x + slot27w)/2
+      global sloty27 := (slot27y + slot27h)/2
+
       global slot28x := slot27x + 40
       global slot28y := slot25y +0
-      ;seventh row end
+      global slot28w := slot27w + 40
+      global slot28h := slot25h
 
-    ; write all to config file
-    IniWrite, %itopleftx%, inventory, slots, itopleftx
-    IniWrite, %itoplefty%, inventory, slots, itoplefty
-    IniWrite, %ibottomrightx%, inventory, slots, ibottomrightx
-    IniWrite, %ibottomrighty%, inventory, slots, ibottomrighty
-    IniWrite, %slot1x%, inventory, slots, slot1x
-    IniWrite, %slot1y%, inventory, slots, slot1y
-    IniWrite, %slot2x%, inventory, slots, slot2x
-    IniWrite, %slot2y%, inventory, slots, slot2y
-    IniWrite, %slot3x%, inventory, slots, slot3x
-    IniWrite, %slot3y%, inventory, slots, slot3y
-    IniWrite, %slot4x%, inventory, slots, slot4x
-    IniWrite, %slot4y%, inventory, slots, slot4y
-    IniWrite, %slot5x%, inventory, slots, slot5x
-    IniWrite, %slot5y%, inventory, slots, slot5y
-    IniWrite, %slot6x%, inventory, slots, slot6x
-    IniWrite, %slot6y%, inventory, slots, slot6y
-    IniWrite, %slot7x%, inventory, slots, slot7x
-    IniWrite, %slot7y%, inventory, slots, slot7y
-    IniWrite, %slot8x%, inventory, slots, slot8x
-    IniWrite, %slot8y%, inventory, slots, slot8y
-    IniWrite, %slot9x%, inventory, slots, slot9x
-    IniWrite, %slot9y%, inventory, slots, slot9y
-    IniWrite, %slot10x%, inventory, slots, slot10x
-    IniWrite, %slot10y%, inventory, slots, slot10y
-    IniWrite, %slot11x%, inventory, slots, slot11x
-    IniWrite, %slot11y%, inventory, slots, slot11y
-    IniWrite, %slot12x%, inventory, slots, slot12x
-    IniWrite, %slot12y%, inventory, slots, slot12y
-    IniWrite, %slot13x%, inventory, slots, slot13x
-    IniWrite, %slot13y%, inventory, slots, slot13y
-    IniWrite, %slot14x%, inventory, slots, slot14x
-    IniWrite, %slot14y%, inventory, slots, slot14y
-    IniWrite, %slot15x%, inventory, slots, slot15x
-    IniWrite, %slot15y%, inventory, slots, slot15y
-    IniWrite, %slot16x%, inventory, slots, slot16x
-    IniWrite, %slot16y%, inventory, slots, slot16y
-    IniWrite, %slot17x%, inventory, slots, slot17x
-    IniWrite, %slot17y%, inventory, slots, slot17y
-    IniWrite, %slot18x%, inventory, slots, slot18x
-    IniWrite, %slot18y%, inventory, slots, slot18y
-    IniWrite, %slot19x%, inventory, slots, slot19x
-    IniWrite, %slot19y%, inventory, slots, slot19y
-    IniWrite, %slot20x%, inventory, slots, slot20x
-    IniWrite, %slot20y%, inventory, slots, slot20y
-    IniWrite, %slot21x%, inventory, slots, slot21x
-    IniWrite, %slot21y%, inventory, slots, slot21y
-    IniWrite, %slot22x%, inventory, slots, slot22x
-    IniWrite, %slot22y%, inventory, slots, slot22y
-    IniWrite, %slot23x%, inventory, slots, slot23x
-    IniWrite, %slot23y%, inventory, slots, slot23y
-    IniWrite, %slot24x%, inventory, slots, slot24x
-    IniWrite, %slot24y%, inventory, slots, slot24y
-    IniWrite, %slot25x%, inventory, slots, slot25x
-    IniWrite, %slot25y%, inventory, slots, slot25y
-    IniWrite, %slot26x%, inventory, slots, slot26x
-    IniWrite, %slot26y%, inventory, slots, slot26y
-    IniWrite, %slot27x%, inventory, slots, slot27x
-    IniWrite, %slot27y%, inventory, slots, slot27y
-    IniWrite, %slot28x%, inventory, slots, slot28x
-    IniWrite, %slot28y%, inventory, slots, slot28y
+
+        global slotx28 := (slot28x + slot28w)/2
+      global sloty28 := (slot28y + slot28h)/2
+ ; seventh row end
+
+;protection prayers
+ global protectmagex := slot14x-2
+global protectmagey := slot14y+19
+
+global protectrangex := slot14x+43
+global protectrangey := slot14y +19
+
+global protectmeleex := slot14x+83
+global protectmeleey := slot14y + 19
+
 
         }
 }
 
 
+quicksearch(color,x,y,w,h,slotx,sloty)
+{
+  IniRead, Delay, %A_Desktop%\pureconfig.ini,Config,Delay
+Pixelsearch, px, py,x+3,y+3,w-3,h-3,color,4, Fast RGB
+  If (errorlevel = 0)
 
+    {
+      click, %slotx%,%sloty%
+      randsleep(Delay,Delay+10)
+      return true
+    }
+  Else
+  return false
 
-
+}
 
 
 
@@ -629,7 +610,7 @@ setup(x){
 
 if x = North
 {
-compassposition()
+()
 IniRead, playable_topleftx, inventory, screen, playable_topleftx
 IniRead, playable_toplefty, inventory, screen, playable_toplefty
 IniRead, playable_bottomrightx, inventory, screen, playable_bottomrightx
@@ -694,7 +675,7 @@ mousemove, centerx, centery
 
 if x = East
 {
-compassposition()
+()
 IniRead, playable_topleftx, inventory, screen, playable_topleftx
 IniRead, playable_toplefty, inventory, screen, playable_toplefty
 IniRead, playable_bottomrightx, inventory, screen, playable_bottomrightx
@@ -763,7 +744,7 @@ mousemove, centerx, centery
 }
 if x = South
 {
-compassposition()
+()
 IniRead, playable_topleftx, inventory, screen, playable_topleftx
 IniRead, playable_toplefty, inventory, screen, playable_toplefty
 IniRead, playable_bottomrightx, inventory, screen, playable_bottomrightx
@@ -832,7 +813,7 @@ mousemove, centerx, centery
 }
 if x = West
 {
-compassposition()
+()
 IniRead, compassx, inventory, slots, compassx
 IniRead, compassy, inventory, slots, compassy 
 mousemove, compassx, compassy
@@ -1027,9 +1008,7 @@ PixelSearch, px, py, 196, 104, 341, 248, color, 10, Fast RGB
 ;;check last slot color
 checklast(color){
 getinventory()
-IniRead, slot28x, inventory, slots, slot28x
-IniRead, slot28y, inventory, slots, slot28y
-PixelSearch, xx1, yy1, slot28x-10, slot28y-10, slot28x+10, slot28y+10, color, 5, Fast RGB
+PixelSearch, xx1, yy1, slot28x, slot28y, slot28w, slot28h, color, 5, Fast RGB
     IF (errorlevel = 0)
         return True
     If (errorlevel = 1)
@@ -1193,8 +1172,6 @@ randsleep(1000,2000)
 
 
 
-
-
 ;; Deposit Information
 ;;; deposit(color) is used to deposit the color of an item when bank is open
 
@@ -1216,36 +1193,35 @@ break
 }
 
 xpdrop(sec,color){
-  compassposition()
 wait = 0
 loop{
 IniRead, compassx, inventory, slots, compassx
 IniRead, compassy, inventory, slots, compassy
-xpx1 := compassx - 350
-xpy1 := compassy + 70
+xpx1 := compassx - 400
+xpy1 := compassy + 50
 xpw1 := compassx - 50
 xph1 := compassy + 375
-PixelSearch, xpx, xpy, xpx1, xpy1, xpw1, xph1, color, 3, Fast RGB
+PixelSearch, xpx, xpy, xpx1, xpy1, xpw1, xph1, color, 2, Fast RGB
     If (errorlevel = 0){
-        randsleep(1100,1300)
+           wait = 0
+            randsleep(600,800)
         break
     }
     If (errorlevel = 1)
     {
-        wait +=1
-
-        if wait > %sec%
-        {
-            wait = 0
-            randsleep(800,1100)
-            break
-        }
-             if wait < %sec%
-        {
-            randsleep(50,100)
-        }
-    }
+      loop, 100{
+      PixelSearch, xpx, xpy, xpx1, xpy1, xpw1, xph1, color, 2, Fast RGB
+        If (errorlevel = 1)
+          sleep 100
+        If (errorlevel = 0)
+          break
+      
+      
+      }
+      break
 }
+}
+randsleep(700,1000)
 }
 
 
@@ -1300,7 +1276,6 @@ PixelSearch, xpx, xpy, 467, 81, 521, 127, color, 0, Fast RGB
 
 
 checkhp(){
-  compassposition()
         IniRead, compassx, inventory, slots, compassx
         IniRead, compassy, inventory, slots, compassy
 
@@ -1557,9 +1532,6 @@ mousegetpos, MouseXpos, MouseYpos
 
 
 getcolormm(color){
-getmmarea()
-        IniRead, compassx, inventory, slots, compassx
-        IniRead, compassy, inventory, slots, compassy
 
         centermapx := compassx + 20
         centermapy := compassy + 60
@@ -1576,11 +1548,6 @@ getmmarea()
 
 
  clickcolorminimap(color){
-getmmarea()
-IniRead, playable_topleftx, inventory, screen, playable_topleftx
-IniRead, playable_toplefty, inventory, screen, playable_toplefty
-IniRead, playable_bottomrightx, inventory, screen, playable_bottomrightx
-IniRead, playable_bottomrighty, inventory, screen, playable_bottomrighty
 
 WinGetActiveStats, Runelite, Width, Height, X, Y
 If Width <= 810
@@ -1604,7 +1571,7 @@ If Height > 650
         IniRead, compassx, inventory, slots, compassx
         IniRead, compassy, inventory, slots, compassy
 
-        centermapx := compassx + 20
+        centermapx := compassx + 40
         centermapy := compassy + 60
          mousegetpos, x,y
         PixelSearch, px, py, centermapx -180, centermapy - 180, centermapx +180, centermapy + 180, color, 25, Fast RGB
@@ -1617,7 +1584,7 @@ If Height > 650
                 mousegetpos, MouseXpos, MouseYpos
                               Random, MouseSpeed, 200,320
 
-                RandomBezier( MouseXpos, MouseYpos, x + weightedclick(-200,0,200), y+ weightedclick(-200,0,200), "T"MouseSpeed "P2-5")
+                RandomBezier( MouseXpos, MouseYpos, x + weightedclick(-400,0,400), y+ weightedclick(-400,0,400), "T"MouseSpeed "P2-5")
 
 
             }
@@ -1632,7 +1599,7 @@ If Height > 650
                 Pixelsearch, px2,py2, cx1,cy1,cw1,ch1, color, 15, Fast RGB
                     If (errorlevel = 0)
                         {
-                        randsleep(2200,2400)
+                        randsleep(1200,1600)
                         break
                         }
                     If (errorlevel = 1)
@@ -1687,9 +1654,75 @@ mousegetpos, MouseXpos, MouseYpos
 
 
 
+scanfirstrow(color){
+  getinventory()
+Pixelsearch, row1x,row1y, slot1x,slot1y, slot4x+5,slots4y+10, color, 5, Fast RGB
+  If (errorlevel = 0)
+    return true
+  If (errorlevel = 1)
+    return true
 
+}
 
+scansecondrow(color){
+  getinventory()
+Pixelsearch, row1x,row1y, slot5x,slot5y, slot8x+5,slots8y+10, color, 5, Fast RGB
+  If (errorlevel = 0)
+    return true
+  If (errorlevel = 1)
+    return true
 
+}
+
+scanthirdrow(color){
+  getinventory()
+Pixelsearch, row1x,row1y, slot9x,slot9y, slot12x+5,slots12y+10, color, 5, Fast RGB
+  If (errorlevel = 0)
+    return true
+  If (errorlevel = 1)
+    return true
+
+}
+
+scanfourthrow(color){
+  getinventory()
+Pixelsearch, row1x,row1y, slot13x,slot13y, slot16x+5,slots16y+10, color, 5, Fast RGB
+  If (errorlevel = 0)
+    return true
+  If (errorlevel = 1)
+    return true
+
+}
+
+scanfifthrow(color){
+  getinventory()
+Pixelsearch, row1x,row1y, slot17x,slot17y, slot20x+5,slots20y+10, color, 5, Fast RGB
+  If (errorlevel = 0)
+    return true
+  If (errorlevel = 1)
+    return true
+
+}
+
+scansixthrow(color){
+  getinventory()
+Pixelsearch, row1x,row1y, slot21x,slot21y, slot24x+5,slots24y+10, color, 5, Fast RGB
+  If (errorlevel = 0)
+    return true
+  If (errorlevel = 1)
+    return true
+
+}
+
+scanseventhrow(color){
+  getinventory()
+Pixelsearch, row1x,row1y, slot25x,slot25y, slot28x+5,slots28y+10, color, 5, Fast RGB
+  If (errorlevel = 0)
+    return true
+  If (errorlevel = 1)
+    return true
+
+}
 
 
 checkdrop(color){
@@ -1806,15 +1839,15 @@ slots(color,slot1x,slot1y)
 
 
 firstrowpk(color){
-IniRead, slot1x, inventory, slots, slot1x
-IniRead, slot1y, inventory, slots, slot1y
-IniRead, slot2x, inventory, slots, slot2x
-IniRead, slot2y, inventory, slots, slot2y
-IniRead, slot3x, inventory, slots, slot3x
-IniRead, slot3y, inventory, slots, slot3y
-IniRead, slot4x, inventory, slots, slot4x
-IniRead, slot4y, inventory, slots, slot4y
-
+; IniRead, slot1x, inventory, slots, slot1x
+; IniRead, slot1y, inventory, slots, slot1y
+; IniRead, slot2x, inventory, slots, slot2x
+; IniRead, slot2y, inventory, slots, slot2y
+; IniRead, slot3x, inventory, slots, slot3x
+; IniRead, slot3y, inventory, slots, slot3y
+; IniRead, slot4x, inventory, slots, slot4x
+; IniRead, slot4y, inventory, slots, slot4y
+    getinventory()
 
 slotsrange(color,slot1x,slot1y)
 slotsrange(color,slot2x,slot2y)
@@ -1868,15 +1901,15 @@ slots(color,slot8x,slot8y)
 
 
 secondrowpk(color){
-IniRead, slot5x, inventory, slots, slot5x
-IniRead, slot5y, inventory, slots, slot5y
-IniRead, slot6x, inventory, slots, slot6x
-IniRead, slot6y, inventory, slots, slot6y
-IniRead, slot7x, inventory, slots, slot7x
-IniRead, slot7y, inventory, slots, slot7y
-IniRead, slot8x, inventory, slots, slot8x
-IniRead, slot8y, inventory, slots, slot8y
-
+; IniRead, slot5x, inventory, slots, slot5x
+; IniRead, slot5y, inventory, slots, slot5y
+; IniRead, slot6x, inventory, slots, slot6x
+; IniRead, slot6y, inventory, slots, slot6y
+; IniRead, slot7x, inventory, slots, slot7x
+; IniRead, slot7y, inventory, slots, slot7y
+; IniRead, slot8x, inventory, slots, slot8x
+; IniRead, slot8y, inventory, slots, slot8y
+    getinventory()
 
 slotsrange(color,slot5x,slot5y)
 slotsrange(color,slot6x,slot6y)
@@ -1914,42 +1947,21 @@ slots(color,slot12x,slot12y)
 
 thirdrowpk(color){
 
-IniRead, slot9x, inventory, slots, slot9x
-IniRead, slot9y, inventory, slots, slot9y
-IniRead, slot10x, inventory, slots, slot10x
-IniRead, slot10y, inventory, slots, slot10y
-IniRead, slot11x, inventory, slots, slot11x
-IniRead, slot11y, inventory, slots, slot11y
-IniRead, slot12x, inventory, slots, slot12x
-IniRead, slot12y, inventory, slots, slot12y
+; IniRead, slot9x, inventory, slots, slot9x
+; IniRead, slot9y, inventory, slots, slot9y
+; IniRead, slot10x, inventory, slots, slot10x
+; IniRead, slot10y, inventory, slots, slot10y
+; IniRead, slot11x, inventory, slots, slot11x
+; IniRead, slot11y, inventory, slots, slot11y
+; IniRead, slot12x, inventory, slots, slot12x
+; IniRead, slot12y, inventory, slots, slot12y
 
-
-Random, x, 1,3
-
-if x = 1
-{
-
+    getinventory()
 slotsrange(color,slot9x,slot9y)
 slotsrange(color,slot10x,slot10y)
 slotsrange(color,slot11x,slot11y)
 slotsrange(color,slot12x,slot12y)
-}
 
-if x = 2
-{
-slotsrange(color,slot9x,slot9y)
-slotsrange(color,slot10x,slot10y)
-slotsrange(color,slot11x,slot11y)
-slotsrange(color,slot12x,slot12y)
-}
-
-if x = 3
-{
-slotsrange(color,slot9x,slot9y)
-slotsrange(color,slot10x,slot10y)
-slotsrange(color,slot11x,slot11y)
-slotsrange(color,slot12x,slot12y)
-}
 }
 
 
@@ -2002,15 +2014,15 @@ slots(color,slot16x,slot16y)
 
 
 fourthrowpk(color){
-IniRead, slot13x, inventory, slots, slot13x
-IniRead, slot13y, inventory, slots, slot13y
-IniRead, slot14x, inventory, slots, slot14x
-IniRead, slot14y, inventory, slots, slot14y
-IniRead, slot15x, inventory, slots, slot15x
-IniRead, slot15y, inventory, slots, slot15y
-IniRead, slot16x, inventory, slots, slot16x
-IniRead, slot16y, inventory, slots, slot16y
-
+; IniRead, slot13x, inventory, slots, slot13x
+; IniRead, slot13y, inventory, slots, slot13y
+; IniRead, slot14x, inventory, slots, slot14x
+; IniRead, slot14y, inventory, slots, slot14y
+; IniRead, slot15x, inventory, slots, slot15x
+; IniRead, slot15y, inventory, slots, slot15y
+; IniRead, slot16x, inventory, slots, slot16x
+; IniRead, slot16y, inventory, slots, slot16y
+    getinventory()
 
 slotsrange(color,slot13x,slot13y)
 slotsrange(color,slot14x,slot14y)
@@ -2071,15 +2083,15 @@ slots(color,slot20x,slot20y)
 
 
 fifthrowpk(color){
-IniRead, slot17x, inventory, slots, slot17x
-IniRead, slot17y, inventory, slots, slot17y
-IniRead, slot18x, inventory, slots, slot18x
-IniRead, slot18y, inventory, slots, slot18y
-IniRead, slot19x, inventory, slots, slot19x
-IniRead, slot19y, inventory, slots, slot19y
-IniRead, slot20x, inventory, slots, slot20x
-IniRead, slot20y, inventory, slots, slot20y
-
+; IniRead, slot17x, inventory, slots, slot17x
+; IniRead, slot17y, inventory, slots, slot17y
+; IniRead, slot18x, inventory, slots, slot18x
+; IniRead, slot18y, inventory, slots, slot18y
+; IniRead, slot19x, inventory, slots, slot19x
+; IniRead, slot19y, inventory, slots, slot19y
+; IniRead, slot20x, inventory, slots, slot20x
+; IniRead, slot20y, inventory, slots, slot20y
+    getinventory()
 
 
 slotsrange(color,slot17x,slot17y)
@@ -2147,16 +2159,16 @@ slots(color,slot24x,slot24y)
 
 
 sixthrowpk(color){
-IniRead, slot21x, inventory, slots, slot21x
-IniRead, slot21y, inventory, slots, slot21y
-IniRead, slot22x, inventory, slots, slot22x
-IniRead, slot22y, inventory, slots, slot22y
-IniRead, slot23x, inventory, slots, slot23x
-IniRead, slot23y, inventory, slots, slot23y
-IniRead, slot24x, inventory, slots, slot24x
-IniRead, slot24y, inventory, slots, slot24y
+; IniRead, slot21x, inventory, slots, slot21x
+; IniRead, slot21y, inventory, slots, slot21y
+; IniRead, slot22x, inventory, slots, slot22x
+; IniRead, slot22y, inventory, slots, slot22y
+; IniRead, slot23x, inventory, slots, slot23x
+; IniRead, slot23y, inventory, slots, slot23y
+; IniRead, slot24x, inventory, slots, slot24x
+; IniRead, slot24y, inventory, slots, slot24y
 
-
+    getinventory()
 slotsrange(color,slot21x,slot21y)
 slotsrange(color,slot22x,slot22y)
 slotsrange(color,slot23x,slot23y)
@@ -2209,15 +2221,15 @@ slots(color,slot28x,slot28y)
 }
 
 seventhrowpk(color){
-IniRead, slot25x, inventory, slots, slot25x
-IniRead, slot25y, inventory, slots, slot25y
-IniRead, slot26x, inventory, slots, slot26x
-IniRead, slot26y, inventory, slots, slot26y
-IniRead, slot27x, inventory, slots, slot27x
-IniRead, slot27y, inventory, slots, slot27y
-IniRead, slot28x, inventory, slots, slot28x
-IniRead, slot28y, inventory, slots, slot28y
-
+; IniRead, slot25x, inventory, slots, slot25x
+; IniRead, slot25y, inventory, slots, slot25y
+; IniRead, slot26x, inventory, slots, slot26x
+; IniRead, slot26y, inventory, slots, slot26y
+; IniRead, slot27x, inventory, slots, slot27x
+; IniRead, slot27y, inventory, slots, slot27y
+; IniRead, slot28x, inventory, slots, slot28x
+; IniRead, slot28y, inventory, slots, slot28y
+    getinventory()
 
 
 slotsrange(color,slot25x,slot25y)
@@ -2229,6 +2241,200 @@ slotsrange(color,slot28x,slot28y)
 
 
 ;;; very important tightly wrapped function. Basically, use it on each inventory slot to determine whether to click a color or not
+
+
+SearchSlot(color,x1,y1){
+
+
+
+
+Pixelsearch, PX5, PY5, x1 -5, y1 -5, x1 + 5, y1+5, color,0, Fast, RGB
+If !ErrorLevel
+{
+	click, %PX5%,%PY5%
+  wait()
+}
+}
+
+wait()
+{
+	random, WaitSleep, 36, 45
+	sleep %WaitSleep%
+}
+
+
+
+loadslots(){
+  IniRead, slot1x, inventory, slots, slot1x
+IniRead, slot1y, inventory, slots, slot1y
+IniRead, slot2x, inventory, slots, slot2x
+IniRead, slot2y, inventory, slots, slot2y
+IniRead, slot3x, inventory, slots, slot3x
+IniRead, slot3y, inventory, slots, slot3y
+IniRead, slot4x, inventory, slots, slot4x
+IniRead, slot4y, inventory, slots, slot4y
+IniRead, slot5y, inventory, slots, slot5y
+IniRead, slot6x, inventory, slots, slot6x
+IniRead, slot6y, inventory, slots, slot6y
+IniRead, slot7x, inventory, slots, slot7x
+IniRead, slot7y, inventory, slots, slot7y
+IniRead, slot8x, inventory, slots, slot8x
+IniRead, slot8y, inventory, slots, slot8y
+IniRead, slot9x, inventory, slots, slot9x
+IniRead, slot9y, inventory, slots, slot9y
+IniRead, slot10x, inventory, slots, slot10x
+IniRead, slot10y, inventory, slots, slot10y
+IniRead, slot11x, inventory, slots, slot11x
+IniRead, slot11y, inventory, slots, slot11y
+IniRead, slot12x, inventory, slots, slot12x
+IniRead, slot12y, inventory, slots, slot12y
+    IniRead, slot13x, inventory, slots, slot13x
+IniRead, slot13y, inventory, slots, slot13y
+IniRead, slot14x, inventory, slots, slot14x
+IniRead, slot14y, inventory, slots, slot14y
+IniRead, slot15x, inventory, slots, slot15x
+IniRead, slot15y, inventory, slots, slot15y
+IniRead, slot16x, inventory, slots, slot16x
+IniRead, slot16y, inventory, slots, slot16y
+IniRead, slot17x, inventory, slots, slot17x
+IniRead, slot17y, inventory, slots, slot17y
+IniRead, slot18x, inventory, slots, slot18x
+IniRead, slot18y, inventory, slots, slot18y
+IniRead, slot19x, inventory, slots, slot19x
+IniRead, slot19y, inventory, slots, slot19y
+IniRead, slot20x, inventory, slots, slot20x
+IniRead, slot20y, inventory, slots, slot20y
+    IniRead, slot21x, inventory, slots, slot21x
+IniRead, slot21y, inventory, slots, slot21y
+IniRead, slot22x, inventory, slots, slot22x
+IniRead, slot22y, inventory, slots, slot22y
+IniRead, slot23x, inventory, slots, slot23x
+IniRead, slot23y, inventory, slots, slot23y
+IniRead, slot24x, inventory, slots, slot24x
+IniRead, slot24y, inventory, slots, slot24y
+    IniRead, slot25x, inventory, slots, slot25x
+IniRead, slot25y, inventory, slots, slot25y
+IniRead, slot26x, inventory, slots, slot26x
+IniRead, slot26y, inventory, slots, slot26y
+IniRead, slot27x, inventory, slots, slot27x
+IniRead, slot27y, inventory, slots, slot27y
+IniRead, slot28x, inventory, slots, slot28x
+IniRead, slot28y, inventory, slots, slot28y
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+firsfifteen(){
+  getinventory()
+  PixelSearch, PX5, PY5, slot1x-5, slot1y-5, slot1x+5, slot1y +5, 0xFF0000,5,Fast RGB
+    If (errorlevel = 0){
+        click, %PX5%,%PY5%
+                sleep 40
+    }
+PixelSearch, PX5, PY5, slot2x-5, slot2y-5, slot2x+5, slot2y +5, 0xFF0000,5,Fast RGB
+    If (errorlevel = 0){
+        click, %PX5%,%PY5%
+                sleep 40
+    }
+    PixelSearch, PX5, PY5, slot3x-5, slot3y-5, slot3x+5, slot3y +5, 0xFF0000,5,Fast RGB
+    If (errorlevel = 0){
+        click, %PX5%,%PY5%
+        sleep 40
+    }
+PixelSearch, PX5, PY5, slot4x-5, slot4y-5, slot4x+5, slot4y +5, 0xFF0000,5,Fast RGB
+    If (errorlevel = 0){
+        click, %PX5%,%PY5%
+                
+                sleep 40
+    }
+PixelSearch, PX5, PY5, slot5x-5, slot5y-5, slot5x+5, slot5y +5, 0xFF0000,5,Fast RGB
+    If (errorlevel = 0){
+        click, %PX5%,%PY5%
+              
+                sleep 40
+    }
+PixelSearch, PX5, PY5, slot6x-5, slot6y-5, slot6x+5, slot6y +5, 0xFF0000,5,Fast RGB
+    If (errorlevel = 0){
+        click, %PX5%,%PY5%
+                sleep 40
+    }
+    PixelSearch, PX5, PY5, slot7x-5, slot7y-5, slot7x+5, slot7y +5, 0xFF0000,5,Fast RGB
+    If (errorlevel = 0){
+        click, %PX5%,%PY5%
+                sleep 40
+    }
+    PixelSearch, PX5, PY5, slot8x-5, slot8y-5, slot8x+5, slot8y +5, 0xFF0000,5,Fast RGB
+    If (errorlevel = 0){
+        click, %PX5%,%PY5%
+                sleep 40
+    }
+
+        PixelSearch, PX5, PY5, slot9x-5, slot9y-5, slot9x+5, slot9y +5, 0xFF0000,5,Fast RGB
+    If (errorlevel = 0){
+        click, %PX5%,%PY5%
+                sleep 40
+    }
+        PixelSearch, PX5, PY5, slot10x-5, slot10y-5, slot10x+5, slot10y +5, 0xFF0000,5,Fast RGB
+    If (errorlevel = 0){
+        click, %PX5%,%PY5%
+                sleep 40
+    }
+        PixelSearch, PX5, PY5, slot11x-5, slot11y-5, slot11x+5, slot11y +5, 0xFF0000,5,Fast RGB
+    If (errorlevel = 0){
+        click, %PX5%,%PY5%
+                sleep 40
+    }
+        PixelSearch, PX5, PY5, slot12x-5, slot12y-5, slot12x+5, slot12y +5, 0xFF0000,5,Fast RGB
+    If (errorlevel = 0){
+        click, %PX5%,%PY5%
+                sleep 40
+    }
+
+
+            PixelSearch, PX5, PY5, slot13x-5, slot13y-5, slot13x+5, slot13y +5, 0xFF0000,5,Fast RGB
+    If (errorlevel = 0){
+        click, %PX5%,%PY5%
+                sleep 40
+    }
+            PixelSearch, PX5, PY5, slot14x-5, slot14y-5, slot14x+5, slot14y +5, 0xFF0000,5,Fast RGB
+    If (errorlevel = 0){
+        click, %PX5%,%PY5%
+                sleep 40
+    }
+            PixelSearch, PX5, PY5, slot15x-5, slot15y-5, slot15x+5, slot15y +5, 0xFF0000,5,Fast RGB
+    If (errorlevel = 0){
+        click, %PX5%,%PY5%
+                sleep 40
+    }
+}
+
+
+
+slotsstatus(color)
+{
+ PixelSearch, px, py, itopleftx, itoplefty slot28x+10, slot28y+10, color,2, Fast RGB
+ If (errorlevel = 0)
+                {
+                    return true
+                }
+  if (errorlevel = 1)
+        return false
+}
+
+
+
+
 
 slots(color,x,y)
 {
@@ -2281,12 +2487,26 @@ pkslots(color,x,y,w,h)
  PixelSearch, px, py, x, y, w, h, color,5, Fast RGB
  If (errorlevel = 0)
                 {
-                    findspot3(color, px-12, py-20, px+12,py+20)
+                    findspot3(color, px-10, py-10, px+10,py+10)
                     return true
                 }
     Else
         return false
 }
+
+pkslots2(color,x,y,w,h)
+{
+loop{
+ PixelSearch, px, py, x, y, w, h, color,5, Fast RGB
+ If (errorlevel = 0)
+                {
+                    findspot3(color, px-12, py-20, px+12,py+20)
+                }
+If (errorlevel = 1)
+  break
+}
+}
+
 
 
 
@@ -2295,10 +2515,12 @@ slotsrange(color,x,y)
 {
 
     
- PixelSearch, px, py, x-10, y-10, x+10, y+10, color,15, Fast RGB
+ PixelSearch, px, py, x-15, y-15, x+15, y+15, color,15, Fast RGB
  If (errorlevel = 0)
                 {
-                    findspot3(color, px-12, py-20, px+12,py+20)
+                    mousemove, px+1, py+3
+                    click
+                    sleep 10
                     return true
                 }
     Else
@@ -2430,6 +2652,8 @@ PixelSearch, px, py, centerx - offset,centery - offset,centerx + offset,centery 
 
 
 
+
+
 reset(color){
     Random, MouseSpeed, 20,50
 WinGetActiveStats, Runelite, Width, Height, X, Y
@@ -2516,18 +2740,10 @@ sleep 500
 
 
 findspot3(color,x,y,w,h){
-Random, ms, 3,5
-Random, MouseSpeed, 165,220
 mousegetpos, MouseXpos, MouseYpos
-PixelSearch, OutputVarX, OutputVarY, x, y, w, h, color, 15, Fast RGB
-sleep 5
-    PixelSearch, OutputVarX2, OutputVarY2, w, h, x, y, color, 14, Fast RGB
-                centerTileX := ((OutputVarX + OutputVarX2) / 2)
-                centerTileY := ((OutputVarY + OutputVarY2) / 2)
+PixelSearch, centerTileX, centerTileY, x, y, w, h, color, 15, Fast RGB
         if (errorlevel = 0){ 
-            mousemove, centerTileX, centerTileY, 0
-              IniRead, Delay, %A_Desktop%\pureconfig.ini,Config,Delay
-              sleep Delay
+            mousemove, centerTileX+1, centerTileY+3
             click
         }
 }
