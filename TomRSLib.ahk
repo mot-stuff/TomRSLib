@@ -296,6 +296,25 @@ Pixelsearch, compassx2,compassy2,0, 0, A_ScreenWidth, A_ScreenHeight,0xA35C17, 0
         global qpy := compassy+80
     }   
 
+WinGetActiveStats, Runelite, Width, Height, X, Y
+If Width <= 810
+{
+   global centerx := (Width - 200) / 2
+}
+If Width > 810
+{
+   global centerx := (Width) / 2
+}
+If Height <= 650
+{
+   global centery := (Height - 160) / 2
+}
+If Height > 650
+{
+    global centery := (Height) / 2
+}
+
+
 
 Pixelsearch, px,py,0, 0, A_ScreenWidth, A_ScreenHeight,0x28263C, 0, Fast RGB
     If (errorlevel = 0)
@@ -591,16 +610,27 @@ global protectmeleey := slot14y + 19
 quicksearch(color,x,y,w,h,slotx,sloty)
 {
   IniRead, Delay, %A_Desktop%\pureconfig.ini,Config,Delay
-Pixelsearch, px, py,x+3,y+3,w-3,h-3,color,4, Fast RGB
+Pixelsearch, px, py,x,y,w,h,color,14, Fast RGB
   If (errorlevel = 0)
 
     {
-      click, %slotx%,%sloty%
-      randsleep(Delay,Delay+10)
+      click, %px%,%py%
+      sleep 10
       return true
     }
   Else
   return false
+
+}
+
+
+quicksearchrow1()
+{
+
+quicksearch(colorwhack,slot1x,slot1y,slot1w,slot1h,slotx1,sloty1)
+quicksearch(colorwhack,slot2x,slot2y,slot2w,slot2h,slotx2,sloty2)
+quicksearch(colorwhack,slot3x,slot3y,slot3w,slot3h,slotx3,sloty3)
+quicksearch(colorwhack,slot4x,slot4y,slot4w,slot4h,slotx4,sloty4)
 
 }
 
@@ -1035,7 +1065,14 @@ break
 }
 
 
+scaninvrow(color,x,y,w,h){
+Pixelsearch,px, py, x,y,w,h,color, 5, Fast RGB
+  If (errorlevel = 0)
+    return true
+  if (errorlevel = 1)
+    return false
 
+}
 
 ;;;scanbank
 ;; scans if a bnak is on the screen, if it is, it will return true, if it isnt it will return false
@@ -1567,9 +1604,6 @@ If Height > 650
     centery := (Height) / 2
 }
 
-
-        IniRead, compassx, inventory, slots, compassx
-        IniRead, compassy, inventory, slots, compassy
 
         centermapx := compassx + 40
         centermapy := compassy + 60
