@@ -1217,24 +1217,10 @@ loop{
 
 
 
+
+;checks if a color is on the minimap
+
 checkminimap(color){
- PixelSearch, xx2, yy2, 574, 43, 728, 183, color, 10, Fast RGB
-    If (errorlevel = 0)
-        return true
-    If (errorlevel = 1)
-        return false
-
-
-
-
-}
-
-;; mmpathing(color) Information (minimap pathing with tiles or npc colors, not continues just once click at a time)
-; can check for a tile or npc or any color on the minimap, can be used in conjunction with many plugins
-; checks minimap for color and clicks it, then waits until character is over the tile before returning. Checks in 4 directions and tries to exclude the middle of the map where the character is
-
-
-getcolormm(color){
 global
 getinventory()
 
