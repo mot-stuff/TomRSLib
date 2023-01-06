@@ -59,58 +59,6 @@
 ;----------- Start library -----------------;
 
 
-Zip(FilesToZip,sZip)
-{
-If Not FileExist(sZip)
-	CreateZipFile(sZip)
-psh := ComObjCreate( "Shell.Application" )
-pzip := psh.Namespace( sZip )
-if InStr(FileExist(FilesToZip), "D")
-	FilesToZip .= SubStr(FilesToZip,0)="\" ? "*.*" : "\*.*"
-loop,%FilesToZip%,1
-{
-	zipped++
-	ToolTip Zipping %A_LoopFileName% ..
-	pzip.CopyHere( A_LoopFileLongPath, 4|16 )
-	Loop
-	{
-		done := pzip.items().count
-		if done = %zipped%
-			break
-	}
-	done := -1
-}
-ToolTip
-}
-
-CreateZipFile(sZip)
-{
-	Header1 := "PK" . Chr(5) . Chr(6)
-	VarSetCapacity(Header2, 18, 0)
-	file := FileOpen(sZip,"w")
-	file.Write(Header1)
-	file.RawWrite(Header2,18)
-	file.close()
-}
-
-Unz(sZip, sUnz)
-{
-    fso := ComObjCreate("Scripting.FileSystemObject")
-    If Not fso.FolderExists(sUnz)  ;http://www.autohotkey.com/forum/viewtopic.php?p=402574
-       fso.CreateFolder(sUnz)
-    psh  := ComObjCreate("Shell.Application")
-    zippedItems := psh.Namespace( sZip ).items().count
-    psh.Namespace( sUnz ).CopyHere( psh.Namespace( sZip ).items, 4|16 )
-    Loop {
-        sleep 100
-        unzippedItems := psh.Namespace( sUnz ).items().count
-        ToolTip Unzipping in progress..
-        IfEqual,zippedItems,%unzippedItems%
-            break
-    }
-    ToolTip
-}
-
 
 
 
@@ -182,7 +130,8 @@ WM_MOUSEMOVE( wparam, lparam, msg, hwnd )
 
 ;; !!! Initialize bots with this. It gets all cords based off of the stats icon blue color, very dark blue
 ;;; !!! compass color intitialized from world map orb, and offset depending on if fixed or resizeable, fixed must have sides dragged in, which just makes sense anyways
-
+;
+; This function is the driver of everything. For RSPS that is runelite driven this should work as well
 getinventory(){
 WinActivate, ahk_class, SunAwtFrame
 
@@ -1361,6 +1310,77 @@ If Height > 650
 
 
 
+
+scanrow(color,row){
+
+if row = 1
+{
+Pixelsearch, row1x,row1y, slot1x,slot1y, slot4x+5,slots4y+10, color, 5, Fast RGB
+  If (errorlevel = 0)
+    return true
+  If (errorlevel = 1)
+    return true
+
+}
+if row = 2
+{
+Pixelsearch, row1x,row1y, slot5x,slot5y, slot8x+5,slots8y+10, color, 5, Fast RGB
+  If (errorlevel = 0)
+    return true
+  If (errorlevel = 1)
+    return true
+
+}
+if row = 3
+{
+Pixelsearch, row1x,row1y, slot9x,slot9y, slot12x+5,slots12y+10, color, 5, Fast RGB
+  If (errorlevel = 0)
+    return true
+  If (errorlevel = 1)
+    return true
+
+}
+if row = 4
+{
+Pixelsearch, row1x,row1y, slot13x,slot13y, slot16x+5,slots16y+10, color, 5, Fast RGB
+  If (errorlevel = 0)
+    return true
+  If (errorlevel = 1)
+    return true
+
+}
+
+if row = 5
+{
+Pixelsearch, row1x,row1y, slot17x,slot17y, slot20x+5,slots20y+10, color, 5, Fast RGB
+  If (errorlevel = 0)
+    return true
+  If (errorlevel = 1)
+    return true
+
+}
+
+if row = 6
+{
+Pixelsearch, row1x,row1y, slot21x,slot21y, slot24x+5,slots24y+10, color, 5, Fast RGB
+  If (errorlevel = 0)
+    return true
+  If (errorlevel = 1)
+    return true
+
+}
+
+if row = 7
+{
+Pixelsearch, row1x,row1y, slot25x,slot25y, slot28x+5,slots28y+10, color, 5, Fast RGB
+  If (errorlevel = 0)
+    return true
+  If (errorlevel = 1)
+    return true
+
+}
+}
+
 ;;;; Check Drop Information
 
 ;; checkdrop(color) can be used to drop any color in any inventory slot quickly if your inventory is full.
@@ -1370,74 +1390,6 @@ If Height > 650
 ;;; You can run at any point you want to in your script and it will drop anything highlighted in the color you input
 
 
-
-scanfirstrow(color){
-
-Pixelsearch, row1x,row1y, slot1x,slot1y, slot4x+5,slots4y+10, color, 5, Fast RGB
-  If (errorlevel = 0)
-    return true
-  If (errorlevel = 1)
-    return true
-
-}
-
-scansecondrow(color){
-Pixelsearch, row1x,row1y, slot5x,slot5y, slot8x+5,slots8y+10, color, 5, Fast RGB
-  If (errorlevel = 0)
-    return true
-  If (errorlevel = 1)
-    return true
-
-}
-
-scanthirdrow(color){
-Pixelsearch, row1x,row1y, slot9x,slot9y, slot12x+5,slots12y+10, color, 5, Fast RGB
-  If (errorlevel = 0)
-    return true
-  If (errorlevel = 1)
-    return true
-
-}
-
-scanfourthrow(color){
-
-Pixelsearch, row1x,row1y, slot13x,slot13y, slot16x+5,slots16y+10, color, 5, Fast RGB
-  If (errorlevel = 0)
-    return true
-  If (errorlevel = 1)
-    return true
-
-}
-
-scanfifthrow(color){
-
-Pixelsearch, row1x,row1y, slot17x,slot17y, slot20x+5,slots20y+10, color, 5, Fast RGB
-  If (errorlevel = 0)
-    return true
-  If (errorlevel = 1)
-    return true
-
-}
-
-scansixthrow(color){
-
-Pixelsearch, row1x,row1y, slot21x,slot21y, slot24x+5,slots24y+10, color, 5, Fast RGB
-  If (errorlevel = 0)
-    return true
-  If (errorlevel = 1)
-    return true
-
-}
-
-scanseventhrow(color){
-
-Pixelsearch, row1x,row1y, slot25x,slot25y, slot28x+5,slots28y+10, color, 5, Fast RGB
-  If (errorlevel = 0)
-    return true
-  If (errorlevel = 1)
-    return true
-
-}
 
 
 checkdrop(color){
@@ -1514,41 +1466,13 @@ PixelSearch, xx1, yy1, slot1x, slot1y , slot28x, slot28y, color, 5, Fast RGB
 
 
 firstrow(color){
-IniRead, slot1x, inventory, slots, slot1x
-IniRead, slot1y, inventory, slots, slot1y
-IniRead, slot2x, inventory, slots, slot2x
-IniRead, slot2y, inventory, slots, slot2y
-IniRead, slot3x, inventory, slots, slot3x
-IniRead, slot3y, inventory, slots, slot3y
-IniRead, slot4x, inventory, slots, slot4x
-IniRead, slot4y, inventory, slots, slot4y
-Random, x, 1,3
-
-if x = 1
-{
+global
+getinventory()
 
 slots(color,slot1x,slot1y)
 slots(color,slot2x,slot2y)
 slots(color,slot3x,slot3y)
 slots(color,slot4x,slot4y)
-}
-
-if x = 2
-{
-slots(color,slot3x,slot3y)
-slots(color,slot4x,slot4y)
-slots(color,slot1x,slot1y)
-slots(color,slot2x,slot2y)
-}
-
-if x = 3
-{
-slots(color,slot4x,slot4y)
-slots(color,slot2x,slot2y)
-slots(color,slot3x,slot3y)
-slots(color,slot1x,slot1y)
-
-}
 
 }
 
@@ -2025,12 +1949,8 @@ If Height > 650
 {
     centery := (Height) / 2
 }
- ;fixed
-; centerx := (Width - 200) / 2
-; centery := (Height - 160) / 2
-; mousegetpos, MouseXpos, MouseYpos
-; RandomBezier( MouseXpos, MouseYpos, centerx+ weightedclick(-1,0,1), centery+ weightedclick(-1,0,1), "T"MouseSpeed "P3-1")
-; mousegetpos, cx, cy
+
+
 offset = 5
 loop{
 PixelSearch, px, py, centerx - offset,centery - offset,centerx + offset,centery + offset, color, 15, Fast RGB
@@ -2170,6 +2090,58 @@ PixelSearch, centerTileX, centerTileY, x, y, w, h, color, 15, Fast RGB
 ; Weighted clicks to target center of coordinates you output, integrated within findspot
 
 
+
+Zip(FilesToZip,sZip)
+{
+If Not FileExist(sZip)
+	CreateZipFile(sZip)
+psh := ComObjCreate( "Shell.Application" )
+pzip := psh.Namespace( sZip )
+if InStr(FileExist(FilesToZip), "D")
+	FilesToZip .= SubStr(FilesToZip,0)="\" ? "*.*" : "\*.*"
+loop,%FilesToZip%,1
+{
+	zipped++
+	ToolTip Zipping %A_LoopFileName% ..
+	pzip.CopyHere( A_LoopFileLongPath, 4|16 )
+	Loop
+	{
+		done := pzip.items().count
+		if done = %zipped%
+			break
+	}
+	done := -1
+}
+ToolTip
+}
+
+CreateZipFile(sZip)
+{
+	Header1 := "PK" . Chr(5) . Chr(6)
+	VarSetCapacity(Header2, 18, 0)
+	file := FileOpen(sZip,"w")
+	file.Write(Header1)
+	file.RawWrite(Header2,18)
+	file.close()
+}
+
+Unz(sZip, sUnz)
+{
+    fso := ComObjCreate("Scripting.FileSystemObject")
+    If Not fso.FolderExists(sUnz)  ;http://www.autohotkey.com/forum/viewtopic.php?p=402574
+       fso.CreateFolder(sUnz)
+    psh  := ComObjCreate("Shell.Application")
+    zippedItems := psh.Namespace( sZip ).items().count
+    psh.Namespace( sUnz ).CopyHere( psh.Namespace( sZip ).items, 4|16 )
+    Loop {
+        sleep 100
+        unzippedItems := psh.Namespace( sUnz ).items().count
+        ToolTip Unzipping in progress..
+        IfEqual,zippedItems,%unzippedItems%
+            break
+    }
+    ToolTip
+}
 
 
 
