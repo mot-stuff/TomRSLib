@@ -11,7 +11,7 @@
 ; Use ShinsImageScanClass and ShinsOverlayClass for some improved direct2d graphics and some better image searching if needed. or just use findtext
 ; - included in my github
 ;
-; LATEST UPDATE: 12/30/22
+; LATEST UPDATE: 1/6/23
 ; =====================; Function List ;===================== ;
 ;
 ; -- setup(x): Use "North", "South", "East" , or "West" in place of x to setup for the script
@@ -47,24 +47,12 @@
 ;
 ;
 ;
-; == Function Groups == ; functions mainly specialized for something above, but could be useful
-;
-;; + clicks rows function group, used within checkdrop(color) + ;;
-; -- slots(color,x,y,w,h): used to determine each slot and search it for a color
-; -- firstrow(color): only uses color to pass through to the function above
-; -- secondrow(color)
-; -- thirdrow(color)
-; -- fourthrow(color)
-; -- fifthrow(color)
-; -- sixthrow(color)
-; -- seventhrow(color)
-; -- checklast(color): returns true or false if last inventory slot is filled
-;
 ;
 ;
 ; ==============================================================================================================================================================================================================================;
 ;
-;
+; All of these functions in this library are designed to handle fixed and resizeable classic game window styles. No additions or anything else.
+; After exploring the code you will notice there are colors used on the screen, run a debug search with the functions necesssary to see how the positions are being calculated. getinventory() is the most OP function
 ;
 ;
 ;
@@ -192,7 +180,8 @@ WM_MOUSEMOVE( wparam, lparam, msg, hwnd )
 
 
 
-;; !!! Initialize bots with this. It gets all cords based off of the orange orb and stats icon
+;; !!! Initialize bots with this. It gets all cords based off of the stats icon blue color, very dark blue
+;;; !!! compass color intitialized from world map orb, and offset depending on if fixed or resizeable, fixed must have sides dragged in, which just makes sense anyways
 
 getinventory(){
 WinActivate, ahk_class, SunAwtFrame
