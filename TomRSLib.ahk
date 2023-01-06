@@ -1167,39 +1167,13 @@ Pixelsearch,px,py, 516, 164, 538, 185, color, 15, Fast RGB
 
 ;;;; waitbank() information
 ;; waits for bank window to be open returns true or false, can use that to either close the script or re-search for the bank etc
+
 waitbank(sec){
-IniRead, playable_topleftx, inventory, screen, playable_topleftx
-IniRead, playable_toplefty, inventory, screen, playable_toplefty
-IniRead, playable_bottomrightx, inventory, screen, playable_bottomrightx
-IniRead, playable_bottomrighty, inventory, screen, playable_bottomrighty
-
-wait = 0
+  global
+  getinventory()
+  waitbank = 0
 loop{
-wait += 1
 
-Pixelsearch,px, py, 173, 35, 372, 65,0xFF981F,15, Fast RGB
-    If (errorlevel = 0)
-        break
-    If (errorlevel = 1){
-        
-        if wait <= %sec%
-            randsleep(1000,1200)
-        if wait > %sec%
-            return false
-
-
-
-    }
-
-
-}
-return true
-}
-
-waitbank2(sec){
-loop{
-        IniRead, compassx, inventory, slots, compassx
-        IniRead, compassy, inventory, slots, compassy
 
         topleftx := compassx - 1500
         toplefty := compassy - 40
@@ -1207,10 +1181,21 @@ loop{
         bottomrighty := toplefty + 150
      PixelSearch, xx2, yy2, topleftx, toplefty, bottomrightx, bottomrighty, 0xFF981F, 10, Fast RGB
         If (errorlevel = 0)
+        {
+          wait = 0
             break
+        }
         If (errorlevel = 1)
-            sleep 100
+            {
+              sleep 1000
+              wait += 1
 
+              if wait > %sec%
+              {
+                wait = 0
+                break
+              }
+            }
 }
 }
 
