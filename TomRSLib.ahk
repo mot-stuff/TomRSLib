@@ -1,5 +1,6 @@
 ;;;;; Tom's Runescape Library ;;;;; Stored on Github for live updating
 ;
+#include C:\Users\tomal\OneDrive\Desktop\Scripts\ShinsImageScanClass.ahk
 ; - This library contains useful functions for coding ahk bots in runescape. Use #Include TomRSLib.ahk and it will compile into your script when you package it as an exe. 
 ; - Most of the function in this library can only be used in resizable classic mode or fixed mode. It only reads game screen
 ; #Include C:\Users\tomal\OneDrive\Documents\GitHub\TomRSLib\TomRSLib.ahk
@@ -58,9 +59,20 @@
 ;
 ;----------- Start library -----------------;
 
+SetBatchLines, -1
 
-
-
+seerstp(){
+    global
+    getinventory()
+    camelotx := slotx12-4
+    cameloty := sloty12+3
+random, MouseSpeed, 185,285
+mousegetpos, MouseXpos, MouseYpos
+RandomBezier( MouseXpos, MouseYpos, camelotx+ weightedclick(-2,0,2), cameloty+ weightedclick(-2,0,2), "T"MouseSpeed "P4-3")
+randsleep(50,150)
+Click
+randsleep(1000,2000)
+}
 
 
 getplayarea(){ ;useless
@@ -136,27 +148,27 @@ getinventory(){
 WinActivate, ahk_class, SunAwtFrame
 
   
-Pixelsearch, compassx2,compassy2,0, 0, A_ScreenWidth, A_ScreenHeight,0x161F07, 0, Fast RGB
+Pixelsearch, compassx2,compassy2,0, 0, A_ScreenWidth, A_ScreenHeight,0x93521A, 0, Fast RGB
     If (errorlevel = 0)
     {
-      WinGetActiveStats, Runelite, Width, Height, X, Y
+WinGetActiveStats, Runelite, Width, Height, X, Y
 If Width <= 810
 {
-    global compassx := compassx2-168
+    global compassx := compassx2-175
 }
 If Width > 810
 {
-    global compassx := compassx2-149
+    global compassx := compassx2-50
 }
 If Height <= 650
 {
-   global compassy := compassy2-110
+   global compassy := compassy2-40
 }
 If Height > 650
 {
-   global compassy := compassy2-115
+   global compassy := compassy2-135
 }
-        global qpx := compassx-18
+        global qpx := compassx-13
         global qpy := compassy+75
          global mapcenterxx :=  qpx + 90
         global mapcenteryy := qpy - 20
@@ -406,7 +418,7 @@ Pixelsearch, px,py,0, 0, A_ScreenWidth, A_ScreenHeight,0x28263C, 0, Fast RGB
 
     ; seventh row start
         global slot25x := slot1x + 0
-      global slot25y := slot21y + 35
+      global slot25y := slot21y + 40
       global slot25w := slot1w
       global slot25h := slot21h + 35
 
@@ -439,6 +451,8 @@ Pixelsearch, px,py,0, 0, A_ScreenWidth, A_ScreenHeight,0x28263C, 0, Fast RGB
       global sloty28 := (slot28y + slot28h)/2
  ; seventh row end
 
+
+
 ;protection prayers
  global protectmagex := slot14x-2
 global protectmagey := slot14y+19
@@ -469,7 +483,7 @@ global auguryy := protectmeleey + 75
 
 ; run energy
 
-
+; this is for resizeable, probably need fixed
 global runenergyw := compassx -15
 global runenergyh := compassy+117
 global runenergyx := runenergyw - 24
@@ -483,16 +497,51 @@ global runenergyy := runenergyh - 16
 ; use global in functions in main script
 
 
-quicksearch(color,x,y,w,h,slotx,sloty)
+quicksearch(color,x,y,w,h,slotx,sloty,tool)
 {
+    if tool = pure
+    {
   IniRead, Delay, %A_Desktop%\pureconfig.ini,Config,Delay
-Pixelsearch, px, py,x+3,y+3,w-3,h-3,color,4, Fast RGB
+    }
+    if tool = nh
+    {
+  IniRead, Delay, %A_Desktop%\nhconfig.ini,Config,Delay
+    }
+    Else
+    {
+    Delay = 50
+    }
+Pixelsearch, px, py,x,y,w,h,color,5, Fast RGB
   If (errorlevel = 0)
-
     {
       click, %slotx%,%sloty%
       sleep %Delay%
       return true
+    }
+  Else
+  return false
+
+}
+
+quicksearch2(color,slotx,sloty,tool)
+{
+    if tool = pure
+    {
+  IniRead, Delay, %A_Desktop%\pureconfig.ini,Config,Delay
+    }
+    if tool = nh
+    {
+  IniRead, Delay, %A_Desktop%\nhconfig.ini,Config,Delay
+    }
+    Else
+    {
+    Delay = 50
+    }
+Pixelsearch, px, py,slotx,sloty+5,slotx,sloty-5,color,0, Fast RGB
+  If (errorlevel = 0)
+    {
+      click, %slotx%,%sloty%
+      sleep %Delay%
     }
   Else
   return false
@@ -757,31 +806,6 @@ mousemove, centerx, centery
 
 
 
-bankscn(color){
-clickspot(color)
-waitbank(5)
-randsleep(500,1000)
-random, x1, 80, 102
-random, y1, 115,135
-Random, x2, 440, 459
-Random, y2, 331,352
-random, MouseSpeed, 185,285
-mousegetpos, MouseXpos, MouseYpos
-RandomBezier( MouseXpos, MouseYpos, x2+ weightedclick(-1,0,1), y2+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
-randsleep(50,150)
-click
-randsleep(1000,1500)
-mousegetpos, MouseXpos, MouseYpos
-RandomBezier( MouseXpos, MouseYpos, x1+ weightedclick(-1,0,1), y1+ weightedclick(-1,0,1), "T"MouseSpeed "P4-3")
-randsleep(50,150)
-click
-randsleep(1000,1500)
-Send {Esc}
-}
-
-
-
-
 
 
 
@@ -947,8 +971,6 @@ depslots(color,slot27x,slot27y)
 depslots(color,slot28x,slot28y)
 
 randsleep(1000,2000)
-Send {Esc}
-randsleep(1000,2000)
 }
 
 
@@ -956,7 +978,7 @@ randsleep(1000,2000)
 ;; Deposit Information
 ;;; deposit(color) is used to deposit the color of an item when bank is open
 
-xpdrop(sec,color){
+xpdrop(sec,color,spotcolor){
   global
   getinventory()
 wait = 0
@@ -967,8 +989,7 @@ xpw1 := compassx - 50
 xph1 := compassy + 375
 PixelSearch, xpx, xpy, xpx1, xpy1, xpw1, xph1, color, 0, Fast RGB
     If (errorlevel = 0){
-           wait = 0
-            randsleep(600,800)
+        wait = 0
         break
     }
     If (errorlevel = 1)
@@ -981,34 +1002,71 @@ PixelSearch, xpx, xpy, xpx1, xpy1, xpw1, xph1, color, 0, Fast RGB
       break
 }
 }
+WinGetPos,xx, yy, ww, hh,ahk_class SunAwtFrame
+If (reset(spotcolor) == False)
+{
+randsleep(1200,1500)
+}
+Else
 randsleep(700,1000)
 }
 
 
 
 ;; checks if 3 hp on 10 hp character
-checklowhp(){
+checklowhp(threshold){
   global
 getinventory()
-      WinGetActiveStats, Runelite, Width, Height, X, Y
+
+if threshold = 75
+{
+WinGetActiveStats, Runelite, Width, Height, X, Y
 If Width <= 810
 {
-   hpx := compassx - 19
+   hpx := compassx - 16
 }
 If Width > 810
 {
-   hpx := compassx - 20
+   hpx := compassx - 23
 }
 If Height <= 650
 {
-   hpy := compassy + 38
+   hpy := compassy + 33
 }
 If Height > 650
 {
-   hpy := compassy + 43
+   hpy := compassy + 35
 }
 
-PixelSearch, hppx,hppy, hpx, hpy, hpx+2, hpy+2, 0x860603, 5, Fast RGB
+PixelSearch, hppx,hppy, hpx, hpy, hpx+1, hpy+1, 0x9C0704, 25, Fast RGB
+  If (errorlevel = 1)
+    return true
+  If (errorlevel = 0)
+    return false
+
+}
+
+if threshold = 45
+{
+          WinGetActiveStats, Runelite, Width, Height, X, Y
+If Width <= 810
+{
+   hpx := compassx - 16
+}
+If Width > 810
+{
+   hpx := compassx - 23
+}
+If Height <= 650
+{
+   hpy := compassy + 36
+}
+If Height > 650
+{
+   hpy := compassy + 37
+}
+
+PixelSearch, hppx,hppy, hpx, hpy, hpx+2, hpy+3, 0xB00804, 25, Fast RGB
   If (errorlevel = 1)
     return true
   If (errorlevel = 0)
@@ -1017,9 +1075,55 @@ PixelSearch, hppx,hppy, hpx, hpy, hpx+2, hpy+2, 0x860603, 5, Fast RGB
 }
 
 
+if threshold = 25
+{
+      WinGetActiveStats, Runelite, Width, Height, X, Y
+If Width <= 810
+{
+   hpx := compassx - 16
+}
+If Width > 810
+{
+   hpx := compassx - 23
+}
+If Height <= 650
+{
+   hpy := compassy + 40
+}
+If Height > 650
+{
+   hpy := compassy + 40
+}
+
+PixelSearch, hppx,hppy, hpx, hpy, hpx+2, hpy+3, 0x860603, 25, Fast RGB
+  If (errorlevel = 1)
+    return true
+  If (errorlevel = 0)
+    return false
+
+}
+}
 
 
 
+; checkhp(threshold){
+; global
+; getinventory()
+
+; hpcheckx1 := slot17x-35
+; hpchecky1 := slot17y+5
+; hpcheckx2 := slot17x-15
+; hpchecky2 := slot17y+20
+
+; if threshold = low
+; {
+; PixelSearch,lowxx, lowyy, hpcheckx1, hpchecky1, hpcheckx2, hpchecky2, 0x7F200D, 15, Fast RGB
+; If (errorlevel = 1)
+;     return true
+; If (errorlevel = 0)
+;     return false
+; }
+; }
 
 
 
@@ -1087,6 +1191,37 @@ PixelSearch, px, py, 20, 56, 131, 87, 0x00FF00, 5, Fast RGB
 
 }
 }
+
+getstatuswt(){
+loop{
+PixelSearch, px333, py333,12, 31, 1067, 53, 0x00FF00, 0, Fast RGB
+    If (errorlevel = 0)
+    {
+        sleep 10
+                if (checklowhp(30) == True)
+        {
+            slotsinv(0x00FF00)
+        }
+    }
+    If (errorlevel = 1)
+    {
+        randsleep(1200,1700)
+        break
+    }
+
+}
+}
+
+
+getstatusgamewt(){
+PixelSearch, px333, py333,6, 67, 167, 86, 0xFF991F, 15, Fast RGB
+    If (errorlevel = 0)
+        return true
+    If (errorlevel = 1)
+        return false
+
+}
+
 
 
 
@@ -1178,8 +1313,8 @@ loop{
         topleftx := compassx - 1500
         toplefty := compassy - 40
         bottomrightx := topleftx + 1500
-        bottomrighty := toplefty + 150
-     PixelSearch, xx2, yy2, topleftx, toplefty, bottomrightx, bottomrighty, 0xFF981F, 10, Fast RGB
+        bottomrighty := toplefty + 700
+     PixelSearch, xx2, yy2, topleftx, toplefty, bottomrightx, bottomrighty, 0xFF981F, 1, Fast RGB
         If (errorlevel = 0)
         {
           wait = 0
@@ -1262,7 +1397,7 @@ If Height > 650
               cy1 := centery - 40
               cw1 := centerx + 40
               ch1 := centery + 40
-                Pixelsearch, px2,py2, cx1,cy1,cw1,ch1, color, 15, Fast RGB
+                Pixelsearch, px2,py2, cx1,cy1,cw1,ch1, color, 5, Fast RGB
                     If (errorlevel = 0)
                         {
                         randsleep(1200,1670)
@@ -1364,19 +1499,16 @@ Pixelsearch, row1x,row1y, slot25x,slot25y, slot28x+5,slots28y+10, color, 5, Fast
 
 
 checkdrop(color){
+    global
+    getinventory()
 loop{
-
-        IniRead, slot1x, inventory, slots, slot1x
-        IniRead, slot1y, inventory, slots, slot1y
-    IniRead, slot28x, inventory, slots, slot28x
-IniRead, slot28y, inventory, slots, slot28y
-PixelSearch, xx1, yy1, slot1x, slot1y , slot28x, slot28y, color, 5, Fast RGB
+PixelSearch, xx1, yy1, slot1x, slot1y , slot28w, slot28h, color, 5, Fast RGB
     If (errorlevel = 0)
         {
                 Random, pattern, 1,3
             
                 If (pattern = 1){
-                  PixelSearch, xx2, yy2, slot1x, slot1y , slot28x, slot28y, color, 5, Fast RGB
+                  PixelSearch, xx2, yy2, slot1x, slot1y , slot28w, slot28h, color, 5, Fast RGB
                     If (errorlevel = 0){
                             send {shift down}
                             firstrow(color)
@@ -1392,7 +1524,7 @@ PixelSearch, xx1, yy1, slot1x, slot1y , slot28x, slot28y, color, 5, Fast RGB
                 }
 
                 If (pattern = 2){
-                    PixelSearch, xx2, yy2, slot1x, slot1y , slot28x, slot28y, color, 5, Fast RGB
+                    PixelSearch, xx2, yy2, slot1x, slot1y , slot28w, slot28h, color, 5, Fast RGB
                         If (errorlevel = 0){
                             send {shift down}
                             secondrow(color)
@@ -1409,7 +1541,7 @@ PixelSearch, xx1, yy1, slot1x, slot1y , slot28x, slot28y, color, 5, Fast RGB
 
 
                 If (pattern = 3){
-                    PixelSearch, xx2, yy2, slot1x, slot1y , slot28x, slot28y, color, 5, Fast RGB
+                    PixelSearch, xx2, yy2, slot1x, slot1y , slot28w, slot28h, color, 5, Fast RGB
                         If (errorlevel = 0){
                             send {shift down}
                             seventhrow(color)
@@ -1771,17 +1903,69 @@ If !ErrorLevel
 }
 
 
+dropslots(color,slotx,sloty){
+Random, MouseSpeed, 200,300
+MouseGetpoS, MouseXpos, MouseYpos
+Pixelsearch, px, py,slotx-20,sloty-20,slotx+20,sloty+20,color,0, Fast RGB
+    If (errorlevel = 0)
+    {
+                    RandomBezier( MouseXpos, MouseYpos, slotx+ weightedclick(-3,0,3), sloty+ weightedclick(-3,0,3), "T"MouseSpeed "P1-3")
+                    click
+                     randsleep(45,65)
+    }
+}
+
+
+
+dropinventory(color){
+global
+getinventory()
+Send {Shift Down}
+dropslots(color,slotx1,sloty1)
+dropslots(color,slotx2,sloty2)
+dropslots(color,slotx3,sloty3)
+dropslots(color,slotx4,sloty4)
+dropslots(color,slotx5,sloty5)
+dropslots(color,slotx6,sloty6)
+dropslots(color,slotx7,sloty7)
+dropslots(color,slotx8,sloty8)
+dropslots(color,slotx9,sloty9)
+dropslots(color,slotx10,sloty10)
+dropslots(color,slotx11,sloty11)
+dropslots(color,slotx12,sloty12)
+dropslots(color,slotx13,sloty13)
+dropslots(color,slotx14,sloty14)
+dropslots(color,slotx15,sloty15)
+dropslots(color,slotx16,sloty16)
+dropslots(color,slotx17,sloty17)
+dropslots(color,slotx18,sloty18)
+dropslots(color,slotx19,sloty19)
+dropslots(color,slotx20,sloty20)
+dropslots(color,slotx21,sloty21)
+dropslots(color,slotx22,sloty22)
+dropslots(color,slotx23,sloty23)
+dropslots(color,slotx24,sloty24)
+dropslots(color,slotx25,sloty25)
+dropslots(color,slotx26,sloty26)
+dropslots(color,slotx27,sloty27)
+dropslots(color,slotx28,sloty28)
+randsleep(600,900)
+Send {Shift Up}
+}
+
+
 
 
 
 
 slotsstatus(color)
 {
- PixelSearch, px, py, itopleftx, itoplefty slot28x+10, slot28y+10, color,2, Fast RGB
+    global
+    getinventory()
+ PixelSearch, p33x, p33y, slot1x, slot1y slot28w, slot28h, color,2, Fast RGB
  If (errorlevel = 0)
-                {
         return true
-                }
+
   if (errorlevel = 1)
         return false
 }
@@ -1792,7 +1976,7 @@ slotsstatus(color)
 
 slots(color,x,y)
 {
- PixelSearch, px, py, x-10, y-10, x+10, y+10, color,2, Fast RGB
+ PixelSearch, px, py, x-12, y-12, x+12, y+12, color,2, Fast RGB
  If (errorlevel = 0)
                 {
                     findspot(color, px-12, py-20, px+12,py+20)
@@ -1810,12 +1994,27 @@ slotsinv(color)
  PixelSearch, slotsinvxx, slotsinvyy, slot1x, slot1y, slot28w, slot28h, color,5, Fast RGB
  If (errorlevel = 0)
                 {
-                    findspot(color, slotsinvxx-12, slotsinvyy-20, slotsinvxx+12,slotsinvyy+20)
+                    findspot(color, slotsinvxx-25, slotsinvyy-23, slotsinvxx+12,slotsinvyy+25)
                     return true
                 }
     Else
         return false
 }
+
+slotsinvpk(color)
+{
+  global
+  getinventory()
+ PixelSearch, slotsinvxx, slotsinvyy, slot1x, slot1y, slot28w, slot28h, color,5, Fast RGB
+ If (errorlevel = 0)
+                {
+                    findspotpk(color, slotsinvxx-12, slotsinvyy-20, slotsinvxx+12,slotsinvyy+20)
+                    return true
+                }
+    Else
+        return false
+}
+
 
 
 
@@ -1924,7 +2123,7 @@ If Height > 650
 
 offset = 5
 loop{
-PixelSearch, px, py, centerx - offset,centery - offset,centerx + offset,centery + offset, color, 15, Fast RGB
+PixelSearch, px, py, centerx - offset,centery - offset,centerx + offset,centery + offset, color, 1, Fast RGB
     If (errorlevel = 0)
 {        
         findspot(color,px-spot, py-spot, px + spot, py + spot)
@@ -1961,7 +2160,7 @@ If Height > 650
 {
     centery := (Height) / 2
 }
-offset = 600
+offset = 400
 PixelSearch, px, py, centerx - offset,centery - offset,centerx + offset,centery + offset, color, 15, Fast RGB
     If (errorlevel = 0)    
       return true
@@ -2048,7 +2247,20 @@ PixelSearch, centerTileX, centerTileY, x, y, w, h, color, 15, Fast RGB
 }
 
 
-
+findspotpk(color,x,y,w,h){
+Random, ms, 3,5
+Random, MouseSpeed, 165,220
+mousegetpos, MouseXpos, MouseYpos
+PixelSearch, OutputVarX, OutputVarY, x, y, w, h, color, 4, Fast RGB
+sleep 5
+    PixelSearch, OutputVarX2, OutputVarY2, w, h, x, y, color, 4, Fast RGB
+                centerTileX := ((OutputVarX + OutputVarX2) / 2)
+                centerTileY := ((OutputVarY + OutputVarY2) / 2)
+        if (errorlevel = 0){ 
+            mousemove, centerTileX, centerTileY
+            click
+        }
+}
 
 
 
